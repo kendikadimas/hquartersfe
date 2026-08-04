@@ -20,7 +20,7 @@ export default function HomePage({ setCurrentPage }) {
     <div className="min-h-screen bg-white text-slate-900 selection:bg-amber-500/20 selection:text-amber-900">
       <Navbar currentPage="home" setCurrentPage={setCurrentPage} />
       <main>
-        <Hero />
+        <Hero setCurrentPage={setCurrentPage} />
         <BusinessJourney setCurrentPage={setCurrentPage} />
         <AddressStatement setCurrentPage={setCurrentPage} />
         <Partners setCurrentPage={setCurrentPage} />

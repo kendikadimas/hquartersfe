@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Star } from 'lucide-react';
 
-export default function Hero() {
+export default function Hero({ setCurrentPage }) {
   return (
     <section className="pt-20 sm:pt-24 pb-4 bg-white min-h-[calc(100vh-1rem)] flex flex-col justify-center">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -16,12 +16,13 @@ export default function Hero() {
             className="absolute inset-0 w-full h-full object-cover object-top scale-125 translate-x-[16%] sm:translate-x-[20%] md:translate-x-[24%] translate-y-[2%] sm:translate-y-[3%]"
           />
 
-          {/* Ultra-Smooth White Alpha Gradient Overlay (Zero Edge Artifacts, Seamless Feathering) */}
+          {/* Ultra-Smooth White Alpha Gradient Overlay */}
           <div className="absolute inset-y-0 left-0 w-full md:w-[70%] lg:w-[60%] bg-gradient-to-r from-white via-white/95 via-35% via-white/30 via-65% to-transparent pointer-events-none z-10" />
           <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-white via-white/70 to-transparent pointer-events-none md:hidden z-10" />
 
           {/* Hero Content */}
           <div className="relative z-20 p-6 sm:p-10 lg:p-14 xl:p-16 max-w-2xl lg:max-w-3xl">
+            
             {/* Main Headline */}
             <motion.h1
               initial={{ opacity: 0, y: 15 }}
@@ -49,18 +50,24 @@ export default function Hero() {
               transition={{ duration: 0.4, delay: 0.2 }}
               className="flex flex-wrap items-center gap-4 mb-8"
             >
-              <a
-                href="#spaces"
-                className="px-7 py-3.5 rounded-xl bg-[#EA8E18] hover:bg-[#d88010] text-white font-semibold text-sm sm:text-base transition-all duration-200"
+              <button
+                onClick={() => {
+                  if (setCurrentPage) setCurrentPage('spaces');
+                  window.scrollTo(0, 0);
+                }}
+                className="px-7 py-3.5 rounded-xl bg-[#EA8E18] hover:bg-[#d88010] text-white font-semibold text-sm sm:text-base shadow-lg transition-all duration-200 cursor-pointer"
               >
                 Explore Your Space
-              </a>
-              <a
-                href="#visit"
-                className="px-7 py-3.5 rounded-xl border border-slate-300 hover:border-slate-800 text-slate-800 hover:bg-white font-semibold text-sm sm:text-base transition-all duration-200"
+              </button>
+              <button
+                onClick={() => {
+                  if (setCurrentPage) setCurrentPage('find-space');
+                  window.scrollTo(0, 0);
+                }}
+                className="px-7 py-3.5 rounded-xl border border-slate-300 hover:border-slate-800 text-slate-800 hover:bg-slate-100 font-semibold text-sm sm:text-base transition-all duration-200 cursor-pointer"
               >
                 Visit HQuarters
-              </a>
+              </button>
             </motion.div>
 
             {/* Rating / Review Line */}
@@ -70,13 +77,17 @@ export default function Hero() {
               transition={{ duration: 0.4, delay: 0.25 }}
               className="flex items-center gap-3 text-xs sm:text-sm text-slate-600 font-medium"
             >
-              
+              <div className="flex items-center gap-1 text-[#EA8E18]">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-current" />
+                ))}
+              </div>
+              <span>Bandung's Premier Business Residence & Domicile</span>
             </motion.div>
-          </div>
 
+          </div>
         </div>
       </div>
     </section>
   );
 }
-
