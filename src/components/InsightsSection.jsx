@@ -12,7 +12,7 @@ import {
   User
 } from 'lucide-react';
 
-export default function InsightsSection() {
+export default function InsightsSection({ setCurrentPage, setSelectedArticleId }) {
   const [activeCategory, setActiveCategory] = useState('all');
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
@@ -79,7 +79,7 @@ export default function InsightsSection() {
       author: 'Ir. Budi Santoso, Infrastructure Lead',
       date: 'June 30, 2026',
       readTime: '3 min read',
-      image: '/parking.png',
+      image: '/LOGO/parking-lift.png',
     },
     {
       id: 'art-6',
@@ -111,9 +111,6 @@ export default function InsightsSection() {
         {/* 1. HEADER SECTION */}
         {/* ========================================================================= */}
         <div className="text-center max-w-3xl mx-auto">
-          <span className="px-3.5 py-1 rounded-full bg-[#FEF3E2] text-[#B86807] text-xs font-bold uppercase tracking-wider inline-block mb-3">
-            INSIGHTS & JOURNAL
-          </span>
           <h1 className="text-4xl sm:text-6xl font-bold text-slate-900 font-heading tracking-tight">
             Perspectives on <span className="text-[#E8860B]">Modern Architecture</span> & Business.
           </h1>
@@ -130,7 +127,12 @@ export default function InsightsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="relative rounded-[28px] sm:rounded-[36px] overflow-hidden border border-slate-200/80 shadow-xl group bg-slate-900 grid grid-cols-1 lg:grid-cols-12 gap-0"
+          onClick={() => {
+            if (setSelectedArticleId) setSelectedArticleId('featured');
+            if (setCurrentPage) setCurrentPage('article-detail');
+            window.scrollTo(0, 0);
+          }}
+          className="relative rounded-[28px] sm:rounded-[36px] overflow-hidden border border-slate-200/80 shadow-xl group bg-slate-900 grid grid-cols-1 lg:grid-cols-12 gap-0 cursor-pointer"
         >
           {/* Left Text Information */}
           <div className="lg:col-span-7 p-8 sm:p-12 flex flex-col justify-between space-y-6 z-10 text-white">
@@ -213,6 +215,11 @@ export default function InsightsSection() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.3, delay: idx * 0.05 }}
+                onClick={() => {
+                  if (setSelectedArticleId) setSelectedArticleId(article.id);
+                  if (setCurrentPage) setCurrentPage('article-detail');
+                  window.scrollTo(0, 0);
+                }}
                 className="bg-white rounded-[24px] border border-slate-200/80 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between overflow-hidden group cursor-pointer"
               >
                 <div>

@@ -21,14 +21,14 @@ export default function HomePage({ setCurrentPage }) {
       <Navbar currentPage="home" setCurrentPage={setCurrentPage} />
       <main>
         <Hero />
-        <Partners />
-        <AddressStatement setCurrentPage={setCurrentPage} />
         <BusinessJourney setCurrentPage={setCurrentPage} />
+        <AddressStatement setCurrentPage={setCurrentPage} />
+        <Partners setCurrentPage={setCurrentPage} />
         <BuildingHighlights setCurrentPage={setCurrentPage} />
-        <Features />
-        <InteractiveDemo />
-        <StatsSection />
-        <CTA />
+        {/* <Features /> */}
+        {/* <InteractiveDemo /> */}
+        {/* <StatsSection /> */}
+        <CTA setCurrentPage={setCurrentPage} />
       </main>
       <Footer setCurrentPage={setCurrentPage} />
     </div>

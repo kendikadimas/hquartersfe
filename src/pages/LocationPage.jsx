@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import LocationSection from '../components/LocationSection.jsx';
+import CTA from '../components/CTA.jsx';
 import Footer from '../components/Footer.jsx';
 
 export default function LocationPage({ setCurrentPage }) {
@@ -13,6 +14,14 @@ export default function LocationPage({ setCurrentPage }) {
       <Navbar currentPage="location" setCurrentPage={setCurrentPage} />
       <main className="pt-24 sm:pt-28">
         <LocationSection setCurrentPage={setCurrentPage} />
+        <CTA
+          setCurrentPage={setCurrentPage}
+          titlePrefix="A Better Business Address "
+          titleHighlight="Starts With Location."
+          description="Position your company at the prestige center of Bandung Asia Afrika CBD. Schedule a visit or get in touch with our team."
+          buttonText="Get Directions & Contact"
+          pageTarget="find-space"
+        />
       </main>
       <Footer setCurrentPage={setCurrentPage} />
     </div>

@@ -29,10 +29,10 @@ export default function Navbar({ currentPage = 'home', setCurrentPage }) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'py-4 shadow-md border-b border-slate-200/90'
-          : 'py-6 border-b border-slate-100'
+          ? 'py-3.5 sm:py-4 bg-white/90 backdrop-blur-md shadow-md'
+          : 'py-5 sm:py-6 bg-white/80 backdrop-blur-sm'
       }`}
     >
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -40,14 +40,13 @@ export default function Navbar({ currentPage = 'home', setCurrentPage }) {
           {/* Brand Logo: HQUARTERS */}
           <button
             onClick={() => handleNavClick('home')}
-            className="flex items-center gap-2.5 group text-left"
+            className="flex items-center group text-left cursor-pointer"
           >
-            <div className="w-10 h-10 rounded-xl bg-slate-900 shadow-md flex items-center justify-center text-white group-hover:bg-[#E8860B] transition-colors">
-              <Building2 className="w-5.5 h-5.5" />
-            </div>
-            <span className="font-extrabold text-2xl tracking-tight text-slate-900 font-heading uppercase">
-              H<span className="text-[#E8860B]">QUARTERS</span>
-            </span>
+            <img
+              src="/LOGO/hquarters-logo-wordmark.png"
+              alt="HQuarters Logo"
+              className="h-8 sm:h-9.5 w-auto object-contain transition-transform group-hover:scale-105"
+            />
           </button>
 
           {/* Desktop Links & Actions */}

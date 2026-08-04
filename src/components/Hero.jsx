@@ -4,44 +4,32 @@ import { Star } from 'lucide-react';
 
 export default function Hero() {
   return (
-    <section className="pt-24 sm:pt-28 pb-8 bg-white">
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Hero Container with #E8860B Color */}
-        <div className="relative rounded-[28px] sm:rounded-[36px] overflow-hidden min-h-[450px] sm:min-h-[490px] lg:min-h-[510px] flex items-center shadow-xl bg-[#E8860B]">
+    <section className="pt-20 sm:pt-24 pb-4 bg-white min-h-[calc(100vh-1rem)] flex flex-col justify-center">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        {/* Full-Screen Viewport Hero Container Card */}
+        <div className="relative rounded-[32px] sm:rounded-[44px] lg:rounded-[48px] overflow-hidden h-[calc(100vh-6.5rem)] min-h-[520px] max-h-[780px] flex items-center border border-slate-200/60 bg-white">
           
-          {/* Architectural Background Image */}
+          {/* Full Background Image */}
           <img
-            src="/architectural_hero_bg.png"
-            alt="Modern architectural structure"
-            className="absolute inset-0 w-full h-full object-cover object-right md:object-center"
+            src="/BUILDING/ChatGPT%20Image%20Jul%2029,%202026,%2003_09_51%20PM.png"
+            alt="HQuarters Building"
+            className="absolute inset-0 w-full h-full object-cover object-top scale-125 translate-x-[16%] sm:translate-x-[20%] md:translate-x-[24%] translate-y-[2%] sm:translate-y-[3%]"
           />
 
-          {/* Left #E8860B Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#E8860B] via-[#E8860B]/95 to-transparent w-full md:w-[75%] lg:w-[62%]" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#E8860B]/80 via-transparent to-transparent md:hidden" />
+          {/* Ultra-Smooth White Alpha Gradient Overlay (Zero Edge Artifacts, Seamless Feathering) */}
+          <div className="absolute inset-y-0 left-0 w-full md:w-[70%] lg:w-[60%] bg-gradient-to-r from-white via-white/95 via-35% via-white/30 via-65% to-transparent pointer-events-none z-10" />
+          <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-white via-white/70 to-transparent pointer-events-none md:hidden z-10" />
 
           {/* Hero Content */}
-          <div className="relative z-10 p-6 sm:p-10 lg:p-12 max-w-2xl">
-            {/* Pill Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              className="inline-block mb-4"
-            >
-              <span className="px-3.5 py-1 rounded-full border border-white/30 bg-white/10 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider backdrop-blur-md">
-                AWARD-WINNING FIRM
-              </span>
-            </motion.div>
-
+          <div className="relative z-20 p-6 sm:p-10 lg:p-14 xl:p-16 max-w-2xl lg:max-w-3xl">
             {/* Main Headline */}
             <motion.h1
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.08 }}
-              className="text-3xl sm:text-5xl lg:text-6xl font-bold text-white font-heading leading-[1.1] tracking-tight mb-4"
+              className="text-4xl sm:text-6xl lg:text-[66px] font-semibold text-slate-900 font-heading leading-[1.08] tracking-tight mb-6"
             >
-              Creating <span className="text-amber-200">Spaces That Inspire</span> Modern World
+              Space for Every <span className="text-[#EA8E18]"><br/>Stage of Business.</span>
             </motion.h1>
 
             {/* Description Subtitle */}
@@ -49,9 +37,9 @@ export default function Hero() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.15 }}
-              className="text-amber-50/90 text-sm sm:text-base leading-relaxed font-normal mb-6 max-w-lg"
+              className="text-slate-600 text-base sm:text-lg leading-relaxed font-normal mb-8 max-w-xl"
             >
-              Award-winning architectural design firm specializing in creating innovative and sustainable spaces that transform how people live, work, and play.
+              From your first business address to your corporate headquarters, HQuarters gives you the space to start, work, own and grow — <br/>in the heart of Asia Afrika, Bandung.
             </motion.p>
 
             {/* Action Buttons */}
@@ -59,19 +47,19 @@ export default function Hero() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.2 }}
-              className="flex flex-wrap items-center gap-3.5 mb-6"
+              className="flex flex-wrap items-center gap-4 mb-8"
             >
               <a
-                href="#projects"
-                className="px-6 py-3 rounded-xl bg-white hover:bg-amber-50 text-slate-900 font-semibold text-sm shadow-md transition-all duration-200"
+                href="#spaces"
+                className="px-7 py-3.5 rounded-xl bg-[#EA8E18] hover:bg-[#d88010] text-white font-semibold text-sm sm:text-base transition-all duration-200"
               >
-                Explore Projects
+                Explore Your Space
               </a>
               <a
-                href="#contact"
-                className="px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm transition-all duration-200 shadow-md"
+                href="#visit"
+                className="px-7 py-3.5 rounded-xl border border-slate-300 hover:border-slate-800 text-slate-800 hover:bg-white font-semibold text-sm sm:text-base transition-all duration-200"
               >
-                Get In Touch
+                Visit HQuarters
               </a>
             </motion.div>
 
@@ -80,15 +68,9 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.25 }}
-              className="flex items-center gap-3 text-xs sm:text-sm text-amber-50 font-medium"
+              className="flex items-center gap-3 text-xs sm:text-sm text-slate-600 font-medium"
             >
-              <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-3.5 h-3.5 fill-white text-white" />
-                ))}
-              </div>
-              <span className="text-white/40">|</span>
-              <span className="font-semibold text-white">Rated by loving Clients</span>
+              
             </motion.div>
           </div>
 
@@ -97,3 +79,4 @@ export default function Hero() {
     </section>
   );
 }
+

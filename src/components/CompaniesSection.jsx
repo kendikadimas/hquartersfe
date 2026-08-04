@@ -214,13 +214,14 @@ export default function CompaniesSection({ setCurrentPage }) {
       title: 'Insurance & Financial Services',
       icon: ShieldCheck,
       partners: [
-        { name: 'Allianz' },
-        { name: 'AXA' },
-        { name: 'MSIG' },
-        { name: 'FWD Insurance' },
-        { name: 'Avrist' },
-        { name: 'NH Korindo' },
-        { name: 'Bmoney' },
+        { name: 'Allianz', logo: '/tenants/allianz.png', scale: 'scale-110' },
+        { name: 'AXA', logo: '/tenants/axa.png', scale: 'scale-110' },
+        { name: 'MSIG', logo: '/tenants/msig.png', scale: 'scale-110' },
+        { name: 'FWD Insurance', logo: '/tenants/fwd.png', scale: 'scale-110' },
+        { name: 'Avrist', logo: '/tenants/avrist.png', scale: 'scale-110' },
+        { name: 'Korindo Sekuritas', logo: '/tenants/korindo-sekuritas.png', scale: 'scale-125' },
+        { name: 'Bmoney', logo: '/tenants/bmoney.png', scale: 'scale-125' },
+        { name: 'Henan Sekuritas', logo: '/tenants/henan.png', scale: 'scale-125' },
       ],
     },
     {
@@ -228,8 +229,8 @@ export default function CompaniesSection({ setCurrentPage }) {
       title: 'Healthcare & Life Sciences',
       icon: HeartPulse,
       partners: [
-        { name: 'Roche' },
-        { name: 'Medion' },
+        { name: 'Roche', logo: '/tenants/roche.png', scale: 'scale-115' },
+        { name: 'Medion', logo: '/tenants/medion.png', scale: 'scale-125' },
       ],
     },
     {
@@ -237,10 +238,10 @@ export default function CompaniesSection({ setCurrentPage }) {
       title: 'Technology & Media',
       icon: Cpu,
       partners: [
-        { name: 'Datacolor' },
-        { name: 'Garuda Vision TV' },
-        { name: 'INETmedia' },
-        { name: 'VML' },
+        { name: 'Datacolor', logo: '/tenants/datacolor.png', scale: 'scale-120' },
+        { name: 'Garuda TV', logo: '/tenants/garuda-tv.png', scale: 'scale-100' },
+        { name: 'INET Media', logo: '/tenants/inet-media.png', scale: 'scale-[1.5]' },
+        { name: 'VML', logo: '/tenants/vml.png', scale: 'scale-120' },
       ],
     },
     {
@@ -248,8 +249,9 @@ export default function CompaniesSection({ setCurrentPage }) {
       title: 'Industrial & Manufacturing',
       icon: Factory,
       partners: [
-        { name: 'Mitsubishi Chemical' },
-        { name: 'PT Fasic Indonesia' },
+        { name: 'Mitsubishi', logo: '/tenants/mitsubishi.png', scale: 'scale-115' },
+        { name: 'Hyosung', logo: '/tenants/hyusung.png', scale: 'scale-[1.6]' },
+        { name: 'Integra', logo: '/tenants/integra.png', scale: 'scale-[1.5]' },
       ],
     },
     {
@@ -257,11 +259,11 @@ export default function CompaniesSection({ setCurrentPage }) {
       title: 'Property & Business Services',
       icon: Building,
       partners: [
-        { name: 'Ray White' },
-        { name: 'HQ' },
-        { name: 'IDG' },
-        { name: 'Arthaloka' },
-        { name: 'Universal' },
+        { name: 'Ray White', logo: '/tenants/raywhite.png', scale: 'scale-[1.3]' },
+        { name: 'IWG Workspace', logo: '/tenants/iwg.png', scale: 'scale-115' },
+        { name: 'Artaloka', logo: '/tenants/artaloka.png', scale: 'scale-[1.3]' },
+        { name: 'Universal', logo: '/tenants/universal.png', scale: 'scale-[1.3]' },
+        { name: 'Aero', logo: '/tenants/aero.png', scale: 'scale-[1.3]' },
       ],
     },
     {
@@ -269,9 +271,8 @@ export default function CompaniesSection({ setCurrentPage }) {
       title: 'Travel & Lifestyle',
       icon: Coffee,
       partners: [
-        { name: 'HIS Travel' },
-        { name: 'Tomoro Coffee' },
-        { name: 'Asra Global Indonesia' },
+        { name: 'HIS Travel', logo: '/tenants/his-travel.png', scale: 'scale-115' },
+        { name: 'Tomoro Coffee', logo: '/tenants/tomoro.png', scale: 'scale-115' },
       ],
     },
   ];
@@ -288,9 +289,6 @@ export default function CompaniesSection({ setCurrentPage }) {
         {/* 1. HEADER SECTION */}
         {/* ========================================================================= */}
         <div className="text-center max-w-3xl mx-auto">
-          <span className="px-3.5 py-1 rounded-full bg-[#FEF3E2] text-[#B86807] text-xs font-bold uppercase tracking-wider inline-block mb-3">
-            A GROWING BUSINESS COMMUNITY
-          </span>
           <h1 className="text-4xl sm:text-6xl font-bold text-slate-900 font-heading tracking-tight">
             You’re In <span className="text-[#E8860B]">Good Company.</span>
           </h1>
@@ -357,9 +355,13 @@ export default function CompaniesSection({ setCurrentPage }) {
                       <motion.div
                         key={partner.name}
                         whileHover={{ scale: 1.04 }}
-                        className="bg-white h-28 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-[#E8860B]/40 transition-all duration-300 flex items-center justify-center p-6 group cursor-pointer"
+                        className="bg-white h-32 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-[#E8860B]/40 transition-all duration-300 flex items-center justify-center p-4 sm:p-5 overflow-hidden group cursor-pointer"
                       >
-                        {renderLogoImage(partner.name)}
+                        <img
+                          src={partner.logo}
+                          alt={partner.name}
+                          className={`w-full h-full max-h-20 object-contain transition-transform duration-300 group-hover:scale-105 ${partner.scale || 'scale-125'}`}
+                        />
                       </motion.div>
                     ))}
                   </div>
@@ -380,10 +382,6 @@ export default function CompaniesSection({ setCurrentPage }) {
           className="bg-[#f6f4f0] rounded-[32px] sm:rounded-[40px] p-8 sm:p-16 text-center border border-slate-200/80 relative overflow-hidden"
         >
           <div className="max-w-3xl mx-auto space-y-4">
-            <span className="px-3.5 py-1 rounded-full bg-white text-[#B86807] text-xs font-bold uppercase tracking-wider inline-block shadow-sm">
-              COMMUNITY ADVANTAGE
-            </span>
-
             <h2 className="text-3xl sm:text-5xl font-bold font-heading text-slate-900 tracking-tight">
               Why It Matters Who Your <span className="text-[#E8860B]">Neighbours Are.</span>
             </h2>

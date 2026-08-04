@@ -59,7 +59,7 @@ export default function BuildingHighlights({ setCurrentPage }) {
   ];
 
   return (
-    <section id="building-highlights" className="py-16 bg-white border-b border-slate-200/80">
+    <section id="building-highlights" className="py-24 sm:py-32 bg-white border-b border-slate-200/80">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         
         {/* ========================================================================= */}
