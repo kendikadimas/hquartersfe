@@ -7,7 +7,7 @@ export default function Hero({ setCurrentPage }) {
     <section className="pt-20 sm:pt-24 pb-4 bg-white min-h-[calc(100vh-1rem)] flex flex-col justify-center">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {/* Full-Screen Viewport Hero Container Card */}
-        <div className="relative rounded-[32px] sm:rounded-[44px] lg:rounded-[48px] overflow-hidden h-[calc(100vh-6.5rem)] min-h-[520px] max-h-[780px] flex items-center border border-slate-200/60 bg-white">
+        <div className="relative rounded-[24px] sm:rounded-[44px] lg:rounded-[48px] overflow-hidden h-[calc(100vh-6rem)] min-h-[480px] max-h-[780px] flex items-center border border-slate-200/60 bg-white">
           
           {/* Full Background Image */}
           <img
@@ -17,18 +17,18 @@ export default function Hero({ setCurrentPage }) {
           />
 
           {/* Ultra-Smooth White Alpha Gradient Overlay */}
-          <div className="absolute inset-y-0 left-0 w-full md:w-[70%] lg:w-[60%] bg-gradient-to-r from-white via-white/95 via-35% via-white/30 via-65% to-transparent pointer-events-none z-10" />
-          <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-white via-white/70 to-transparent pointer-events-none md:hidden z-10" />
+          <div className="absolute inset-y-0 left-0 w-full md:w-[70%] lg:w-[60%] bg-gradient-to-r from-white via-white/95 via-35% via-white/40 via-65% to-transparent pointer-events-none z-10" />
+          <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-white via-white/80 to-transparent pointer-events-none md:hidden z-10" />
 
           {/* Hero Content */}
-          <div className="relative z-20 p-6 sm:p-10 lg:p-14 xl:p-16 max-w-2xl lg:max-w-3xl">
+          <div className="relative z-20 p-5 sm:p-10 lg:p-14 xl:p-16 max-w-2xl lg:max-w-3xl">
             
             {/* Main Headline */}
             <motion.h1
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.08 }}
-              className="text-4xl sm:text-6xl lg:text-[66px] font-semibold text-slate-900 font-heading leading-[1.08] tracking-tight mb-6"
+              className="text-3xl sm:text-5xl lg:text-[66px] font-semibold text-slate-900 font-heading leading-[1.1] tracking-tight mb-4 sm:mb-6"
             >
               Space for Every <span className="text-[#EA8E18]"><br/>Stage of Business.</span>
             </motion.h1>
@@ -38,7 +38,7 @@ export default function Hero({ setCurrentPage }) {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.15 }}
-              className="text-slate-600 text-base sm:text-lg leading-relaxed font-normal mb-8 max-w-xl"
+              className="text-slate-600 text-sm sm:text-lg leading-relaxed font-normal mb-6 sm:mb-8 max-w-xl"
             >
               From your first business address to your corporate headquarters, HQuarters gives you the space to start, work, own and grow — <br/>in the heart of Asia Afrika, Bandung.
             </motion.p>
