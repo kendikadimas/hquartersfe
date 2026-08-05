@@ -180,7 +180,7 @@ export default function SpacesSection({ setCurrentPage }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -15 }}
             transition={{ duration: 0.3 }}
-            className="relative rounded-[28px] sm:rounded-[40px] overflow-hidden border border-slate-200/80 shadow-2xl group bg-slate-950 min-h-[480px] sm:min-h-[540px] flex items-end"
+            className="relative rounded-[28px] sm:rounded-[40px] overflow-hidden border border-slate-200/80 shadow-2xl group bg-slate-950 min-h-[380px] sm:min-h-[420px] flex items-end"
           >
             {/* Full-Bleed Architectural Image */}
             <img
