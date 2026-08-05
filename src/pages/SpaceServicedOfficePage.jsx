@@ -235,7 +235,7 @@ export default function SpaceServicedOfficePage({ setCurrentPage }) {
           {/* Carousel Featured Image Area */}
           <div className="relative">
             {/* Main Image Container */}
-            <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] rounded-[24px] sm:rounded-[32px] overflow-hidden bg-slate-900 group">
+            <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[460px] rounded-[24px] sm:rounded-[32px] overflow-hidden bg-slate-900 group">
               <img
                 src={galleryImages[activeImgIndex]?.src}
                 alt={galleryImages[activeImgIndex]?.title}
