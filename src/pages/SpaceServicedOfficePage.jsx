@@ -227,77 +227,88 @@ export default function SpaceServicedOfficePage({ setCurrentPage }) {
             {/* Hint & Nav Arrows */}
             <div className="flex items-center gap-3">
               <span className="text-xs font-medium text-slate-500 hidden sm:inline">
-                Click any photo to enlarge
+                Click "View Facilities" to enlarge photos
               </span>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => {
-                    const container = document.getElementById('serviced-office-slider');
-                    if (container) container.scrollBy({ left: -320, behavior: 'smooth' });
-                  }}
-                  className="p-2.5 rounded-full bg-slate-100 hover:bg-[#EA8E18] hover:text-white text-slate-700 transition-all cursor-pointer border border-slate-200"
-                  aria-label="Scroll left"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => {
-                    const container = document.getElementById('serviced-office-slider');
-                    if (container) container.scrollBy({ left: 320, behavior: 'smooth' });
-                  }}
-                  className="p-2.5 rounded-full bg-slate-100 hover:bg-[#EA8E18] hover:text-white text-slate-700 transition-all cursor-pointer border border-slate-200"
-                  aria-label="Scroll right"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
             </div>
           </div>
 
-          {/* Compact Scrollable Slider Grid */}
-          <div
-            id="serviced-office-slider"
-            className="flex gap-4 overflow-x-auto scrollbar-none snap-x snap-mandatory py-2 px-1"
-          >
-            {galleryImages.map((img, idx) => (
-              <div
-                key={img.src}
-                onClick={() => {
-                  setActiveImgIndex(idx);
-                  setIsLightboxOpen(true);
-                }}
-                className="w-[250px] sm:w-[300px] shrink-0 snap-start bg-white rounded-[22px] border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
+          {/* Carousel Featured Image Area */}
+          <div className="relative">
+            {/* Main Image Container */}
+            <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] rounded-[24px] sm:rounded-[32px] overflow-hidden bg-slate-900 group">
+              <img
+                src={galleryImages[activeImgIndex]?.src}
+                alt={galleryImages[activeImgIndex]?.title}
+                className="w-full h-full object-cover transition-opacity duration-500"
+              />
+
+              {/* Left/Right Navigation Arrows */}
+              <button
+                onClick={() => setActiveImgIndex((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1))}
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded bg-white/40 hover:bg-white/70 backdrop-blur-sm flex items-center justify-center text-slate-900 transition-all z-10"
               >
-                {/* Photo Header */}
-                <div className="relative aspect-[4/3] overflow-hidden bg-slate-900">
-                  <img
-                    src={img.src}
-                    alt={img.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-3 left-3 z-10">
-                    <span className="px-2.5 py-1 rounded-md bg-slate-900/80 backdrop-blur-md text-white font-bold text-[10px] uppercase tracking-wider shadow">
-                      {img.category}
-                    </span>
-                  </div>
-                  <div className="absolute top-3 right-3 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span className="p-2 rounded-full bg-slate-900/80 backdrop-blur-md text-white block shadow">
-                      <Maximize2 className="w-3.5 h-3.5" />
-                    </span>
-                  </div>
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                onClick={() => setActiveImgIndex((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1))}
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded bg-white/40 hover:bg-white/70 backdrop-blur-sm flex items-center justify-center text-slate-900 transition-all z-10"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+
+              {/* Bottom Dark Banner */}
+              <div className="absolute inset-x-0 bottom-0 h-16 sm:h-20 bg-slate-900/80 backdrop-blur-md flex items-center px-6 sm:px-10 justify-between">
+                {/* Title */}
+                <h3 className="text-white text-sm sm:text-lg font-bold tracking-wider uppercase truncate w-1/3">
+                  {galleryImages[activeImgIndex]?.title}
+                </h3>
+
+                {/* Dots Pagination */}
+                <div className="flex items-center justify-center gap-2 w-1/3">
+                  {galleryImages.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveImgIndex(idx)}
+                      className={`w-2 h-2 rounded-full transition-all ${
+                        idx === activeImgIndex ? 'bg-white w-5' : 'bg-white/50 hover:bg-white/80'
+                      }`}
+                    />
+                  ))}
                 </div>
 
-                {/* Card Body */}
-                <div className="p-4 space-y-1">
-                  <h4 className="text-sm font-bold text-slate-900 font-heading group-hover:text-[#EA8E18] transition-colors leading-snug line-clamp-1">
-                    {img.title}
-                  </h4>
-                  <p className="text-slate-500 text-xs leading-relaxed line-clamp-1 font-normal">
-                    {img.desc}
-                  </p>
-                </div>
+                {/* Empty spacer to balance the flex-between layout */}
+                <div className="w-1/3" />
               </div>
-            ))}
+            </div>
+
+            {/* Bottom Row: Thumbnails and Button */}
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6 mt-6">
+              {/* Thumbnails */}
+              <div className="flex items-center gap-3 overflow-x-auto scrollbar-none pb-2 sm:pb-0 max-w-full">
+                {galleryImages.map((img, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveImgIndex(idx)}
+                    className={`relative shrink-0 w-20 h-16 sm:w-28 sm:h-20 rounded-lg overflow-hidden border-2 transition-all ${
+                      idx === activeImgIndex
+                        ? 'border-[#EA8E18] opacity-100 scale-105'
+                        : 'border-transparent opacity-60 hover:opacity-100'
+                    }`}
+                  >
+                    <img src={img.src} alt={img.title} className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+
+              {/* View Facilities Button */}
+              <button
+                onClick={() => setIsLightboxOpen(true)}
+                className="shrink-0 px-6 py-3 rounded bg-[#ea580c] hover:bg-[#c2410c] text-white font-bold text-sm sm:text-base shadow-md transition-all flex items-center gap-2 group"
+              >
+                <span>View Facilities</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
           </div>
 
         </section>

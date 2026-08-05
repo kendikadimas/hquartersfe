@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Maximize2, X, Dumbbell, Flame, Waves, Sparkles } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Maximize2, X, Dumbbell, Flame, Waves, Sparkles, ArrowRight } from 'lucide-react';
 
 export default function BuildingSection({ setCurrentPage }) {
   const [activeTab, setActiveTab] = useState('all'); // 'all' | 'gym' | 'sauna' | 'pool'
@@ -272,51 +272,82 @@ export default function BuildingSection({ setCurrentPage }) {
             </div>
           </div>
 
-          {/* Compact Photo Slider Grid */}
+          {/* Carousel Featured Image Area */}
           <div className="relative">
-            <div
-              id="wellness-facility-slider"
-              className="flex gap-4 overflow-x-auto scrollbar-none snap-x snap-mandatory py-2 px-1"
-            >
-              {filteredGallery.map((img, idx) => (
-                <div
-                  key={img.src}
-                  onClick={() => {
-                    setActiveImgIndex(idx);
-                    setIsLightboxOpen(true);
-                  }}
-                  className="w-[260px] sm:w-[310px] shrink-0 snap-start bg-white rounded-[24px] border border-slate-200/80 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
-                >
-                  {/* Photo Header */}
-                  <div className="relative aspect-[4/3] overflow-hidden bg-slate-900">
-                    <img
-                      src={img.src}
-                      alt={img.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute top-3 left-3 z-10">
-                      <span className="px-2.5 py-1 rounded-md bg-slate-900/80 backdrop-blur-md text-white font-bold text-[10px] uppercase tracking-wider shadow">
-                        {img.categoryLabel}
-                      </span>
-                    </div>
-                    <div className="absolute top-3 right-3 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <span className="p-2 rounded-full bg-slate-900/80 backdrop-blur-md text-white block shadow">
-                        <Maximize2 className="w-3.5 h-3.5" />
-                      </span>
-                    </div>
-                  </div>
+            {/* Main Image Container */}
+            <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] rounded-[24px] sm:rounded-[32px] overflow-hidden bg-slate-900 group">
+              <img
+                src={filteredGallery[activeImgIndex]?.src}
+                alt={filteredGallery[activeImgIndex]?.title}
+                className="w-full h-full object-cover transition-opacity duration-500"
+              />
 
-                  {/* Card Body */}
-                  <div className="p-5 space-y-1.5">
-                    <h4 className="text-base font-bold text-slate-900 font-heading group-hover:text-[#EA8E18] transition-colors leading-snug line-clamp-1">
-                      {img.title}
-                    </h4>
-                    <p className="text-slate-500 text-xs leading-relaxed line-clamp-2 font-normal">
-                      {img.desc}
-                    </p>
-                  </div>
+              {/* Left/Right Navigation Arrows */}
+              <button
+                onClick={() => setActiveImgIndex((prev) => (prev === 0 ? filteredGallery.length - 1 : prev - 1))}
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded bg-white/40 hover:bg-white/70 backdrop-blur-sm flex items-center justify-center text-slate-900 transition-all z-10"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                onClick={() => setActiveImgIndex((prev) => (prev === filteredGallery.length - 1 ? 0 : prev + 1))}
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded bg-white/40 hover:bg-white/70 backdrop-blur-sm flex items-center justify-center text-slate-900 transition-all z-10"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+
+              {/* Bottom Dark Banner */}
+              <div className="absolute inset-x-0 bottom-0 h-16 sm:h-20 bg-slate-900/80 backdrop-blur-md flex items-center px-6 sm:px-10 justify-between">
+                {/* Title */}
+                <h3 className="text-white text-sm sm:text-lg font-bold tracking-wider uppercase truncate w-1/3">
+                  {filteredGallery[activeImgIndex]?.title}
+                </h3>
+
+                {/* Dots Pagination */}
+                <div className="flex items-center justify-center gap-2 w-1/3">
+                  {filteredGallery.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveImgIndex(idx)}
+                      className={`w-2 h-2 rounded-full transition-all ${
+                        idx === activeImgIndex ? 'bg-white w-5' : 'bg-white/50 hover:bg-white/80'
+                      }`}
+                    />
+                  ))}
                 </div>
-              ))}
+
+                {/* Empty spacer to balance the flex-between layout */}
+                <div className="w-1/3" />
+              </div>
+            </div>
+
+            {/* Bottom Row: Thumbnails and Button */}
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6 mt-6">
+              {/* Thumbnails */}
+              <div className="flex items-center gap-3 overflow-x-auto scrollbar-none pb-2 sm:pb-0 max-w-full">
+                {filteredGallery.map((img, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveImgIndex(idx)}
+                    className={`relative shrink-0 w-20 h-16 sm:w-28 sm:h-20 rounded-lg overflow-hidden border-2 transition-all ${
+                      idx === activeImgIndex
+                        ? 'border-[#EA8E18] opacity-100 scale-105'
+                        : 'border-transparent opacity-60 hover:opacity-100'
+                    }`}
+                  >
+                    <img src={img.src} alt={img.title} className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+
+              {/* View Facilities Button */}
+              <button
+                onClick={() => setIsLightboxOpen(true)}
+                className="shrink-0 px-6 py-3 rounded bg-[#ea580c] hover:bg-[#c2410c] text-white font-bold text-sm sm:text-base shadow-md transition-all flex items-center gap-2 group"
+              >
+                <span>View Facilities</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
             </div>
           </div>
 
