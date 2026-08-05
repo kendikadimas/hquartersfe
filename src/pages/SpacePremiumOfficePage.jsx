@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, CheckCircle2, Building2, Shield, Wifi, MapPin, Users, HeartHandshake, ChevronRight, ChevronLeft, Home, Sparkles, Maximize2, X } from 'lucide-react';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
+import FindSpaceSection from '../components/FindSpaceSection.jsx';
 
 export default function SpacePremiumOfficePage({ setCurrentPage }) {
   const [formData, setFormData] = useState({
@@ -506,105 +507,7 @@ A representative lobby. A professional arrival experience. A credible business e
         </section>
 
         {/* INQUIRY FORM CARD */}
-        <section id="inquiry-form" className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-[#FAF8F5] rounded-[32px] sm:rounded-[44px] p-8 sm:p-12 lg:p-14 border border-slate-200/80 grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-            
-            <div className="lg:col-span-5 space-y-4">
-              <h2 className="text-3xl sm:text-4xl font-bold font-heading text-slate-900 tracking-tight">
-                Tell Us What Your Team Needs.
-              </h2>
-              <p className="text-slate-600 text-base leading-relaxed font-normal">
-                Tell us what you are looking for in a workspace. Team size, move-in timeline, or specific layout request. Get a quote or price list.
-              </p>
-            </div>
-
-            <div className="lg:col-span-7 bg-white p-8 rounded-[28px] border border-slate-200/80 shadow-md">
-              {submitted ? (
-                <div className="text-center py-10 space-y-4">
-                  <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
-                    <CheckCircle2 className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-slate-900 font-heading">Inquiry Received!</h3>
-                  <p className="text-slate-600 text-sm">
-                    Our space consultants will get in touch with you shortly regarding Premium Office availability.
-                  </p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Company Name</label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Enter company name..."
-                      value={formData.companyName}
-                      onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-[#EA8E18]"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Your Name</label>
-                      <input
-                        type="text"
-                        required
-                        placeholder="Full name..."
-                        value={formData.yourName}
-                        onChange={(e) => setFormData({ ...formData, yourName: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-[#EA8E18]"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase mb-1">WhatsApp Number</label>
-                      <input
-                        type="text"
-                        required
-                        placeholder="0812..."
-                        value={formData.whatsApp}
-                        onChange={(e) => setFormData({ ...formData, whatsApp: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-[#EA8E18]"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Number of Employees</label>
-                      <input
-                        type="text"
-                        placeholder="e.g. 25 people"
-                        value={formData.employees}
-                        onChange={(e) => setFormData({ ...formData, employees: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-[#EA8E18]"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Move-in Timeline / Needs</label>
-                      <input
-                        type="text"
-                        placeholder="e.g. Next month..."
-                        value={formData.timeline}
-                        onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-[#EA8E18]"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="pt-2">
-                    <button
-                      type="submit"
-                      className="w-full py-4 rounded-xl bg-[#EA8E18] hover:bg-[#d88010] text-white font-bold text-base shadow-lg transition-all"
-                    >
-                      Find My Office
-                    </button>
-                  </div>
-                </form>
-              )}
-            </div>
-
-          </div>
-        </section>
+        <FindSpaceSection initialSpace="Premium Office" />
 
         {/* BOTTOM DARK BANNER */}
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">

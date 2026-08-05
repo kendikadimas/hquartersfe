@@ -64,34 +64,15 @@ export default function LocationSection({ setCurrentPage }) {
         >
           {/* Left Interactive Map Card */}
           <div className="lg:col-span-6">
-            <div className="relative rounded-[24px] overflow-hidden shadow-lg border border-slate-200 aspect-[4/3] group bg-slate-900">
-              <img
-                src="/location_map.png"
-                alt="HQuarters Asia Afrika CBD Location Map"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
-              />
-              
-              {/* Overlay Pins & Badges */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex flex-col justify-between p-6">
-                <div className="flex items-center justify-between">
-                  <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-slate-900 font-extrabold text-xs shadow flex items-center gap-1.5">
-                    <MapPin className="w-3.5 h-3.5 text-[#EA8E18]" /> Asia Afrika CBD
-                  </span>
-                  <span className="px-3 py-1 rounded-full bg-[#EA8E18] text-white font-bold text-xs shadow">
-                    HQuarters Tower
-                  </span>
-                </div>
-
-                <div className="bg-white/95 backdrop-blur-md p-4 rounded-xl shadow-lg border border-slate-200/60">
-                  <div className="flex items-center justify-between text-slate-900 font-bold text-xs mb-1">
-                    <span>HQuarters Business Residence</span>
-                    <span className="text-[#EA8E18]">Core CBD</span>
-                  </div>
-                  <p className="text-[11px] text-slate-500 font-medium">
-                    Jl. Asia Afrika No. 158, Bandung, Jawa Barat 40261
-                  </p>
-                </div>
-              </div>
+            <div className="relative rounded-[24px] overflow-hidden shadow-lg border border-slate-200 aspect-[4/3] bg-slate-100">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.7328941393102!2d107.61305377499647!3d-6.922500093077204!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e62eaa6b6423%3A0xb2cdc805dd650314!2sHQuarters%20Business%20Residence!5e0!3m2!1sid!2sid!4v1785903189677!5m2!1sid!2sid"
+                className="w-full h-full border-0"
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="HQuarters Location Map"
+              ></iframe>
             </div>
           </div>
 

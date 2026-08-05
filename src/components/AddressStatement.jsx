@@ -54,7 +54,7 @@ export default function AddressStatement({ setCurrentPage }) {
           className="relative rounded-[32px] sm:rounded-[44px] overflow-hidden border border-slate-200/80 shadow-2xl bg-slate-900 aspect-[16/9] sm:aspect-[21/9] group"
         >
           <img
-            src="/premium_office.png"
+            src="/SPACES/PREMIUM OFFICE/Premium Office.png"
             alt="HQuarters Executive Boardroom & Office Interior"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-95"
           />

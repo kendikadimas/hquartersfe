@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, CheckCircle2, ChevronRight, ChevronLeft, Home, Maximize2, X, User, Users, Building2, Sparkles } from 'lucide-react';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
+import FindSpaceSection from '../components/FindSpaceSection.jsx';
 
 export default function SpaceServicedOfficePage({ setCurrentPage }) {
   const [formData, setFormData] = useState({
@@ -504,103 +505,7 @@ Building an office means contractors, furniture, internet, utilities, maintenanc
         </section>
 
         {/* INQUIRY FORM CARD */}
-        <section id="serviced-form" className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-[#FAF8F5] rounded-[32px] sm:rounded-[44px] p-8 sm:p-12 lg:p-14 border border-slate-200/80 grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-            <div className="lg:col-span-5 space-y-4">
-              <h2 className="text-3xl sm:text-4xl font-bold font-heading text-slate-900 tracking-tight">
-                Find The Right Package.
-              </h2>
-              <p className="text-slate-600 text-base leading-relaxed font-normal">
-                Check desk availability and transparent pricing for turnkey serviced office suites.
-              </p>
-            </div>
-
-            <div className="lg:col-span-7 bg-white p-8 rounded-[28px] border border-slate-200/80 shadow-md">
-              {submitted ? (
-                <div className="text-center py-10 space-y-4">
-                  <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
-                    <CheckCircle2 className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-slate-900 font-heading">Inquiry Received!</h3>
-                  <p className="text-slate-600 text-sm">
-                    We will send you available serviced office suites and pricing options.
-                  </p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Full Name</label>
-                      <input
-                        type="text"
-                        required
-                        placeholder="Enter full name..."
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-[#EA8E18]"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Number of Desks</label>
-                      <input
-                        type="text"
-                        placeholder="e.g. 4 desks"
-                        value={formData.desks}
-                        onChange={(e) => setFormData({ ...formData, desks: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-[#EA8E18]"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase mb-1">WhatsApp Number</label>
-                      <input
-                        type="text"
-                        required
-                        placeholder="0812..."
-                        value={formData.whatsApp}
-                        onChange={(e) => setFormData({ ...formData, whatsApp: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-[#EA8E18]"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Email Address</label>
-                      <input
-                        type="email"
-                        required
-                        placeholder="name@company.com"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-[#EA8E18]"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase mb-1">Move-in Timeline</label>
-                    <input
-                      type="text"
-                      placeholder="e.g. Immediate / Next week..."
-                      value={formData.timeline}
-                      onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm focus:outline-none focus:border-[#EA8E18]"
-                    />
-                  </div>
-
-                  <div className="pt-2">
-                    <button
-                      type="submit"
-                      className="w-full py-4 rounded-xl bg-[#EA8E18] hover:bg-[#d88010] text-white font-bold text-base shadow-lg transition-all"
-                    >
-                      Check Package & Availability
-                    </button>
-                  </div>
-                </form>
-              )}
-            </div>
-          </div>
-        </section>
+        <FindSpaceSection initialSpace="Serviced Office" />
 
         {/* BOTTOM DARK BANNER */}
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">

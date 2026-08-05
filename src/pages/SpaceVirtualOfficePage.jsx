@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, ChevronRight, Home } from 'lucide-react';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
+import FindSpaceSection from '../components/FindSpaceSection.jsx';
 
 export default function SpaceVirtualOfficePage({ setCurrentPage }) {
   useEffect(() => {
@@ -105,7 +106,7 @@ export default function SpaceVirtualOfficePage({ setCurrentPage }) {
             <div className="lg:col-span-5">
               <div className="rounded-[24px] overflow-hidden border border-slate-200/80 aspect-[4/3] shadow-xl group bg-slate-100">
                 <img
-                  src="/virtual_office.png"
+                  src="/SPACES/SERVICED OFFICE/2.png"
                   alt="HQuarters Virtual Office Domicile"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
@@ -233,6 +234,8 @@ export default function SpaceVirtualOfficePage({ setCurrentPage }) {
             </button>
           </div> */}
         </section>
+
+        <FindSpaceSection initialSpace="Virtual Office" />
 
         {/* BOTTOM DARK BANNER */}
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">

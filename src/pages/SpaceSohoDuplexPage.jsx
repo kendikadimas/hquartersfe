@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, CheckCircle2, Check, X, ChevronRight, ChevronLeft, Home, Maximize2, Sparkles } from 'lucide-react';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
+import FindSpaceSection from '../components/FindSpaceSection.jsx';
 
 export default function SpaceSohoDuplexPage({ setCurrentPage }) {
   const [formData, setFormData] = useState({
@@ -558,126 +559,7 @@ export default function SpaceSohoDuplexPage({ setCurrentPage }) {
         </section>
 
         {/* INQUIRY FORM */}
-        <section id="soho-inquiry" className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-            
-            {/* Left Header */}
-            <div className="lg:col-span-5 space-y-3 pt-4">
-              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#EA8E18]">
-                <span className="w-5 h-[2px] bg-[#EA8E18] inline-block" />
-                <span>FIND MY SOHO</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold font-heading text-slate-900 tracking-tight leading-tight">
-                Let's Find A Space That Fits Your Life.
-              </h2>
-            </div>
-
-            {/* Right Warm Form Box */}
-            <div className="lg:col-span-7 bg-[#EBE7E0]/60 p-8 sm:p-10 rounded-[28px] border border-slate-200/60 shadow-sm">
-              {submitted ? (
-                <div className="text-center py-10 space-y-4">
-                  <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
-                    <CheckCircle2 className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-slate-900 font-heading">Inquiry Received!</h3>
-                  <p className="text-slate-600 text-sm">
-                    Our team will contact you with available SOHO floorplans and details.
-                  </p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  {/* Name */}
-                  <div>
-                    <label className="block text-xs font-semibold text-slate-600 mb-1.5">Name</label>
-                    <input
-                      type="text"
-                      required
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:border-[#EA8E18] shadow-sm"
-                    />
-                  </div>
-
-                  {/* WhatsApp & Profession / Company */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-600 mb-1.5">WhatsApp</label>
-                      <input
-                        type="text"
-                        required
-                        value={formData.whatsApp}
-                        onChange={(e) => setFormData({ ...formData, whatsApp: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:border-[#EA8E18] shadow-sm"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-600 mb-1.5">Profession / Company</label>
-                      <input
-                        type="text"
-                        value={formData.profession}
-                        onChange={(e) => setFormData({ ...formData, profession: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:border-[#EA8E18] shadow-sm"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Primary Purpose (Radio buttons) */}
-                  <div className="space-y-2 pt-1">
-                    <label className="block text-xs font-semibold text-slate-600">Primary Purpose</label>
-                    <div className="space-y-2 pl-1">
-                      {['Work', 'Live', 'Work + Live', 'Investment'].map((option) => (
-                        <label key={option} className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 font-medium cursor-pointer">
-                          <input
-                            type="radio"
-                            name="primaryPurpose"
-                            value={option}
-                            checked={formData.purpose === option}
-                            onChange={(e) => setFormData({ ...formData, purpose: e.target.value })}
-                            className="w-4 h-4 text-[#EA8E18] accent-[#EA8E18] focus:ring-[#EA8E18]"
-                          />
-                          <span>{option}</span>
-                        </label>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Budget & Purchase Timeline */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-600 mb-1.5">Budget</label>
-                      <input
-                        type="text"
-                        value={formData.budget}
-                        onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:border-[#EA8E18] shadow-sm"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold text-slate-600 mb-1.5">Purchase Timeline</label>
-                      <input
-                        type="text"
-                        value={formData.timeline}
-                        onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-white border border-slate-200 text-sm focus:outline-none focus:border-[#EA8E18] shadow-sm"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Submit Button */}
-                  <div className="pt-3">
-                    <button
-                      type="submit"
-                      className="px-8 py-3.5 rounded-full bg-[#EA8E18] hover:bg-[#d88010] text-white font-bold text-sm sm:text-base shadow-md transition-all cursor-pointer"
-                    >
-                      Find My SOHO
-                    </button>
-                  </div>
-                </form>
-              )}
-            </div>
-
-          </div>
-        </section>
+        <FindSpaceSection initialSpace="SOHO Duplex" />
 
         {/* BOTTOM DARK BANNER */}
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">

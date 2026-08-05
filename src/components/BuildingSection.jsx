@@ -99,7 +99,7 @@ export default function BuildingSection({ setCurrentPage }) {
         'Fiber Connectivity',
         'Professional Building Management',
       ],
-      image: '/ballroom.png',
+      image: '/SPACES/PREMIUM OFFICE/Premium Office 05.png',
       imageLeft: false,
     },
     {
@@ -115,7 +115,7 @@ export default function BuildingSection({ setCurrentPage }) {
         'Building Engineering',
       ],
       footnote: 'Designed and constructed in accordance with applicable structural and seismic building standards.',
-      image: '/security.png',
+      image: '/SPACES/PREMIUM OFFICE/Premium Office 02.png',
       imageLeft: true,
     },
     {

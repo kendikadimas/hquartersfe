@@ -159,7 +159,7 @@ export default function InteractiveDemo() {
               <div className="lg:col-span-6">
                 <div className="relative rounded-2xl overflow-hidden shadow-lg border border-slate-200 aspect-[4/3]">
                   <img
-                    src="/architectural_hero_bg.png"
+                    src="/BUILDING/ChatGPT%20Image%20Jul%2029,%202026,%2003_09_51%20PM.png"
                     alt={current.title}
                     className="w-full h-full object-cover"
                   />

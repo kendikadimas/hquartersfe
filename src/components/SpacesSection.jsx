@@ -31,7 +31,7 @@ export default function SpacesSection({ setCurrentPage }) {
       description: 'Premium offices for companies that need corporate image, strategic location and a professional working environment.',
       bestFor: 'Established companies, regional offices, MNCs, corporate headquarters, growing teams.',
       linkText: 'Explore Premium Offices Detail',
-      image: '/premium_office.png',
+      image: '/SPACES/PREMIUM OFFICE/Premium Office.png',
       icon: Layers,
     },
     soho: {
@@ -45,7 +45,7 @@ export default function SpacesSection({ setCurrentPage }) {
       description: 'Work here. Live here. Build here. Own it. A flexible fusion of private living and professional office environment.',
       bestFor: 'Entrepreneurs, founders, creative agencies, tech teams, lifestyle business owners.',
       linkText: 'Explore SOHO Spaces Detail',
-      image: '/soho_office.png',
+      image: '/SPACES/SOHO/SOHO 01.png',
       icon: Home,
     },
     serviced: {
@@ -59,7 +59,7 @@ export default function SpacesSection({ setCurrentPage }) {
       description: 'Fully equipped office without the time and capital required to build your own workspace. Turnkey solution with full reception.',
       bestFor: 'Small teams, project offices, satellite offices, new market entry.',
       linkText: 'Explore Serviced Office Detail',
-      image: '/serviced_office.png',
+      image: '/SPACES/SERVICED OFFICE/1.png',
       icon: Briefcase,
     },
     virtual: {
@@ -73,7 +73,7 @@ export default function SpacesSection({ setCurrentPage }) {
       description: 'Professional business address, mail handling, and call redirection without the overhead of a physical office lease.',
       bestFor: 'New companies, remote businesses, independent professionals, branch representation.',
       linkText: 'Explore Virtual Office Detail',
-      image: '/virtual_office.png',
+      image: '/SPACES/SERVICED OFFICE/2.png',
       icon: Building2,
     },
   };
@@ -317,7 +317,7 @@ export default function SpacesSection({ setCurrentPage }) {
               className="lg:col-span-2 relative rounded-[28px] overflow-hidden bg-slate-950 p-8 sm:p-10 text-white flex flex-col justify-between min-h-[260px] border border-slate-800 group shadow-lg"
             >
               <img
-                src="/architectural_hero_bg.png"
+                src="/BUILDING/ChatGPT%20Image%20Jul%2029,%202026,%2003_09_51%20PM.png"
                 alt="Asia Afrika CBD"
                 className="absolute inset-0 w-full h-full object-cover opacity-25 group-hover:scale-105 transition-transform duration-700"
               />

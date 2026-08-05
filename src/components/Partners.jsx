@@ -45,12 +45,12 @@ export default function Partners({ setCurrentPage }) {
             <div
               key={brand.name}
               onClick={handleCommunityClick}
-              className="bg-slate-50/70 hover:bg-white p-4.5 rounded-2xl border border-slate-200/80 hover:border-[#EA8E18]/50 shadow-sm hover:shadow-xl transition-all duration-300 flex items-center justify-center h-20 w-36 sm:w-44 overflow-hidden group cursor-pointer"
+              className="bg-slate-50/70 hover:bg-white p-4 rounded-2xl border border-slate-200/80 hover:border-[#EA8E18]/50 shadow-sm hover:shadow-xl transition-all duration-300 flex items-center justify-center h-28 w-44 sm:w-56 overflow-hidden group cursor-pointer"
             >
               <img
                 src={brand.src}
                 alt={brand.name}
-                className={`w-full h-full max-h-14 object-contain transition-all duration-300 group-hover:scale-105 ${brand.scale || 'scale-125'}`}
+                className={`w-full h-full max-h-20 object-contain transition-all duration-300 group-hover:scale-105 ${brand.scale || 'scale-125'}`}
               />
             </div>
           ))}

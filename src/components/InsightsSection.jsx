@@ -35,7 +35,7 @@ export default function InsightsSection({ setCurrentPage, setSelectedArticleId }
       author: 'Hendrik Wijaya, Lead Market Analyst',
       date: 'July 28, 2026',
       readTime: '4 min read',
-      image: '/location_map.png',
+      image: '/SPACES/PREMIUM OFFICE/Premium Office.png',
     },
     {
       id: 'art-2',
@@ -46,7 +46,7 @@ export default function InsightsSection({ setCurrentPage, setSelectedArticleId }
       author: 'Dr. Sarah Lin, Principal Environmental Engineer',
       date: 'July 22, 2026',
       readTime: '6 min read',
-      image: '/architectural_hero_bg.png',
+      image: '/BUILDING/ChatGPT%20Image%20Jul%2029,%202026,%2003_09_51%20PM.png',
     },
     {
       id: 'art-3',
@@ -57,7 +57,7 @@ export default function InsightsSection({ setCurrentPage, setSelectedArticleId }
       author: 'Marcus Vance, Senior Architect',
       date: 'July 15, 2026',
       readTime: '5 min read',
-      image: '/soho_office.png',
+      image: '/SPACES/SOHO/SOHO 01.png',
     },
     {
       id: 'art-4',
@@ -68,7 +68,7 @@ export default function InsightsSection({ setCurrentPage, setSelectedArticleId }
       author: 'Elena Rostova, Workplace Ergonomist',
       date: 'July 08, 2026',
       readTime: '4 min read',
-      image: '/serviced_office.png',
+      image: '/SPACES/SERVICED OFFICE/1.png',
     },
     {
       id: 'art-5',
@@ -90,7 +90,7 @@ export default function InsightsSection({ setCurrentPage, setSelectedArticleId }
       author: 'Hendrik Wijaya, Lead Market Analyst',
       date: 'June 20, 2026',
       readTime: '5 min read',
-      image: '/premium_office.png',
+      image: '/SPACES/PREMIUM OFFICE/Premium Office 06.png',
     },
   ];
 
@@ -174,7 +174,7 @@ export default function InsightsSection({ setCurrentPage, setSelectedArticleId }
           {/* Right Image Feature */}
           <div className="lg:col-span-5 relative min-h-[300px] lg:min-h-full">
             <img
-              src="/blog_hero.png"
+              src="/SPACES/PREMIUM OFFICE/Premium Office 04.png"
               alt="Featured Insights Article"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
