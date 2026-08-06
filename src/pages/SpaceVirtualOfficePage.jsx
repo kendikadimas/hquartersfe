@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, ChevronRight, Home } from 'lucide-react';
 import Navbar from '../components/Navbar.jsx';
@@ -6,6 +6,15 @@ import Footer from '../components/Footer.jsx';
 import FindSpaceSection from '../components/FindSpaceSection.jsx';
 
 export default function SpaceVirtualOfficePage({ setCurrentPage }) {
+  const [selectedPackageNote, setSelectedPackageNote] = useState('');
+
+  const handlePackageClick = (pkg) => {
+    setSelectedPackageNote(`Virtual Office Package: ${pkg.title}`);
+    const formElem = document.getElementById('find-space');
+    if (formElem) {
+      formElem.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -66,10 +75,10 @@ export default function SpaceVirtualOfficePage({ setCurrentPage }) {
           </nav>
 
           {/* Hero Card */}
-          <div className="bg-[#FAF8F5] rounded-[32px] sm:rounded-[44px] p-8 sm:p-14 lg:p-16 border border-slate-200/80 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-7 space-y-6">
-              <span className="px-3.5 py-1 rounded-full bg-[#FEF3E2] text-[#B86807] text-xs font-bold uppercase tracking-wider inline-block">
-                HQUARTERS VIRTUAL OFFICE
+          <div className="bg-[#FAF8F5] rounded-[32px] sm:rounded-[44px] p-8 sm:p-14 lg:p-16 border border-slate-200/80 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+            <div className="lg:col-span-6 space-y-6 flex flex-col justify-center">
+              <span className="px-2 py-1 rounded-full text-[#EA8E18] text-xs font-bold uppercase tracking-wider inline-block self-start">
+                VIRTUAL OFFICE
               </span>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading text-slate-900 tracking-tight leading-[1.12]">
@@ -94,19 +103,19 @@ export default function SpaceVirtualOfficePage({ setCurrentPage }) {
                 </button>
               </div>
 
-              <div className="pt-4 border-t border-slate-200/80 flex flex-wrap items-center gap-3 text-xs text-slate-500 font-semibold">
+              {/* <div className="pt-4 border-t border-slate-200/80 flex flex-wrap items-center gap-3 text-xs text-slate-500 font-semibold">
                 <span className="flex items-center gap-1 text-[#EA8E18]">✓ Asia Afrika CBD Domicile</span>
                 <span>•</span>
                 <span>Mail & Reception Handling</span>
                 <span>•</span>
                 <span>Meeting Room Hours Included</span>
-              </div>
+              </div> */}
             </div>
 
-            <div className="lg:col-span-5">
-              <div className="rounded-[24px] overflow-hidden border border-slate-200/80 aspect-[4/3] shadow-xl group bg-slate-100">
+            <div className="lg:col-span-6 relative flex items-stretch">
+              <div className="rounded-[28px] overflow-hidden border border-slate-200/80 w-full h-full min-h-[280px] shadow-xl group bg-slate-100">
                 <img
-                  src="/SPACES/SERVICED OFFICE/2.png"
+                  src="/SPACES/SERVICED OFFICE/6.png"
                   alt="HQuarters Virtual Office Domicile"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 />
@@ -185,7 +194,10 @@ export default function SpaceVirtualOfficePage({ setCurrentPage }) {
 
         {/* CHOOSE YOUR PACKAGE */}
         <section id="vo-packages" className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          <div className="text-center max-w-xl mx-auto">
+          <div className="text-center max-w-xl mx-auto space-y-2">
+            <span className="text-xs font-bold text-[#EA8E18] uppercase tracking-widest inline-block">
+              — PACKAGES
+            </span>
             <h2 className="text-3xl sm:text-4xl font-bold font-heading text-slate-900 tracking-tight">
               Choose Your Package.
             </h2>
@@ -195,47 +207,18 @@ export default function SpaceVirtualOfficePage({ setCurrentPage }) {
             {packages.map((pkg) => (
               <div
                 key={pkg.title}
-                className="bg-white p-7 rounded-[24px] border border-slate-200/80 shadow-sm text-center space-y-3 hover:border-[#EA8E18]/40 hover:shadow-xl transition-all flex flex-col justify-between"
+                onClick={() => handlePackageClick(pkg)}
+                className="bg-white p-7 rounded-[24px] border border-slate-200/80 shadow-sm text-center flex items-center justify-center min-h-[96px] hover:border-[#EA8E18]/40 hover:shadow-xl transition-all cursor-pointer group"
               >
-                <div className="space-y-2">
-                  <h3 className="text-xl font-bold text-slate-900 font-heading">
-                    {pkg.title}
-                  </h3>
-                  <p className="text-xs text-slate-500 font-normal leading-relaxed">
-                    {pkg.desc}
-                  </p>
-                </div>
-
-                <div className="pt-4 border-t border-slate-100">
-                  <button
-                    onClick={() => {
-                      if (setCurrentPage) setCurrentPage('find-space');
-                      window.scrollTo(0, 0);
-                    }}
-                    className="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-[#EA8E18] text-slate-800 hover:text-white font-bold text-xs transition-colors"
-                  >
-                    Select Package
-                  </button>
-                </div>
+                <h3 className="text-base sm:text-lg font-bold text-slate-900 font-heading group-hover:text-[#EA8E18] transition-colors">
+                  {pkg.title}
+                </h3>
               </div>
             ))}
           </div>
-
-          {/* <div className="text-center pt-4">
-            <button
-              onClick={() => {
-                if (setCurrentPage) setCurrentPage('find-space');
-                window.scrollTo(0, 0);
-              }}
-              className="px-8 py-3.5 rounded-full bg-[#EA8E18] hover:bg-[#d88010] text-white font-bold text-sm sm:text-base shadow-lg transition-all inline-flex items-center gap-2 group"
-            >
-              <span>Compare Packages</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
-          </div> */}
         </section>
 
-        <FindSpaceSection initialSpace="Virtual Office" />
+        <FindSpaceSection initialSpace="Virtual Office" initialNotes={selectedPackageNote} />
 
         {/* BOTTOM DARK BANNER */}
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">

@@ -45,7 +45,7 @@ export default function Partners({ setCurrentPage }) {
             <div
               key={brand.name}
               onClick={handleCommunityClick}
-              className="bg-slate-50/70 hover:bg-white p-4 rounded-2xl border border-slate-200/80 hover:border-[#EA8E18]/50 shadow-sm hover:shadow-xl transition-all duration-300 flex items-center justify-center h-28 w-44 sm:w-56 overflow-hidden group cursor-pointer"
+              className="bg-slate-50/70 hover:bg-white p-4 rounded-2xl border border-slate-200/80 hover:border-[#EA8E18]/50 shadow-sm hover:shadow-xl transition-all duration-300 flex items-center justify-center h-28 w-[calc(50%-0.5rem)] sm:w-56 overflow-hidden group cursor-pointer"
             >
               <img
                 src={brand.src}

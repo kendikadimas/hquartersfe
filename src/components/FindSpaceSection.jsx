@@ -14,15 +14,21 @@ import {
   Navigation
 } from 'lucide-react';
 
-export default function FindSpaceSection({ initialSpace = 'Premium Office' }) {
+export default function FindSpaceSection({ initialSpace = 'Premium Office', initialNotes = '' }) {
   const [selectedSpace, setSelectedSpace] = useState(initialSpace);
   const [formData, setFormData] = useState({
     name: '',
     whatsapp: '',
     company: '',
-    notes: '',
+    notes: initialNotes,
   });
   const [submitted, setSubmitted] = useState(false);
+
+  React.useEffect(() => {
+    if (initialNotes) {
+      setFormData((prev) => ({ ...prev, notes: initialNotes }));
+    }
+  }, [initialNotes]);
 
   const spaceOptions = [
     {
@@ -81,33 +87,12 @@ export default function FindSpaceSection({ initialSpace = 'Premium Office' }) {
               </span>
               
               <h2 className="text-2xl sm:text-3xl font-bold font-heading text-white leading-tight mb-3">
-                Find the space that fits your ambition.
+                Tell Us What You Need.
               </h2>
               
-              <p className="text-sm text-slate-300 leading-relaxed mb-6 font-normal">
-                Our workspace advisors will help you configure the perfect layout, explain leasing terms, and guide your transition into Bandung's most prestigious CBD.
+              <p className="text-sm text-slate-300 leading-relaxed font-normal">
+                We'll help you find the right space.
               </p>
-              
-              <div className="space-y-3">
-                <div className="flex items-start gap-3">
-                  <div className="mt-0.5 text-[#EA8E18]">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-                  </div>
-                  <span className="text-sm font-medium text-slate-200">Priority viewing schedule</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="mt-0.5 text-[#EA8E18]">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-                  </div>
-                  <span className="text-sm font-medium text-slate-200">Custom floorplan consultation</span>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="mt-0.5 text-[#EA8E18]">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
-                  </div>
-                  <span className="text-sm font-medium text-slate-200">Direct negotiation assistance</span>
-                </div>
-              </div>
             </div>
           </div>
 

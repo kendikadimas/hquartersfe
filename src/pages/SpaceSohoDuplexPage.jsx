@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, CheckCircle2, Check, X, ChevronRight, ChevronLeft, Home, Maximize2, Sparkles } from 'lucide-react';
+import { ArrowRight, ArrowDown, CheckCircle2, Check, X, ChevronRight, ChevronLeft, Home, Maximize2, Sparkles } from 'lucide-react';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import FindSpaceSection from '../components/FindSpaceSection.jsx';
@@ -135,10 +135,10 @@ export default function SpaceSohoDuplexPage({ setCurrentPage }) {
   };
 
   const sohoLives = [
-    { title: 'STARTER SOHO', desc: 'Working and living in a space that works for both.' },
-    { title: 'HIGH-GRADE SOHO', desc: 'Professional space for clients and working.' },
-    { title: 'BUSINESS + WORK', desc: 'For companies that need space to execute.' },
-    { title: 'LIVING SOHO', desc: 'For active executives who value location and comfort.' },
+    { title: 'STARTUP MODE', desc: 'Workspace, meeting corner, pantry — for a small team.' },
+    { title: 'HOME OFFICE MODE', desc: 'Professional workspace in front, private living behind.' },
+    { title: 'PROFESSIONAL MODE', desc: 'Reception, meeting room, private office.' },
+    { title: 'LIVING MODE', desc: 'Transform into a private living environment as needed.*' },
   ];
 
   const targetPills = [
@@ -147,13 +147,14 @@ export default function SpaceSohoDuplexPage({ setCurrentPage }) {
   ];
 
   const comparisonRows = [
-    { feature: 'Living Capabilities', apt: true, office: false, soho: true },
-    { feature: 'Registered Business Address', apt: false, office: true, soho: true },
-    { feature: 'Hospitality & Executive Amenities', apt: false, office: false, soho: true },
-    { feature: '24/7 Access & Flexibility', apt: true, office: false, soho: true },
-    { feature: 'Strata Title Ownership', apt: true, office: false, soho: true },
-    { feature: 'Zero Double Overhead Split', apt: false, office: false, soho: true },
-    { feature: 'High Investment Yield & Asset Growth', apt: false, office: false, soho: true },
+    { feature: 'Living', apt: '✓', office: '—', soho: '✓' },
+    { feature: 'Professional Workspace', apt: 'Limited', office: '✓', soho: '✓' },
+    { feature: 'Business Environment', apt: '—', office: '✓', soho: '✓' },
+    { feature: 'Business Address*', apt: 'Limited', office: '✓', soho: '✓' },
+    { feature: 'Lifestyle Facilities', apt: '✓', office: 'Limited', soho: '✓' },
+    { feature: '24/7 Access & Flexibility', apt: '✓', office: '—', soho: '✓' },
+    { feature: 'Ownership', apt: '✓', office: 'Varies', soho: '✓' },
+    { feature: 'Work + Live', apt: 'Limited', office: '—', soho: '✓' },
   ];
 
   return (
@@ -191,10 +192,10 @@ export default function SpaceSohoDuplexPage({ setCurrentPage }) {
           </nav>
 
           {/* Hero Card */}
-          <div className="bg-[#FAF8F5] rounded-[32px] sm:rounded-[44px] p-8 sm:p-14 lg:p-16 border border-slate-200/80 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-7 space-y-6">
-              <span className="px-3.5 py-1 rounded-full bg-[#FEF3E2] text-[#B86807] text-xs font-bold uppercase tracking-wider inline-block">
-                HQUARTERS SOHO
+          <div className="bg-[#FAF8F5] rounded-[32px] sm:rounded-[44px] p-8 sm:p-14 lg:p-16 border border-slate-200/80 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+            <div className="lg:col-span-6 space-y-6 flex flex-col justify-center">
+              <span className="px-2 py-1 rounded-full text-[#EA8E18] text-xs font-bold uppercase tracking-wider inline-block self-start">
+                SOHO
               </span>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading text-slate-900 tracking-tight leading-[1.12]">
@@ -206,7 +207,7 @@ export default function SpaceSohoDuplexPage({ setCurrentPage }) {
                 One space to work, live, own and grow your business.
               </p>
 
-              <div className="inline-block px-4 py-1.5 rounded-full bg-slate-900 text-white font-bold text-xs tracking-wide">
+              <div className="inline-block px-4 py-1.5 rounded-full bg-slate-900 text-white font-bold text-xs tracking-wide self-start">
                 Work. Live. Own. — #FleksibelAja
               </div>
 
@@ -224,8 +225,8 @@ export default function SpaceSohoDuplexPage({ setCurrentPage }) {
               </div>
             </div>
 
-            <div className="lg:col-span-5">
-              <div className="rounded-[24px] overflow-hidden border border-slate-200/80 aspect-[4/3] shadow-xl group bg-slate-100">
+            <div className="lg:col-span-6 relative flex items-stretch">
+              <div className="rounded-[28px] overflow-hidden border border-slate-200/80 w-full h-full min-h-[280px] shadow-xl group bg-slate-100">
                 <img
                   src="/SPACES/SOHO/SOHO 01.png"
                   alt="HQuarters SOHO Unit"
@@ -283,42 +284,31 @@ export default function SpaceSohoDuplexPage({ setCurrentPage }) {
                 <ChevronRight className="w-6 h-6" />
               </button>
 
-              {/* Bottom Dark Banner */}
-              <div className="absolute inset-x-0 bottom-0 h-16 sm:h-20 bg-slate-900/80 backdrop-blur-md flex items-center px-6 sm:px-10 justify-between">
-                {/* Title */}
-                <h3 className="text-white text-sm sm:text-lg font-bold tracking-wider uppercase truncate w-1/3">
-                  {galleryImages[activeImgIndex]?.title}
-                </h3>
-
-                {/* Dots Pagination */}
-                <div className="flex items-center justify-center gap-2 w-1/3">
-                  {galleryImages.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setActiveImgIndex(idx)}
-                      className={`w-2 h-2 rounded-full transition-all ${
-                        idx === activeImgIndex ? 'bg-white w-5' : 'bg-white/50 hover:bg-white/80'
-                      }`}
-                    />
-                  ))}
-                </div>
-
-                {/* Empty spacer to balance the flex-between layout */}
-                <div className="w-1/3" />
+              {/* Floating Dots Pagination Overlay */}
+              <div className="absolute bottom-4 inset-x-0 flex items-center justify-center gap-2 z-10">
+                {galleryImages.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveImgIndex(idx)}
+                    className={`h-2 rounded-full transition-all cursor-pointer ${
+                      idx === activeImgIndex ? 'bg-white w-6 shadow-md' : 'bg-white/50 hover:bg-white/80 w-2'
+                    }`}
+                  />
+                ))}
               </div>
             </div>
 
-            {/* Bottom Row: Thumbnails and Button */}
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6 mt-6">
+            {/* Bottom Row: Thumbnails */}
+            <div className="flex items-center justify-start mt-6">
               {/* Thumbnails */}
               <div className="flex items-center gap-3 overflow-x-auto scrollbar-none pb-2 sm:pb-0 max-w-full">
                 {galleryImages.map((img, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveImgIndex(idx)}
-                    className={`relative shrink-0 w-20 h-16 sm:w-28 sm:h-20 rounded-lg overflow-hidden border-2 transition-all ${
+                    className={`relative shrink-0 w-20 h-16 sm:w-28 sm:h-20 rounded-lg overflow-hidden border-2 transition-all cursor-pointer ${
                       idx === activeImgIndex
-                        ? 'border-[#EA8E18] opacity-100 scale-105'
+                        ? 'border-[#EA8E18] opacity-100 scale-105 shadow-md'
                         : 'border-transparent opacity-60 hover:opacity-100'
                     }`}
                   >
@@ -326,15 +316,6 @@ export default function SpaceSohoDuplexPage({ setCurrentPage }) {
                   </button>
                 ))}
               </div>
-
-              {/* View Facilities Button */}
-              <button
-                onClick={() => setIsLightboxOpen(true)}
-                className="shrink-0 px-6 py-3 rounded bg-[#ea580c] hover:bg-[#c2410c] text-white font-bold text-sm sm:text-base shadow-md transition-all flex items-center gap-2 group"
-              >
-                <span>View Facilities</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
             </div>
           </div>
 
@@ -424,7 +405,10 @@ export default function SpaceSohoDuplexPage({ setCurrentPage }) {
 
         {/* ONE SOHO. DIFFERENT LIVES. */}
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          <div className="text-center max-w-xl mx-auto">
+          <div className="text-center max-w-xl mx-auto space-y-2">
+            <span className="text-xs font-bold text-[#EA8E18] uppercase tracking-widest inline-block">
+              — SIGNATURE
+            </span>
             <h2 className="text-3xl sm:text-4xl font-bold font-heading text-slate-900 tracking-tight">
               One SOHO. Different Lives.
             </h2>
@@ -471,27 +455,42 @@ export default function SpaceSohoDuplexPage({ setCurrentPage }) {
                 <span className="text-[#EA8E18]">This Can Be Your Business Address.</span>
               </h2>
               <p className="text-slate-600 text-base leading-relaxed font-normal">
-                One space that does both. SOHO unit at HQuarters can be used as a business address, so your home and office are a legitimate registered address.
+One thing that sets SOHO apart from a regular apartment: the unit can be used as a business address, workspace, home office, and private base, subject to applicable regulations.
+
               </p>
-              <div className="font-bold text-[#EA8E18] text-base font-heading">
-                No More Double Overhead.
-              </div>
+              <button
+                onClick={() => {
+                  const formElem = document.getElementById('find-space') || document.getElementById('soho-inquiry');
+                  if (formElem) formElem.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="inline-flex items-center gap-2 font-bold text-[#EA8E18] hover:text-[#d88010] text-base font-heading group cursor-pointer transition-colors pt-1"
+              >
+                <span>Ask About Business Domicile</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
             </div>
 
-            <div className="lg:col-span-6 bg-[#FEF3E2] p-8 rounded-[28px] border border-[#EA8E18]/30 space-y-4 text-center">
-              <div className="text-sm font-bold text-[#965203] uppercase tracking-wider">
+            <div className="lg:col-span-6 bg-[#FAF8F5] p-8 sm:p-10 rounded-[32px] border border-slate-200/80 space-y-5 text-center shadow-sm">
+              <h3 className="text-2xl sm:text-3xl font-bold font-heading text-slate-900 tracking-tight">
                 Why Pay For Two Places?
+              </h3>
+              
+              <p className="text-slate-600 text-sm sm:text-base font-normal max-w-lg mx-auto">
+                Office (rent, utilities, commute) + Home (rent/mortgage, utilities, commute)
+              </p>
+
+              <div className="py-1">
+                <ArrowDown className="w-5 h-5 text-[#EA8E18] mx-auto animate-bounce" />
               </div>
-              <p className="text-slate-700 text-base font-medium">
-                Home + Office = High Double Overhead Cost
-              </p>
-              <div className="h-px bg-[#EA8E18]/30" />
-              <p className="text-lg font-bold text-slate-900 font-heading">
-                HQuarters SOHO = Work + Live in 1 Unit
-              </p>
-              <p className="text-xs text-slate-600 font-normal">
-                Designed for maximum affordability and capital efficiency.
-              </p>
+
+              <div className="space-y-1">
+                <h4 className="text-2xl sm:text-3xl font-bold font-heading text-slate-900 tracking-tight">
+                  HQuarters SOHO — Work + Live
+                </h4>
+                <p className="text-slate-600 text-sm sm:text-base font-normal">
+                  One space. One location. One asset. #FleksibelAja
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -509,43 +508,65 @@ export default function SpaceSohoDuplexPage({ setCurrentPage }) {
         </section>
 
         {/* COMPARISON TABLE: APARTMENT? OFFICE? SOHO? */}
-        <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           <div className="text-center max-w-xl mx-auto">
             <h2 className="text-3xl sm:text-4xl font-bold font-heading text-slate-900 tracking-tight">
               Apartment? Office? SOHO?
             </h2>
           </div>
 
-          <div className="bg-white rounded-[28px] border border-slate-200/80 shadow-md overflow-hidden">
+          <div className="bg-white rounded-[24px] border border-slate-200/80 shadow-md overflow-hidden">
             <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse min-w-[600px]">
+              <table className="w-full text-left border-collapse min-w-[550px]">
                 <thead>
-                  <tr className="bg-[#FAF8F5] border-b border-slate-200/80 text-xs font-bold text-slate-700 uppercase">
-                    <th className="p-4 sm:p-6">Feature Comparison</th>
-                    <th className="p-4 sm:p-6 text-center">Apartment</th>
-                    <th className="p-4 sm:p-6 text-center">Conventional Office</th>
-                    <th className="p-4 sm:p-6 text-center text-[#EA8E18] bg-[#FEF3E2]/50">HQuarters SOHO</th>
+                  <tr className="bg-[#FAF8F5] border-b border-slate-200/80 text-xs sm:text-sm font-bold text-slate-800">
+                    <th className="py-3 px-4 sm:py-3.5 sm:px-5 font-normal"></th>
+                    <th className="py-3 px-4 sm:py-3.5 sm:px-5 text-center font-bold text-slate-800">Apartment</th>
+                    <th className="py-3 px-4 sm:py-3.5 sm:px-5 text-center font-bold text-slate-800">Conventional Office</th>
+                    <th className="py-3 px-4 sm:py-3.5 sm:px-5 text-center font-bold text-[#EA8E18] bg-[#FEF3E2]/40">HQuarters SOHO</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100 text-sm font-medium">
+                <tbody className="divide-y divide-slate-100 text-xs sm:text-sm font-medium">
                   {comparisonRows.map((row) => (
                     <tr key={row.feature} className="hover:bg-slate-50/50">
-                      <td className="p-4 sm:p-6 text-slate-900 font-bold">{row.feature}</td>
-                      <td className="p-4 sm:p-6 text-center">
-                        {row.apt ? <Check className="w-5 h-5 text-emerald-600 mx-auto" /> : <X className="w-5 h-5 text-slate-300 mx-auto" />}
+                      <td className="py-3 px-4 sm:py-3.5 sm:px-5 text-slate-900 font-normal">{row.feature}</td>
+                      
+                      {/* Apartment Column */}
+                      <td className="py-3 px-4 sm:py-3.5 sm:px-5 text-center">
+                        {row.apt === '✓' ? (
+                          <Check className="w-4 h-4 text-slate-700 mx-auto" />
+                        ) : row.apt === '—' ? (
+                          <span className="text-slate-400 font-normal">—</span>
+                        ) : (
+                          <span className="text-slate-600 font-normal">{row.apt}</span>
+                        )}
                       </td>
-                      <td className="p-4 sm:p-6 text-center">
-                        {row.office ? <Check className="w-5 h-5 text-emerald-600 mx-auto" /> : <X className="w-5 h-5 text-slate-300 mx-auto" />}
+
+                      {/* Conventional Office Column */}
+                      <td className="py-3 px-4 sm:py-3.5 sm:px-5 text-center">
+                        {row.office === '✓' ? (
+                          <Check className="w-4 h-4 text-slate-700 mx-auto" />
+                        ) : row.office === '—' ? (
+                          <span className="text-slate-400 font-normal">—</span>
+                        ) : (
+                          <span className="text-slate-600 font-normal">{row.office}</span>
+                        )}
                       </td>
-                      <td className="p-4 sm:p-6 text-center bg-[#FEF3E2]/30 font-bold text-[#EA8E18]">
-                        <Check className="w-5 h-5 text-[#EA8E18] mx-auto" />
+
+                      {/* HQuarters SOHO Column */}
+                      <td className="py-3 px-4 sm:py-3.5 sm:px-5 text-center bg-[#FEF3E2]/30 font-bold text-[#EA8E18]">
+                        {row.soho === '✓' ? (
+                          <Check className="w-4 h-4 text-[#EA8E18] mx-auto stroke-[2.5]" />
+                        ) : (
+                          <span className="text-[#EA8E18] font-bold">{row.soho}</span>
+                        )}
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-            <div className="p-6 bg-[#FAF8F5] text-center border-t border-slate-200/80 font-bold text-slate-900 text-sm font-heading">
+            <div className="py-4 px-6 bg-[#FAF8F5] text-center border-t border-slate-200/80 font-bold text-slate-900 text-sm sm:text-base font-heading">
               Why fit your life into one category?
             </div>
           </div>

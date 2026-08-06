@@ -18,6 +18,70 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
 
   const [activeImgIndex, setActiveImgIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [teamSizeNote, setTeamSizeNote] = useState('');
+  const [facilityTab, setFacilityTab] = useState('gym');
+  const [facilityActiveImg, setFacilityActiveImg] = useState(0);
+
+  const facilitiesGallery = [
+    {
+      id: 1,
+      src: '/FASILITAS/GYM/gym 01.png',
+      title: 'State-of-the-Art Fitness Center',
+      category: 'gym',
+    },
+    {
+      id: 2,
+      src: '/FASILITAS/GYM/Gym 02.png',
+      title: 'Cardio & Strength Training Zone',
+      category: 'gym',
+    },
+    {
+      id: 3,
+      src: '/FASILITAS/GYM/GYM 03.png',
+      title: 'Executive Workout Deck',
+      category: 'gym',
+    },
+    {
+      id: 4,
+      src: '/FASILITAS/SAUNA/sauna 01.png',
+      title: 'Luxury Cedar Sauna Suite',
+      category: 'sauna',
+    },
+    {
+      id: 5,
+      src: '/FASILITAS/SAUNA/sauna 02.png',
+      title: 'Thermal Wellness Chamber',
+      category: 'sauna',
+    },
+    {
+      id: 6,
+      src: '/FASILITAS/SAUNA/sauna 03.png',
+      title: 'Private Spa & Sauna Lounge',
+      category: 'sauna',
+    },
+    {
+      id: 7,
+      src: '/LOGO/pool.jpg',
+      title: 'Heated Rooftop Swimming Pool',
+      category: 'pool',
+    },
+    {
+      id: 8,
+      src: '/rooftop_pool.png',
+      title: 'Panoramic Infinity Pool Deck',
+      category: 'pool',
+    },
+  ];
+
+  const currentFacilities = facilitiesGallery.filter((item) => item.category === facilityTab);
+
+  const handleTeamSizeClick = (item) => {
+    setTeamSizeNote(`Team size: ${item.size} (${item.desc})`);
+    const formElem = document.getElementById('find-space');
+    if (formElem) {
+      formElem.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   useEffect(() => {
     if (!isLightboxOpen) return;
@@ -164,10 +228,10 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
           </nav>
 
           {/* Hero Card */}
-          <div className="bg-slate-900 text-white rounded-[32px] sm:rounded-[44px] p-8 sm:p-14 lg:p-16 border border-slate-800 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative overflow-hidden shadow-2xl">
-            <div className="lg:col-span-7 space-y-6 z-10">
-              <span className="px-3.5 py-1 rounded-full bg-white/10 text-amber-400 text-xs font-bold uppercase tracking-wider inline-block border border-white/15">
-                HQUARTERS PREMIUM OFFICE
+          <div className="bg-slate-900 text-white rounded-[32px] sm:rounded-[44px] p-8 sm:p-12 lg:p-14 border border-slate-800 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch relative overflow-hidden shadow-2xl">
+            <div className="lg:col-span-6 space-y-6 z-10 flex flex-col justify-center">
+              <span className="px-2 py-1 rounded-full text-amber-400 text-xs font-bold uppercase tracking-wider inline-block self-start">
+                PREMIUM OFFICE
               </span>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading text-white tracking-tight leading-[1.12]">
@@ -193,16 +257,16 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
               </div>
 
               <div className="pt-4 border-t border-slate-800 flex flex-wrap items-center gap-3 text-xs text-slate-400 font-medium">
-                <span>Flexibility of Floorplans</span>
+                <span>Flexible Office Sizes</span>
                 <span>•</span>
                 <span>Premium Business Environment</span>
                 <span>•</span>
-                <span>Ready for Growth Companies</span>
+                <span>Ready for Fit-Out / Occupancy*</span>
               </div>
             </div>
 
-            <div className="lg:col-span-5 relative z-10">
-              <div className="rounded-[24px] overflow-hidden border border-white/15 aspect-[4/3] shadow-2xl group bg-slate-800">
+            <div className="lg:col-span-6 relative z-10 flex items-stretch">
+              <div className="rounded-[28px] overflow-hidden border border-white/15 w-full h-full min-h-[280px] shadow-2xl group bg-slate-800">
                 <img
                   src="/SPACES/PREMIUM OFFICE/Premium Office.png"
                   alt="HQuarters Premium Office Suite"
@@ -229,11 +293,11 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
             </div>
 
             {/* Hint & Nav Arrows */}
-            <div className="flex items-center gap-3">
+            {/* <div className="flex items-center gap-3">
               <span className="text-xs font-medium text-slate-500 hidden sm:inline">
                 Click "View Facilities" to enlarge photos
               </span>
-            </div>
+            </div> */}
           </div>
 
           {/* Carousel Featured Image Area */}
@@ -260,42 +324,31 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
                 <ChevronRight className="w-6 h-6" />
               </button>
 
-              {/* Bottom Dark Banner */}
-              <div className="absolute inset-x-0 bottom-0 h-16 sm:h-20 bg-slate-900/80 backdrop-blur-md flex items-center px-6 sm:px-10 justify-between">
-                {/* Title */}
-                <h3 className="text-white text-sm sm:text-lg font-bold tracking-wider uppercase truncate w-1/3">
-                  {galleryImages[activeImgIndex]?.title}
-                </h3>
-
-                {/* Dots Pagination */}
-                <div className="flex items-center justify-center gap-2 w-1/3">
-                  {galleryImages.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setActiveImgIndex(idx)}
-                      className={`w-2 h-2 rounded-full transition-all ${
-                        idx === activeImgIndex ? 'bg-white w-5' : 'bg-white/50 hover:bg-white/80'
-                      }`}
-                    />
-                  ))}
-                </div>
-
-                {/* Empty spacer to balance the flex-between layout */}
-                <div className="w-1/3" />
+              {/* Floating Dots Pagination Overlay */}
+              <div className="absolute bottom-4 inset-x-0 flex items-center justify-center gap-2 z-10">
+                {galleryImages.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveImgIndex(idx)}
+                    className={`h-2 rounded-full transition-all cursor-pointer ${
+                      idx === activeImgIndex ? 'bg-white w-6 shadow-md' : 'bg-white/50 hover:bg-white/80 w-2'
+                    }`}
+                  />
+                ))}
               </div>
             </div>
 
-            {/* Bottom Row: Thumbnails and Button */}
-            <div className="flex flex-col md:flex-row items-center justify-between gap-6 mt-6">
+            {/* Bottom Row: Thumbnails */}
+            <div className="flex items-center justify-start mt-6">
               {/* Thumbnails */}
               <div className="flex items-center gap-3 overflow-x-auto scrollbar-none pb-2 sm:pb-0 max-w-full">
                 {galleryImages.map((img, idx) => (
                   <button
                     key={idx}
                     onClick={() => setActiveImgIndex(idx)}
-                    className={`relative shrink-0 w-20 h-16 sm:w-28 sm:h-20 rounded-lg overflow-hidden border-2 transition-all ${
+                    className={`relative shrink-0 w-20 h-16 sm:w-28 sm:h-20 rounded-lg overflow-hidden border-2 transition-all cursor-pointer ${
                       idx === activeImgIndex
-                        ? 'border-[#EA8E18] opacity-100 scale-105'
+                        ? 'border-[#EA8E18] opacity-100 scale-105 shadow-md'
                         : 'border-transparent opacity-60 hover:opacity-100'
                     }`}
                   >
@@ -303,15 +356,6 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
                   </button>
                 ))}
               </div>
-
-              {/* View Facilities Button */}
-              <button
-                onClick={() => setIsLightboxOpen(true)}
-                className="shrink-0 px-6 py-3 rounded bg-[#ea580c] hover:bg-[#c2410c] text-white font-bold text-sm sm:text-base shadow-md transition-all flex items-center gap-2 group"
-              >
-                <span>View Facilities</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
             </div>
           </div>
 
@@ -413,6 +457,108 @@ A representative lobby. A professional arrival experience. A credible business e
           </div>
         </section>
 
+        {/* IN-HOUSE WELLNESS FACILITIES GALLERY */}
+        <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          {/* Header & Category Filter Tabs */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200/80 pb-6">
+            <div className="space-y-2">
+              <span className="text-xs font-bold text-[#EA8E18] uppercase tracking-widest inline-block">
+                — IN-HOUSE FACILITIES
+              </span>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-slate-900 tracking-tight">
+                Wellness Facilities <span className="text-[#EA8E18]">Gallery</span>
+              </h2>
+            </div>
+
+            {/* Filter Tabs */}
+            <div className="flex flex-wrap items-center gap-2.5">
+              {[
+                { id: 'gym', label: 'Gym & Fitness' },
+                { id: 'sauna', label: 'Sauna Suite' },
+                { id: 'pool', label: 'Rooftop Pool' },
+              ].map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => {
+                    setFacilityTab(tab.id);
+                    setFacilityActiveImg(0);
+                  }}
+                  className={`px-6 py-3 rounded-full text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                    facilityTab === tab.id
+                      ? 'bg-[#EA8E18] text-white shadow-md scale-105'
+                      : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Carousel Featured Image Area */}
+          <div className="relative">
+            <div className="relative w-full h-[360px] sm:h-[480px] lg:h-[560px] rounded-[32px] overflow-hidden bg-slate-900 shadow-2xl group">
+              <img
+                src={currentFacilities[facilityActiveImg]?.src}
+                alt={currentFacilities[facilityActiveImg]?.title}
+                className="w-full h-full object-cover transition-opacity duration-500"
+              />
+
+              {/* Left/Right Navigation Arrows */}
+              <button
+                onClick={() =>
+                  setFacilityActiveImg((prev) =>
+                    prev === 0 ? currentFacilities.length - 1 : prev - 1
+                  )
+                }
+                className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-[#EA8E18] backdrop-blur-md flex items-center justify-center text-white transition-all z-10 cursor-pointer shadow-xl border border-white/10"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                onClick={() =>
+                  setFacilityActiveImg((prev) =>
+                    prev === currentFacilities.length - 1 ? 0 : prev + 1
+                  )
+                }
+                className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-[#EA8E18] backdrop-blur-md flex items-center justify-center text-white transition-all z-10 cursor-pointer shadow-xl border border-white/10"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+
+              {/* Subtle Floating Dots Indicator */}
+              <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10 bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
+                {currentFacilities.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setFacilityActiveImg(idx)}
+                    className={`h-2 rounded-full transition-all cursor-pointer ${
+                      idx === facilityActiveImg ? 'bg-[#EA8E18] w-6' : 'bg-white/60 hover:bg-white w-2'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Bottom Row: Left-Aligned Thumbnails */}
+            <div className="flex items-center justify-start gap-3.5 mt-4 overflow-x-auto scrollbar-none pb-2 sm:pb-0 max-w-full">
+              {currentFacilities.map((img, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setFacilityActiveImg(idx)}
+                  className={`relative shrink-0 w-28 h-20 sm:w-36 sm:h-24 rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${
+                    idx === facilityActiveImg
+                      ? 'border-[#EA8E18] opacity-100 scale-105 shadow-md'
+                      : 'border-transparent opacity-60 hover:opacity-100'
+                  }`}
+                >
+                  <img src={img.src} alt={img.title} className="w-full h-full object-cover" />
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* INCLUDED: EVERYTHING A MODERN COMPANY EXPECTS */}
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="text-center max-w-2xl mx-auto">
@@ -457,14 +603,18 @@ A representative lobby. A professional arrival experience. A credible business e
               {teamSizes.map((item) => (
                 <div
                   key={item.size}
-                  className="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm text-center space-y-2 hover:border-[#EA8E18]/40 hover:shadow-md transition-all"
+                  onClick={() => handleTeamSizeClick(item)}
+                  className="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm text-center space-y-2 hover:border-[#EA8E18] hover:shadow-lg transition-all cursor-pointer group hover:-translate-y-1"
                 >
-                  <div className="text-2xl font-extrabold text-slate-900 font-heading">
+                  <div className="text-2xl font-extrabold text-slate-900 font-heading group-hover:text-[#EA8E18] transition-colors">
                     {item.size}
                   </div>
                   <p className="text-xs text-slate-500 font-medium">
                     {item.desc}
                   </p>
+                  <div className="pt-2 text-[11px] font-bold text-[#EA8E18] opacity-0 group-hover:opacity-100 transition-opacity">
+                    Select & Request Quote &rarr;
+                  </div>
                 </div>
               ))}
             </div>
@@ -518,7 +668,7 @@ A representative lobby. A professional arrival experience. A credible business e
         </section>
 
         {/* INQUIRY FORM CARD */}
-        <FindSpaceSection initialSpace="Premium Office" />
+        <FindSpaceSection initialSpace="Premium Office" initialNotes={teamSizeNote} />
 
         {/* BOTTOM DARK BANNER */}
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">

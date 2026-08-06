@@ -82,7 +82,7 @@ export default function Hero({ setCurrentPage }) {
                   <Star key={i} className="w-4 h-4 fill-current" />
                 ))}
               </div>
-              <span>Bandung's Premier Business Residence & Domicile</span>
+              <span>Trusted by +20 Tenants</span>
             </motion.div>
 
           </div>

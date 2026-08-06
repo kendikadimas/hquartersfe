@@ -16,10 +16,10 @@ export default function BuildingPage({ setCurrentPage }) {
         <BuildingSection setCurrentPage={setCurrentPage} />
         <CTA
           setCurrentPage={setCurrentPage}
-          titlePrefix="Experience The HQuarters "
-          titleHighlight="Building Distinction."
-          description="Built to international safety and engineering standards in Asia Afrika CBD, Bandung. Schedule a private site tour to inspect our facilities."
-          buttonText="Schedule Site Visit"
+          titlePrefix="This Is What A Modern Workplace "
+          titleHighlight="Should Feel Like."
+          description=""
+          buttonText="Find A Space"
           pageTarget="find-space"
         />
       </main>

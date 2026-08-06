@@ -71,9 +71,7 @@ export default function FindSpacePageSection() {
         {/* 1. HEADER SECTION */}
         {/* ========================================================================= */}
         <div className="text-center max-w-3xl mx-auto">
-          <span className="px-3.5 py-1 rounded-full bg-[#FEF3E2] text-[#B86807] text-xs font-bold uppercase tracking-wider inline-block mb-3">
-            SPACE MATCHMAKING
-          </span>
+        
           <h1 className="text-4xl sm:text-6xl font-bold text-slate-900 font-heading tracking-tight">
             Tell Us <span className="text-[#E8860B]">What You Need.</span>
           </h1>
@@ -126,10 +124,6 @@ export default function FindSpacePageSection() {
                     <div className="font-extrabold text-base font-heading leading-snug">
                       {opt.label}
                     </div>
-                  </div>
-
-                  <div className={`text-xs mt-4 ${isSelected ? 'text-amber-200/90' : 'text-slate-500'}`}>
-                    {opt.desc}
                   </div>
                 </button>
               );

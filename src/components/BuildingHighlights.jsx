@@ -66,7 +66,7 @@ export default function BuildingHighlights({ setCurrentPage }) {
         {/* 1. HEADER SECTION */}
         {/* ========================================================================= */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <span className="px-4 py-1.5 rounded-full bg-[#FEF3E2] text-[#B86807] text-xs font-extrabold uppercase tracking-wider inline-block">
+          <span className="px-4 py-1.5 rounded-full text-[#E8860B] text-xs font-extrabold uppercase tracking-wider inline-block">
             THE BUILDING
           </span>
 

@@ -19,7 +19,7 @@ export default function AddressStatement({ setCurrentPage }) {
         {/* 1. TOP HEADER SECTION */}
         {/* ========================================================================= */}
         <div className="text-center max-w-4xl mx-auto space-y-4">
-          <span className="px-4 py-1.5 rounded-full bg-[#FEF3E2] text-[#B86807] text-xs font-extrabold uppercase tracking-widest inline-block">
+          <span className="px-4 py-1.5 rounded-full text-[#EA8E18] text-xs font-extrabold uppercase tracking-widest inline-block">
             HQUARTERS • ASIA AFRIKA • BANDUNG
           </span>
 
@@ -72,7 +72,7 @@ export default function AddressStatement({ setCurrentPage }) {
                 onClick={handleLocationClick}
                 className="px-5 py-2.5 rounded-full bg-white/90 hover:bg-white backdrop-blur-md text-slate-900 font-bold text-xs uppercase tracking-wider transition-all self-start sm:self-auto shadow-md hover:scale-105"
               >
-                View Location Dossier
+                View Location
               </button>
             </div>
           </div>

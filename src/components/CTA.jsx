@@ -30,7 +30,7 @@ export default function CTA({
           className="rounded-[32px] sm:rounded-[44px] lg:rounded-[48px] overflow-hidden bg-slate-900 text-white text-center p-8 sm:p-14 lg:p-20 shadow-xl border border-slate-800/80"
         >
           {/* Content Wrapper */}
-          <div className="relative z-10 max-w-3xl mx-auto space-y-6">
+          <div className="relative z-10 max-w-5xl mx-auto space-y-6">
             
             {/* Main Headline */}
             <h2 className="text-3xl sm:text-5xl lg:text-[54px] font-bold font-heading tracking-tight leading-[1.15] text-white">

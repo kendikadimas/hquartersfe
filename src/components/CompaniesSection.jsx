@@ -343,9 +343,6 @@ export default function CompaniesSection({ setCurrentPage }) {
                       <h2 className="text-xl sm:text-2xl font-bold font-heading text-slate-900">
                         {sector.title}
                       </h2>
-                      <p className="text-xs text-slate-500 font-medium">
-                        {sector.partners.length} Enterprise Tenants & Partners
-                      </p>
                     </div>
                   </div>
 
@@ -403,7 +400,7 @@ export default function CompaniesSection({ setCurrentPage }) {
         {/* ========================================================================= */}
         <div className="bg-slate-900 text-white rounded-[32px] sm:rounded-[40px] p-8 sm:p-16 text-center relative overflow-hidden shadow-2xl">
           <div className="max-w-3xl mx-auto relative z-10">
-            <span className="px-3.5 py-1 rounded-full bg-white/10 text-amber-300 text-xs font-bold uppercase tracking-wider inline-block mb-4 border border-white/15">
+            <span className="px-3.5 py-1 rounded-full text-amber-400 text-xs font-bold uppercase tracking-wider inline-block mb-4">
               GROW YOUR BUSINESS WITH US
             </span>
             <h2 className="text-3xl sm:text-5xl font-bold font-heading text-white tracking-tight">
@@ -412,20 +409,17 @@ export default function CompaniesSection({ setCurrentPage }) {
             <p className="mt-4 text-slate-300 text-base sm:text-lg">
               Position your company among global enterprise tenants and market leaders in Bandung CBD.
             </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <div className="mt-8 flex justify-center">
               <button
-                onClick={() => setCurrentPage && setCurrentPage('spaces')}
-                className="px-8 py-4 rounded-xl bg-[#E8860B] hover:bg-[#d67a0a] text-white font-bold text-sm shadow-lg transition-all flex items-center gap-2 group"
+                onClick={() => {
+                  if (setCurrentPage) setCurrentPage('find-space');
+                  window.scrollTo(0, 0);
+                }}
+                className="px-8 py-4 rounded-full bg-[#EA8E18] hover:bg-[#d88010] text-white font-bold text-sm sm:text-base shadow-lg transition-all inline-flex items-center gap-2 group cursor-pointer"
               >
                 <span>Find Your Space</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
-              <a
-                href="#contact"
-                className="px-8 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/20 transition-all"
-              >
-                Schedule Private Consultation
-              </a>
             </div>
           </div>
         </div>
