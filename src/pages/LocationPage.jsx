@@ -18,7 +18,7 @@ export default function LocationPage({ setCurrentPage }) {
           setCurrentPage={setCurrentPage}
           titlePrefix="A Better Business Address "
           titleHighlight="Starts With Location."
-          description="Position your company at the prestige center of Bandung Asia Afrika CBD. Schedule a visit or get in touch with our team."
+          description=""
           buttonText="Get Directions & Contact"
           pageTarget="find-space"
         />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Building2, Home, Landmark, Map, ArrowRight, CheckCircle2 } from 'lucide-react';
 
@@ -56,12 +56,12 @@ export default function InteractiveDemo() {
   return (
     <section id="projects" className="py-20 bg-white border-b border-slate-200/80">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
+        
         <div className="text-center max-w-3xl mx-auto mb-10">
           <span className="px-3.5 py-1 rounded-full bg-[#FEF3E2] text-[#B86807] text-xs font-bold uppercase tracking-wider">
             PORTFOLIO SHOWCASE
           </span>
-          <h2 className="text-3xl sm:text-5xl font-bold text-slate-900 font-heading tracking-tight mt-3">
+          <h2 className="text-3xl sm:text-5xl font-medium text-slate-900 font-heading tracking-tight mt-3">
             Designed Perfection
           </h2>
           <p className="mt-3 text-slate-600 text-base sm:text-lg">
@@ -69,7 +69,7 @@ export default function InteractiveDemo() {
           </p>
         </div>
 
-        {/* Category Tabs */}
+        
         <div className="flex justify-center mb-10">
           <div className="bg-slate-100 p-1.5 rounded-full flex flex-wrap justify-center gap-1 border border-slate-200">
             {categories.map((cat) => {
@@ -93,7 +93,7 @@ export default function InteractiveDemo() {
           </div>
         </div>
 
-        {/* Featured Project Showcase Container - Pure White Card */}
+        
         <div className="bg-white text-slate-900 rounded-[28px] overflow-hidden shadow-2xl p-8 sm:p-12 border border-slate-200/80">
           <AnimatePresence mode="wait">
             <motion.div
@@ -104,7 +104,7 @@ export default function InteractiveDemo() {
               transition={{ duration: 0.3 }}
               className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
             >
-              {/* Left Information */}
+              
               <div className="lg:col-span-6 space-y-6">
                 <div className="flex items-center gap-3">
                   <span className="px-3 py-1 rounded-full bg-[#FEF3E2] text-[#B86807] text-xs font-bold uppercase tracking-wider border border-[#E8860B]/30">
@@ -113,7 +113,7 @@ export default function InteractiveDemo() {
                   <span className="text-xs text-slate-500 font-medium">• {current.location}</span>
                 </div>
 
-                <h3 className="text-3xl sm:text-4xl font-bold font-heading text-slate-900">
+                <h3 className="text-3xl sm:text-4xl font-medium font-heading text-slate-900">
                   {current.title}
                 </h3>
 
@@ -121,7 +121,7 @@ export default function InteractiveDemo() {
                   {current.description}
                 </p>
 
-                {/* Key Specs */}
+                
                 <div className="grid grid-cols-2 gap-4 py-4 border-y border-slate-100">
                   <div>
                     <span className="text-xs text-slate-400 uppercase tracking-wider block">Completion</span>
@@ -133,7 +133,7 @@ export default function InteractiveDemo() {
                   </div>
                 </div>
 
-                {/* Highlights List */}
+                
                 <div className="space-y-2">
                   <span className="text-xs text-slate-400 font-bold uppercase tracking-wider block mb-2">Key Innovations</span>
                   {current.highlights.map((item) => (
@@ -155,11 +155,11 @@ export default function InteractiveDemo() {
                 </div>
               </div>
 
-              {/* Right Image Graphic */}
+              
               <div className="lg:col-span-6">
                 <div className="relative rounded-2xl overflow-hidden shadow-lg border border-slate-200 aspect-[4/3]">
-                  <img
-                    src="/BUILDING/ChatGPT%20Image%20Jul%2029,%202026,%2003_09_51%20PM.png"
+                  <img loading="lazy"
+                    src="/BUILDING/ChatGPT%20Image%20Jul%2029,%202026,%2003_09_51%20PM.webp?v=20260825"
                     alt={current.title}
                     className="w-full h-full object-cover"
                   />

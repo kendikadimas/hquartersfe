@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, CheckCircle2, ChevronRight, ChevronLeft, Home, Maximize2, X, User, Users, Building2, Sparkles } from 'lucide-react';
@@ -19,14 +19,69 @@ export default function SpaceServicedOfficePage({ setCurrentPage }) {
   const [activeImgIndex, setActiveImgIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [selectedCapacityNote, setSelectedCapacityNote] = useState('');
+  const thumbContainerRef = useRef(null);
 
   const handleCapacityClick = (item) => {
     setSelectedCapacityNote(`Serviced Office Size: ${item.title} (${item.capacity})`);
-    const formElem = document.getElementById('find-space') || document.getElementById('serviced-form');
+    const formElem = document.getElementById('find-space');
     if (formElem) {
       formElem.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const galleryImages = [
+    {
+      src: '/SPACES/SERVICED OFFICE/1.webp?v=20260823',
+      title: 'Turnkey Private Office',
+      category: 'Private Desk Suite',
+      desc: 'Fully furnished, high-speed connected office space ready for immediate occupancy.',
+    },
+    {
+      src: '/SPACES/SERVICED OFFICE/2.webp?v=20260823',
+      title: 'Dedicated Team Desk Zone',
+      category: 'Workstation',
+      desc: 'Ergonomic workstation setup designed for team focus and seamless productivity.',
+    },
+    {
+      src: '/SPACES/SERVICED OFFICE/3.webp?v=20260823',
+      title: 'Meeting Corner & Reception',
+      category: 'Client Meeting',
+      desc: 'Professional conference room setup for hosting client discussions and presentations.',
+    },
+    {
+      src: '/SPACES/SERVICED OFFICE/5.webp?v=20260823',
+      title: 'Modern Breakout Lounge',
+      category: 'Pantry & Lounge',
+      desc: 'Relaxed common area for coffee breaks, informal chats, and team refreshments.',
+    },
+  ];
+
+  const servicedSizes = [
+    {
+      title: 'Private Office',
+      capacity: '1×2 people',
+      icon: User,
+      desc: 'Fully enclosed, move-in ready private suite for solo founders and key executives.',
+    },
+    {
+      title: 'Small Team Office',
+      capacity: '3×5 people',
+      icon: Users,
+      desc: 'Optimized desk layout for growing teams, boutique agencies, and startup pods.',
+    },
+    {
+      title: 'Team Office',
+      capacity: '6×10 people',
+      icon: Building2,
+      desc: 'Spacious workspace configuration for established regional teams & core divisions.',
+    },
+    {
+      title: 'Custom Workspace',
+      capacity: '10+ people',
+      icon: Sparkles,
+      desc: 'Tailored multi-desk suite or dedicated floor wing built to your exact headcount.',
+    },
+  ];
 
   useEffect(() => {
     if (!isLightboxOpen) return;
@@ -50,77 +105,26 @@ export default function SpaceServicedOfficePage({ setCurrentPage }) {
     };
   }, [isLightboxOpen]);
 
-  const servicedSizes = [
-    {
-      title: 'Private Office',
-      capacity: '1–2 people',
-      icon: User,
-      desc: 'Fully enclosed, move-in ready private suite for solo founders and key executives.',
-    },
-    {
-      title: 'Small Team Office',
-      capacity: '3–5 people',
-      icon: Users,
-      desc: 'Optimized desk layout for growing teams, boutique agencies, and startup pods.',
-    },
-    {
-      title: 'Team Office',
-      capacity: '6–10 people',
-      icon: Building2,
-      desc: 'Spacious workspace configuration for established regional teams & core divisions.',
-    },
-    {
-      title: 'Custom Workspace',
-      capacity: '10+ people',
-      icon: Sparkles,
-      desc: 'Tailored multi-desk suite or dedicated floor wing built to your exact headcount.',
-    },
-  ];
+  
+  useEffect(() => {
+    if (isLightboxOpen) return;
+    const timer = setInterval(() => {
+      setActiveImgIndex((prev) => (prev + 1) % galleryImages.length);
+    }, 3800);
+    return () => clearInterval(timer);
+  }, [isLightboxOpen, galleryImages.length]);
 
-  const galleryImages = [
-    {
-      src: '/SPACES/SERVICED OFFICE/1.png',
-      title: 'Turnkey Private Office',
-      category: 'Private Desk Suite',
-      desc: 'Fully furnished, high-speed connected office space ready for immediate occupancy.',
-    },
-    {
-      src: '/SPACES/SERVICED OFFICE/2.png',
-      title: 'Dedicated Team Desk Zone',
-      category: 'Workstation',
-      desc: 'Ergonomic workstation setup designed for team focus and seamless productivity.',
-    },
-    {
-      src: '/SPACES/SERVICED OFFICE/3.png',
-      title: 'Meeting Corner & Reception',
-      category: 'Client Meeting',
-      desc: 'Professional conference room setup for hosting client discussions and presentations.',
-    },
-    {
-      src: '/SPACES/SERVICED OFFICE/4.png',
-      title: 'Executive Suite Interior',
-      category: 'Private Office',
-      desc: 'Acoustically insulated private office for leaders, managers, and confidential work.',
-    },
-    {
-      src: '/SPACES/SERVICED OFFICE/5.png',
-      title: 'Modern Breakout Lounge',
-      category: 'Pantry & Lounge',
-      desc: 'Relaxed common area for coffee breaks, informal chats, and team refreshments.',
-    },
-    {
-      src: '/SPACES/SERVICED OFFICE/6.png',
-      title: 'Full Floor Suite Overview',
-      category: 'Office Floor',
-      desc: 'Expansive overview of fully serviced floor layout and natural daylighting.',
-    },
-    {
-      src: '/SPACES/SERVICED OFFICE/7.png',
-      title: 'Executive Desk & View',
-      category: 'Executive Suite',
-      desc: 'Inspiring desk setup with panoramic CBD city view.',
-    },
-  ];
+  
+  useEffect(() => {
+    if (thumbContainerRef.current) {
+      const container = thumbContainerRef.current;
+      const activeThumb = container.children[activeImgIndex];
+      if (activeThumb) {
+        const leftPos = activeThumb.offsetLeft - (container.clientWidth / 2) + (activeThumb.clientWidth / 2);
+        container.scrollTo({ left: leftPos, behavior: 'smooth' });
+      }
+    }
+  }, [activeImgIndex]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -132,25 +136,31 @@ export default function SpaceServicedOfficePage({ setCurrentPage }) {
   };
 
   const amenities = [
-    'Furnished Workspaces', 'High-Speed Internet', 'Reception Support',
-    'Meeting Rooms', 'Daily Cleaning', 'All Utilities Included',
-    'Building Security', 'Professional Address', 'Pantry & Common Areas'
+    'Furnished Workspaces', 'High-Speed Internet', 'Reception',
+    'Meeting Rooms', 'Cleaning', 'Utilities',
+    'Building Security', 'Professional Address', 'Pantry / Common Areas'
   ];
 
   const useCases = [
-    'New market entry', 'Project teams', 'Satellite office',
-    'Startups', 'Consultants', 'Small companies', 'Temporary corporate office'
+    'New market entry',
+    'Project teams',
+    'Satellite offices',
+    'Startups',
+    'Consultants',
+    'Small companies',
+    'Branch offices',
+    'Temporary corporate offices'
   ];
 
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-amber-500/20 selection:text-amber-900">
       <Navbar currentPage="spaces" setCurrentPage={setCurrentPage} />
 
-      <main className="pt-24 sm:pt-28 pb-28 space-y-28 sm:space-y-36">
+      <main className="pt-24 sm:pt-28 pb-0 space-y-28 sm:space-y-36">
         
-        {/* BREADCRUMBS & HERO SECTION */}
+        
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          {/* Breadcrumbs */}
+          
           <nav className="flex items-center gap-2 text-xs sm:text-sm font-medium text-slate-500">
             <button
               onClick={() => {
@@ -176,15 +186,15 @@ export default function SpaceServicedOfficePage({ setCurrentPage }) {
             <span className="font-bold text-slate-900">Serviced Office</span>
           </nav>
 
-          {/* Hero Card */}
-          <div className="bg-[#FAF8F5] rounded-[32px] sm:rounded-[44px] p-8 sm:p-14 lg:p-16 border border-slate-200/80 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+          
+          <div className="bg-[#FAF8F5] rounded-2xl sm:rounded-[44px] p-8 sm:p-14 lg:p-16 border border-slate-200/80 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
             <div className="lg:col-span-6 space-y-6 flex flex-col justify-center">
-              <span className="px-2 py-1 rounded-full text-[#EA8E18] text-xs font-bold uppercase tracking-wider inline-block self-start">
+              <span className="px-2 py-1 rounded-full text-[#EA8E18] text-lg font-bold uppercase tracking-wider inline-block self-start">
                SERVICED OFFICE
               </span>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading text-slate-900 tracking-tight leading-[1.12]">
-                Your Office. <br className="hidden sm:inline" />
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-medium font-heading text-slate-900 tracking-tight leading-[1.12]">
+                Your Office. <br />
                 <span className="text-[#EA8E18]">Ready From Day One.</span>
               </h1>
 
@@ -195,7 +205,7 @@ export default function SpaceServicedOfficePage({ setCurrentPage }) {
               <div className="pt-2">
                 <button
                   onClick={() => {
-                    const formElem = document.getElementById('serviced-form');
+                    const formElem = document.getElementById('find-space');
                     if (formElem) formElem.scrollIntoView({ behavior: 'smooth' });
                   }}
                   className="px-8 py-3.5 rounded-full bg-[#EA8E18] hover:bg-[#d88010] text-white font-bold text-sm sm:text-base shadow-lg transition-all flex items-center gap-2 group"
@@ -207,51 +217,52 @@ export default function SpaceServicedOfficePage({ setCurrentPage }) {
             </div>
 
             <div className="lg:col-span-6 relative flex items-stretch">
-              <div className="rounded-[28px] overflow-hidden border border-slate-200/80 w-full h-full min-h-[280px] shadow-xl group bg-slate-100">
+              <div className="rounded-xl overflow-hidden border border-slate-200/80 w-full h-full min-h-[280px] shadow-xl group bg-slate-100">
                 <img
-                  src="/SPACES/SERVICED OFFICE/1.png"
+                  src="/SPACES/SERVICED OFFICE/1.webp?v=20260825"
                   alt="HQuarters Serviced Office Suite"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-cover object-bottom group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
             </div>
           </div>
         </section>
 
-        {/* COMPACT SERVICED OFFICE PHOTO GALLERY SLIDER */}
+        
+        <section className="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-4">
+          <h2 className="text-3xl sm:text-5xl font-medium font-heading text-slate-900 tracking-tight leading-tight">
+            Skip The Setup. <br />
+            <span className="text-[#EA8E18]">Start The Business.</span>
+          </h2>
+          <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto font-normal">
+            Building an office means contractors, furniture, internet, utilities, maintenance, reception, meeting facilities. At HQuarters Serviced Office, it's already taken care of.
+          </p>
+          <div className="font-bold text-[#EA8E18] text-lg font-heading pt-2">
+            You focus on the business. We handle the office.
+          </div>
+        </section>
+
+        
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           
-          {/* Header & Controls */}
+          
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-200/80 pb-4">
-            <div className="space-y-1.5">
-              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#EA8E18]">
-                <span className="w-5 h-[2px] bg-[#EA8E18] inline-block" />
-                <span>SERVICED OFFICE GALLERY</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-heading text-slate-900 tracking-tight">
-                Explore <span className="text-[#EA8E18]">Serviced Workspaces</span>
-              </h2>
-            </div>
-
-            {/* Hint & Nav Arrows */}
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-medium text-slate-500 hidden sm:inline">
-                Click "View Facilities" to enlarge photos
-              </span>
-            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium font-heading text-slate-900 tracking-tight">
+              Serviced Office <span className="text-[#EA8E18]">Details</span>
+            </h2>
           </div>
 
-          {/* Carousel Featured Image Area */}
+          
           <div className="relative">
-            {/* Main Image Container */}
-            <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[460px] rounded-[24px] sm:rounded-[32px] overflow-hidden bg-slate-900 group">
+            
+            <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] max-h-[640px] rounded-[24px] sm:rounded-2xl overflow-hidden bg-slate-900 shadow-xl group">
               <img
                 src={galleryImages[activeImgIndex]?.src}
                 alt={galleryImages[activeImgIndex]?.title}
-                className="w-full h-full object-cover transition-opacity duration-500"
+                className="w-full h-full object-cover object-center transition-opacity duration-500"
               />
 
-              {/* Left/Right Navigation Arrows */}
+              
               <button
                 onClick={() => setActiveImgIndex((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1))}
                 className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded bg-white/40 hover:bg-white/70 backdrop-blur-sm flex items-center justify-center text-slate-900 transition-all z-10"
@@ -265,7 +276,7 @@ export default function SpaceServicedOfficePage({ setCurrentPage }) {
                 <ChevronRight className="w-6 h-6" />
               </button>
 
-              {/* Floating Dots Pagination Overlay */}
+              
               <div className="absolute bottom-4 inset-x-0 flex items-center justify-center gap-2 z-10">
                 {galleryImages.map((_, idx) => (
                   <button
@@ -279,10 +290,10 @@ export default function SpaceServicedOfficePage({ setCurrentPage }) {
               </div>
             </div>
 
-            {/* Bottom Row: Thumbnails */}
+            
             <div className="flex items-center justify-start mt-6">
-              {/* Thumbnails */}
-              <div className="flex items-center gap-3 overflow-x-auto scrollbar-none pb-2 sm:pb-0 max-w-full">
+              
+              <div ref={thumbContainerRef} className="flex items-center gap-3 overflow-x-auto scroll-smooth scrollbar-none no-scrollbar pb-2 pt-1 max-w-full">
                 {galleryImages.map((img, idx) => (
                   <button
                     key={idx}
@@ -293,7 +304,7 @@ export default function SpaceServicedOfficePage({ setCurrentPage }) {
                         : 'border-transparent opacity-60 hover:opacity-100'
                     }`}
                   >
-                    <img src={img.src} alt={img.title} className="w-full h-full object-cover" />
+                    <img src={img.src} alt={img.title} className="w-full h-full object-cover object-center" />
                   </button>
                 ))}
               </div>
@@ -302,7 +313,7 @@ export default function SpaceServicedOfficePage({ setCurrentPage }) {
 
         </section>
 
-        {/* FULLSCREEN LIGHTBOX MODAL */}
+        
         {isLightboxOpen && createPortal(
           <AnimatePresence>
             <motion.div
@@ -311,7 +322,7 @@ export default function SpaceServicedOfficePage({ setCurrentPage }) {
               exit={{ opacity: 0 }}
               className="fixed inset-0 z-[99999] bg-slate-950/98 backdrop-blur-2xl flex flex-col justify-between p-4 sm:p-8 text-white h-screen w-screen overflow-hidden"
             >
-              {/* Top Modal Controls */}
+              
               <div className="flex items-center justify-between max-w-[1440px] w-full mx-auto">
                 <div className="space-y-0.5">
                   <span className="text-xs text-[#EA8E18] font-bold uppercase tracking-wider">
@@ -330,7 +341,7 @@ export default function SpaceServicedOfficePage({ setCurrentPage }) {
                 </button>
               </div>
 
-              {/* Main Image Display */}
+              
               <div className="relative max-w-[1200px] w-full mx-auto my-auto flex items-center justify-center h-[72vh]">
                 <img
                   src={galleryImages[activeImgIndex].src}
@@ -338,7 +349,7 @@ export default function SpaceServicedOfficePage({ setCurrentPage }) {
                   className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
                 />
 
-                {/* Modal Nav Arrows */}
+                
                 <button
                   onClick={() => setActiveImgIndex((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1))}
                   className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-3.5 sm:p-4 rounded-full bg-black/70 hover:bg-[#EA8E18] text-white transition-all cursor-pointer shadow-2xl border border-white/10"
@@ -356,9 +367,9 @@ export default function SpaceServicedOfficePage({ setCurrentPage }) {
                 </button>
               </div>
 
-              {/* Bottom Caption */}
+              
               <div className="max-w-xl mx-auto text-center space-y-1 pb-2">
-                <h4 className="text-lg font-bold font-heading text-white">
+                <h4 className="text-lg font-medium font-heading text-white">
                   {galleryImages[activeImgIndex].title}
                 </h4>
                 <p className="text-xs text-slate-400 font-normal">
@@ -370,28 +381,13 @@ export default function SpaceServicedOfficePage({ setCurrentPage }) {
           document.body
         )}
 
-        {/* STATEMENT 1: SKIP THE SETUP */}
-        <section className="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-4">
-          <h2 className="text-3xl sm:text-5xl font-bold font-heading text-slate-900 tracking-tight leading-tight">
-            Skip The Setup. <br className="hidden sm:inline" />
-            <span className="text-[#EA8E18]">Start The Business.</span>
-          </h2>
-          <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto font-normal">
-Building an office means contractors, furniture, internet, utilities, maintenance, reception, meeting facilities. At HQuarters Serviced Office, it's already taken care of.
-
-          </p>
-          <div className="font-bold text-[#EA8E18] text-lg font-heading pt-2">
-            You focus on the business. We handle the office.
-          </div>
-        </section>
-
-        {/* CHOOSE THE SPACE YOUR TEAM NEEDS */}
+        
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div className="text-center max-w-xl mx-auto space-y-2">
             <span className="text-xs font-bold text-[#EA8E18] uppercase tracking-widest inline-block">
-              — PRODUCTS
+              PRODUCTS
             </span>
-            <h2 className="text-3xl sm:text-4xl font-bold font-heading text-slate-900 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-medium font-heading text-slate-900 tracking-tight">
               Choose The Space Your Team Needs.
             </h2>
           </div>
@@ -401,9 +397,9 @@ Building an office means contractors, furniture, internet, utilities, maintenanc
               <div
                 key={item.title}
                 onClick={() => handleCapacityClick(item)}
-                className="bg-white p-7 rounded-[24px] border border-slate-200/80 shadow-sm text-center space-y-2 hover:border-[#EA8E18]/40 hover:shadow-xl transition-all cursor-pointer group"
+                className="bg-white p-7 rounded-xl border border-slate-200/80 shadow-sm text-center space-y-2 hover:border-[#EA8E18]/40 hover:shadow-xl transition-all cursor-pointer group"
               >
-                <h3 className="text-lg font-bold text-slate-900 font-heading group-hover:text-[#EA8E18] transition-colors">
+                <h3 className="text-lg font-medium text-slate-900 font-heading group-hover:text-[#EA8E18] transition-colors">
                   {item.title}
                 </h3>
                 <p className="text-xs text-slate-500 font-normal">
@@ -414,11 +410,14 @@ Building an office means contractors, furniture, internet, utilities, maintenanc
           </div>
         </section>
 
-        {/* EVERYTHING IS READY */}
+        
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-[#FAF8F5] rounded-[32px] sm:rounded-[40px] p-8 sm:p-14 border border-slate-200/80 space-y-8">
-            <div className="text-center max-w-xl mx-auto">
-              <h2 className="text-3xl sm:text-4xl font-bold font-heading text-slate-900 tracking-tight">
+          <div className="bg-[#FAF8F5] rounded-2xl sm:rounded-[40px] p-8 sm:p-14 border border-slate-200/80 space-y-8">
+            <div className="text-center max-w-xl mx-auto space-y-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-[#EA8E18] inline-block">
+                INCLUDED
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-medium font-heading text-slate-900 tracking-tight">
                 Everything Is Ready.
               </h2>
             </div>
@@ -434,9 +433,9 @@ Building an office means contractors, furniture, internet, utilities, maintenanc
           </div>
         </section>
 
-        {/* FLEXIBILITY SECTION */}
+        
         <section className="max-w-3xl mx-auto px-4 sm:px-6 text-center space-y-4">
-          <h2 className="text-3xl sm:text-4xl font-bold font-heading text-slate-900 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-medium font-heading text-slate-900 tracking-tight">
             Flexible When Your Business Needs To Be.
           </h2>
           <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-normal">
@@ -445,10 +444,10 @@ Team growing? Project ending? Setting up a temporary office? Opening Bandung rep
           </p>
         </section>
 
-        {/* DARK CALLOUT */}
+        
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-slate-900 text-white rounded-[32px] sm:rounded-[40px] p-8 sm:p-14 text-center border border-slate-800 space-y-4">
-            <h2 className="text-3xl sm:text-4xl font-bold font-heading text-white tracking-tight">
+          <div className="bg-slate-900 text-white rounded-2xl sm:rounded-[40px] p-8 sm:p-14 text-center border border-slate-800 space-y-4">
+            <h2 className="text-3xl sm:text-4xl font-medium font-heading text-white tracking-tight">
               Look Established From Day One.
             </h2>
             <p className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-xl mx-auto font-normal">
@@ -460,40 +459,45 @@ Team growing? Project ending? Setting up a temporary office? Opening Bandung rep
           </div>
         </section>
 
-        {/* USE CASES */}
+        
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold font-heading text-slate-900 tracking-tight">
-            Use Cases
-          </h2>
+          <div className="space-y-2">
+            <div className="text-xs font-bold uppercase tracking-widest text-[#EA8E18]">
+              PERFECT FOR
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-medium font-heading text-slate-900 tracking-tight">
+              Use Cases
+            </h2>
+          </div>
 
-          <div className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-3.5 max-w-4xl mx-auto">
             {useCases.map((useCase) => (
-              <span
+              <div
                 key={useCase}
-                className="px-5 py-2.5 rounded-full bg-slate-100 border border-slate-200/80 text-slate-800 font-bold text-xs sm:text-sm hover:bg-[#EA8E18] hover:text-white transition-colors"
+                className="py-3 px-4 rounded-full bg-white border border-slate-200/80 text-slate-800 font-medium text-xs sm:text-sm shadow-sm flex items-center justify-center text-center whitespace-nowrap"
               >
                 {useCase}
-              </span>
+              </div>
             ))}
           </div>
         </section>
 
-        {/* INQUIRY FORM CARD */}
+        
         <FindSpaceSection initialSpace="Serviced Office" initialNotes={selectedCapacityNote} />
 
-        {/* BOTTOM DARK BANNER */}
-        <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-slate-900 text-white rounded-[32px] sm:rounded-[40px] p-8 sm:p-14 text-center border border-slate-800 space-y-4 shadow-xl">
-            <h2 className="text-3xl sm:text-4xl font-bold font-heading text-white tracking-tight">
-              Your Team Could Be Working Here Tomorrow.
+        
+        <section className="!mt-14 sm:!mt-20 pt-16 sm:pt-24 pb-12 sm:pb-16 bg-[#231F20] text-white text-center relative overflow-hidden">
+          <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-6">
+            <h2 className="text-3xl sm:text-5xl font-medium font-heading text-white tracking-tight">
+              Your Team Could Be <br /><span className="text-[#EA8E18]">Working Here Tomorrow.</span>
             </h2>
-            <div>
+            <div className="pt-2 sm:pt-4">
               <button
                 onClick={() => {
                   if (setCurrentPage) setCurrentPage('find-space');
                   window.scrollTo(0, 0);
                 }}
-                className="px-8 py-3.5 rounded-full bg-[#EA8E18] hover:bg-[#d88010] text-white font-bold text-sm sm:text-base shadow-lg transition-all inline-flex items-center gap-2 group"
+                className="px-9 py-4 rounded-full bg-[#EA8E18] hover:bg-[#d88010] text-white font-semibold text-sm sm:text-base shadow-lg shadow-[#EA8E18]/25 hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer inline-flex items-center gap-2.5 group"
               >
                 <span>Book a Tour</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

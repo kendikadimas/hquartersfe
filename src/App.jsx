@@ -1,60 +1,148 @@
-import React, { useState } from 'react';
+﻿import React, { useState, useRef, lazy, Suspense } from 'react';
 import HomePage from './pages/HomePage.jsx';
-import SpacesPage from './pages/SpacesPage.jsx';
-import BuildingPage from './pages/BuildingPage.jsx';
-import LocationPage from './pages/LocationPage.jsx';
-import CompaniesPage from './pages/CompaniesPage.jsx';
-import InsightsPage from './pages/InsightsPage.jsx';
-import FindSpacePage from './pages/FindSpacePage.jsx';
-import ArticleDetailPage from './pages/ArticleDetailPage.jsx';
+import FloatingWhatsAppButton from './components/FloatingWhatsAppButton.jsx';
 
-import SpacePremiumOfficePage from './pages/SpacePremiumOfficePage.jsx';
-import SpaceSohoDuplexPage from './pages/SpaceSohoDuplexPage.jsx';
-import SpaceServicedOfficePage from './pages/SpaceServicedOfficePage.jsx';
-import SpaceVirtualOfficePage from './pages/SpaceVirtualOfficePage.jsx';
+const SpacesPage = lazy(() => import('./pages/SpacesPage.jsx'));
+const BuildingPage = lazy(() => import('./pages/BuildingPage.jsx'));
+const LocationPage = lazy(() => import('./pages/LocationPage.jsx'));
+const CompaniesPage = lazy(() => import('./pages/CompaniesPage.jsx'));
+const InsightsPage = lazy(() => import('./pages/InsightsPage.jsx'));
+const FindSpacePage = lazy(() => import('./pages/FindSpacePage.jsx'));
+const ArticleDetailPage = lazy(() => import('./pages/ArticleDetailPage.jsx'));
+const SpacePremiumOfficePage = lazy(() => import('./pages/SpacePremiumOfficePage.jsx'));
+const SpaceSohoDuplexPage = lazy(() => import('./pages/SpaceSohoDuplexPage.jsx'));
+const SpaceServicedOfficePage = lazy(() => import('./pages/SpaceServicedOfficePage.jsx'));
+const SpaceVirtualOfficePage = lazy(() => import('./pages/SpaceVirtualOfficePage.jsx'));
+const EventFunctionRoomPage = lazy(() => import('./pages/EventFunctionRoomPage.jsx'));
+
+const PAGE_PATHS = {
+  home: '/',
+  spaces: '/spaces',
+  'space-premium-office': '/spaces/premium-office',
+  'space-soho-duplex': '/spaces/soho',
+  'space-soho': '/spaces/soho',
+  'space-serviced-office': '/spaces/serviced-office',
+  'space-virtual-office': '/spaces/virtual-office',
+  'space-event': '/events',
+  event: '/events',
+  events: '/events',
+  'function-room': '/events',
+  'space-function-room': '/events',
+  'find-space': '/find-space',
+  insights: '/insights',
+  companies: '/companies',
+  location: '/location',
+  building: '/building',
+};
+
+function pageFromPath(pathname) {
+  const p = (pathname || '/').replace(/\/+$/, '') || '/';
+  if (p.startsWith('/insights/')) {
+    return { page: 'article-detail', articleId: decodeURIComponent(p.slice('/insights/'.length)) };
+  }
+  for (const [key, path] of Object.entries(PAGE_PATHS)) {
+    if (p === path) return { page: key };
+  }
+  return { page: 'home' };
+}
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState('home');
-  const [selectedArticleId, setSelectedArticleId] = useState('art-1');
+  const initial = pageFromPath(window.location.pathname);
+  const [currentPage, setCurrentPage] = useState(initial.page);
+  const [selectedArticleId, setSelectedArticleId] = useState(initial.articleId || 'art-1');
+  const articleIdRef = useRef(selectedArticleId);
+
+  React.useEffect(() => {
+    const onPopState = () => {
+      const r = pageFromPath(window.location.pathname);
+      setCurrentPage(r.page);
+      if (r.articleId) {
+        articleIdRef.current = r.articleId;
+        setSelectedArticleId(r.articleId);
+      }
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
+
+  const navigate = (page) => {
+    setCurrentPage(page);
+    const path = page === 'article-detail' ? `/insights/${articleIdRef.current}` : PAGE_PATHS[page] || '/';
+    window.history.pushState({}, '', path);
+  };
+
+  const selectArticle = (id) => {
+    articleIdRef.current = id;
+    setSelectedArticleId(id);
+  };
+
+  React.useEffect(() => {
+    const pageTitles = {
+      'home': 'Homepage - HQuarters',
+      'spaces': 'Spaces - HQuarters',
+      'space-premium-office': 'Premium Office - HQuarters',
+      'space-soho-duplex': 'SOHO - HQuarters',
+      'space-soho': 'SOHO - HQuarters',
+      'space-serviced-office': 'Serviced Office - HQuarters',
+      'space-virtual-office': 'Virtual Office - HQuarters',
+      'space-event': 'Function Room - HQuarters',
+      'event': 'Function Room - HQuarters',
+      'events': 'Function Room - HQuarters',
+      'function-room': 'Function Room - HQuarters',
+      'space-function-room': 'Function Room - HQuarters',
+      'building': 'Building & Facilities - HQuarters',
+      'location': 'Location - HQuarters',
+      'companies': 'Companies - HQuarters',
+      'insights': 'Insights - HQuarters',
+      'article-detail': 'Article - HQuarters',
+      'find-space': 'Find Space - HQuarters',
+    };
+
+    document.title = pageTitles[currentPage] || 'Homepage - HQuarters';
+  }, [currentPage]);
 
   return (
-    <>
+    <Suspense fallback={null}>
       {currentPage === 'space-premium-office' ? (
-        <SpacePremiumOfficePage setCurrentPage={setCurrentPage} />
+        <SpacePremiumOfficePage setCurrentPage={navigate} />
       ) : currentPage === 'space-soho-duplex' ? (
-        <SpaceSohoDuplexPage setCurrentPage={setCurrentPage} />
-      ) : currentPage === 'space-[#soho-duplex]' ? (
-        <SpaceSohoDuplexPage setCurrentPage={setCurrentPage} />
+        <SpaceSohoDuplexPage setCurrentPage={navigate} />
       ) : currentPage === 'space-soho' ? (
-        <SpaceSohoDuplexPage setCurrentPage={setCurrentPage} />
+        <SpaceSohoDuplexPage setCurrentPage={navigate} />
       ) : currentPage === 'space-serviced-office' ? (
-        <SpaceServicedOfficePage setCurrentPage={setCurrentPage} />
+        <SpaceServicedOfficePage setCurrentPage={navigate} />
       ) : currentPage === 'space-virtual-office' ? (
-        <SpaceVirtualOfficePage setCurrentPage={setCurrentPage} />
+        <SpaceVirtualOfficePage setCurrentPage={navigate} />
+      ) : currentPage === 'space-event' || currentPage === 'event' || currentPage === 'events' || currentPage === 'function-room' || currentPage === 'space-function-room' ? (
+        <EventFunctionRoomPage setCurrentPage={navigate} />
       ) : currentPage === 'find-space' ? (
-        <FindSpacePage setCurrentPage={setCurrentPage} />
+        <FindSpacePage setCurrentPage={navigate} />
       ) : currentPage === 'article-detail' ? (
         <ArticleDetailPage
-          setCurrentPage={setCurrentPage}
+          setCurrentPage={navigate}
           articleId={selectedArticleId}
-          setSelectedArticleId={setSelectedArticleId}
+          setSelectedArticleId={selectArticle}
         />
       ) : currentPage === 'insights' ? (
         <InsightsPage
-          setCurrentPage={setCurrentPage}
-          setSelectedArticleId={setSelectedArticleId}
+          setCurrentPage={navigate}
+          setSelectedArticleId={selectArticle}
         />
       ) : currentPage === 'companies' ? (
-        <CompaniesPage setCurrentPage={setCurrentPage} />
+        <CompaniesPage setCurrentPage={navigate} />
       ) : currentPage === 'location' ? (
-        <LocationPage setCurrentPage={setCurrentPage} />
+        <LocationPage setCurrentPage={navigate} />
       ) : currentPage === 'building' ? (
-        <BuildingPage setCurrentPage={setCurrentPage} />
+        <BuildingPage setCurrentPage={navigate} />
       ) : currentPage === 'spaces' ? (
-        <SpacesPage setCurrentPage={setCurrentPage} />
+        <SpacesPage setCurrentPage={navigate} />
       ) : (
-        <HomePage setCurrentPage={setCurrentPage} />
+        <HomePage setCurrentPage={navigate} />
       )}
-    </>
+
+      
+      <FloatingWhatsAppButton />
+    </Suspense>
   );
 }

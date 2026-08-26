@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { motion } from 'framer-motion';
 import {
   MapPin,
@@ -26,25 +26,16 @@ export default function LocationSection({ setCurrentPage }) {
     { name: 'Toll Access*', desc: 'Fast Direct Express Connection to Pasteur & Buah Batu Toll Gates', icon: Car },
   ];
 
-  const businessOutsideItems = [
-    { title: 'Client Lunch', subtitle: 'Fine dining & executive bistros', icon: Utensils },
-    { title: 'Hotel Meetings', subtitle: 'Luxury hotel ballrooms & lounges', icon: Building },
-    { title: 'Coffee', subtitle: 'Artisanal cafes & meeting spots', icon: Coffee },
-    { title: 'Banking', subtitle: 'Major bank HQs & wealth hubs', icon: BankIcon },
-    { title: 'Government Affairs', subtitle: 'Civic offices & municipal halls', icon: Landmark },
-    { title: 'Shopping', subtitle: 'Lifestyle malls & retail centers', icon: ShoppingBag },
-  ];
-
   return (
     <section id="location" className="pt-4 sm:pt-6 pb-16 bg-white">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         
-        {/* ========================================================================= */}
-        {/* 1. HEADER SECTION */}
-        {/* ========================================================================= */}
+        
+        
+        
         <div className="text-center max-w-3xl mx-auto space-y-4">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 font-heading tracking-tight leading-[1.12]">
-            At The Centre Of <br className="hidden sm:inline" />
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-medium text-slate-900 font-heading tracking-tight leading-[1.12]">
+            At The Centre Of <br />
             <span className="text-[#EA8E18]">Bandung Business.</span>
           </h1>
           <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-xl mx-auto font-normal">
@@ -52,19 +43,19 @@ export default function LocationSection({ setCurrentPage }) {
           </p>
         </div>
 
-        {/* ========================================================================= */}
-        {/* 2. MAP & CLOSER TO EVERYTHING THAT MATTERS */}
-        {/* ========================================================================= */}
+        
+        
+        
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="bg-slate-50/80 rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 border border-slate-200/80 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+          className="bg-slate-50/80 rounded-2xl sm:rounded-[40px] p-8 sm:p-12 border border-slate-200/80 shadow-sm grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
         >
-          {/* Left Interactive Map Card */}
+          
           <div className="lg:col-span-6">
-            <div className="relative rounded-[24px] overflow-hidden shadow-lg border border-slate-200 aspect-[4/3] bg-slate-100">
+            <div className="relative rounded-xl overflow-hidden shadow-lg border border-slate-200 aspect-[4/3] bg-slate-100">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.7328941393102!2d107.61305377499647!3d-6.922500093077204!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e62eaa6b6423%3A0xb2cdc805dd650314!2sHQuarters%20Business%20Residence!5e0!3m2!1sid!2sid!4v1785903189677!5m2!1sid!2sid"
                 className="w-full h-full border-0"
@@ -76,15 +67,15 @@ export default function LocationSection({ setCurrentPage }) {
             </div>
           </div>
 
-          {/* Right Text: Closer To Everything That Matters */}
+          
           <div className="lg:col-span-6 space-y-6">
             <div>
-              <h2 className="text-3xl sm:text-4xl font-bold font-heading text-slate-900">
-                Closer To <span className="text-[#EA8E18]">Everything That Matters.</span>
+              <h2 className="text-3xl sm:text-4xl font-medium font-heading text-slate-900">
+                Closer To <br /><span className="text-[#EA8E18]">Everything That Matters.</span>
               </h2>
             </div>
 
-            {/* 8 Nearby Categories Grid */}
+            
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               {nearbyCategories.map((item) => {
                 const Icon = item.icon;
@@ -97,7 +88,7 @@ export default function LocationSection({ setCurrentPage }) {
                       <Icon className="w-4 h-4" />
                     </div>
                     <div className="text-sm font-bold text-slate-900 group-hover:text-[#EA8E18] transition-colors">
-                      — {item.name}
+                      {item.name}
                     </div>
                   </div>
                 );
@@ -106,19 +97,19 @@ export default function LocationSection({ setCurrentPage }) {
           </div>
         </motion.div>
 
-        {/* ========================================================================= */}
-        {/* 3. YOUR CLIENTS ALREADY KNOW THE ADDRESS */}
-        {/* ========================================================================= */}
+        
+        
+        
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="bg-[#FAF8F5] rounded-[32px] sm:rounded-[40px] p-8 sm:p-16 text-center border border-slate-200/80 relative overflow-hidden"
+          className="bg-[#FAF8F5] rounded-2xl sm:rounded-[40px] p-8 sm:p-16 text-center border border-slate-200/80 relative overflow-hidden"
         >
           <div className="max-w-3xl mx-auto space-y-4">
-            <h2 className="text-3xl sm:text-5xl font-bold font-heading text-slate-900 tracking-tight leading-[1.15]">
-              Your Clients Already Know <br className="hidden sm:inline" />
+            <h2 className="text-3xl sm:text-5xl font-medium font-heading text-slate-900 tracking-tight leading-[1.15]">
+              Your Clients Already Know <br />
               <span className="text-[#EA8E18]">The Address.</span>
             </h2>
 
@@ -126,54 +117,23 @@ export default function LocationSection({ setCurrentPage }) {
               There's a real psychological advantage when a company address doesn't need explaining. Asia Afrika is familiar and recognisable.
             </p>
 
-            <div className="pt-4">
-              <span className="inline-block px-6 py-2.5 rounded-full bg-slate-900 text-white font-extrabold text-sm sm:text-base font-heading tracking-wide shadow-md">
-                Easy to find. Easy to remember.
-              </span>
+            <div className="pt-2 font-bold text-[#EA8E18] text-base sm:text-lg font-heading">
+              Easy to find. Easy to remember.
             </div>
           </div>
         </motion.div>
 
-        {/* ========================================================================= */}
-        {/* 4. BUSINESS OUTSIDE THE OFFICE */}
-        {/* ========================================================================= */}
-        <div className="space-y-8">
-          <div className="text-center max-w-2xl mx-auto space-y-2">
-            <h2 className="text-3xl sm:text-4xl font-bold font-heading text-slate-900 tracking-tight">
-              Business Outside <span className="text-[#EA8E18]">The Office.</span>
-            </h2>
-            <p className="text-slate-600 text-base font-normal">
-              Client lunch. Hotel meetings. Coffee. Banking. Government affairs. Shopping. All close by.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {businessOutsideItems.map((item, i) => {
-              const Icon = item.icon;
-              return (
-                <motion.div
-                  key={item.title}
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: i * 0.06 }}
-                  className="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex items-start gap-4"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-slate-100 group-hover:bg-[#EA8E18] text-slate-800 group-hover:text-white flex items-center justify-center shrink-0 transition-colors">
-                    <Icon className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-slate-900 font-heading group-hover:text-[#EA8E18] transition-colors">
-                      {item.title}
-                    </h3>
-                    <p className="text-slate-600 text-xs sm:text-sm mt-1 leading-relaxed">
-                      {item.subtitle}
-                    </p>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
+        
+        
+        
+        <div className="text-center max-w-3xl mx-auto space-y-4 pt-6 sm:pt-8">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium font-heading text-slate-900 tracking-tight leading-tight">
+            Business Outside <br /><span className="text-[#EA8E18]">The Office.</span>
+          </h2>
+          <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto font-normal">
+            Client lunch. Hotel meetings. Coffee. Banking. Government affairs. <br />
+            Shopping. All close by.
+          </p>
         </div>
 
       </div>

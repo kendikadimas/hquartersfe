@@ -11,5 +11,12 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true,
+    proxy: {
+      '/wp-json': {
+        target: 'https://hquarters.co.id',
+        changeOrigin: true,
+        secure: true,
+      },
+    },
   },
 });

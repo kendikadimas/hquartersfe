@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+﻿import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar.jsx';
 import Hero from '../components/Hero.jsx';
 import Partners from '../components/Partners.jsx';
@@ -25,9 +25,9 @@ export default function HomePage({ setCurrentPage }) {
         <AddressStatement setCurrentPage={setCurrentPage} />
         <Partners setCurrentPage={setCurrentPage} />
         <BuildingHighlights setCurrentPage={setCurrentPage} />
-        {/* <Features /> */}
-        {/* <InteractiveDemo /> */}
-        {/* <StatsSection /> */}
+        
+        
+        
         <CTA setCurrentPage={setCurrentPage} />
       </main>
       <Footer setCurrentPage={setCurrentPage} />

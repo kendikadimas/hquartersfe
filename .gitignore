@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+*.zip
+staging/
+archive-images-original/
+archive-gambar-revisi-original/
+docs/
+New folder/

@@ -1,20 +1,23 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, ChevronRight, Home } from 'lucide-react';
+import { ArrowRight, ChevronRight, Home, Check, X } from 'lucide-react';
 import Navbar from '../components/Navbar.jsx';
 import Footer from '../components/Footer.jsx';
 import FindSpaceSection from '../components/FindSpaceSection.jsx';
 
 export default function SpaceVirtualOfficePage({ setCurrentPage }) {
+  const [selectedPackage, setSelectedPackage] = useState('Virtual Office Standard');
   const [selectedPackageNote, setSelectedPackageNote] = useState('');
 
   const handlePackageClick = (pkg) => {
-    setSelectedPackageNote(`Virtual Office Package: ${pkg.title}`);
+    setSelectedPackage(pkg.title);
+    setSelectedPackageNote(`Virtual Office Package: ${pkg.title} (${pkg.price})`);
     const formElem = document.getElementById('find-space');
     if (formElem) {
       formElem.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -34,21 +37,78 @@ export default function SpaceVirtualOfficePage({ setCurrentPage }) {
   ];
 
   const packages = [
-    { title: 'Basic Address', desc: 'Prestigious Asia Afrika CBD address & mail receipt' },
-    { title: 'Business', desc: 'Address + Mail handling + Legal business domicile letter' },
-    { title: 'Professional', desc: 'Full address + Domicile + Phone line & monthly meeting room hours' },
-    { title: 'Custom', desc: 'Tailored Enterprise virtual office & multi-city representation' },
+    {
+      title: 'Business Address',
+      price: 'Rp 413,000',
+      period: '/ month',
+      popular: false,
+      features: [
+        { name: 'Professional Business Address (not eligible for Legal Address)', included: true },
+        { name: 'Mail Handling', included: true },
+        { name: 'Local Telephone Number', included: false },
+        { name: 'Handling Calls in Your Company/Name', included: false },
+        { name: 'Unlimited Business Lounge Access (120 countries)', included: false },
+        { name: 'Community Meeting Room usage (2 hours/day)', included: false },
+        { name: 'Private Office Access (1 workstation) 5 days/month at home centre', included: false },
+      ],
+    },
+    {
+      title: 'Phone Answering',
+      price: 'Rp 530,000',
+      period: '/ month',
+      popular: false,
+      features: [
+        { name: 'Professional Business Address', included: false },
+        { name: 'Mail Handling', included: false },
+        { name: 'Local Telephone Number', included: true },
+        { name: 'Handling Calls in Your Company/Name', included: true },
+        { name: 'Unlimited Business Lounge Access (120 countries)', included: false },
+        { name: 'Community Meeting Room usage (2 hours/day)', included: false },
+        { name: 'Private Office Access (1 workstation) 5 days/month at home centre', included: false },
+      ],
+    },
+    {
+      title: 'Virtual Office Standard',
+      price: 'Rp 883,000',
+      period: '/ month',
+      badge: 'POPULAR',
+      popular: true,
+      features: [
+        { name: 'Professional Business Address (eligible for Legal Address)', included: true },
+        { name: 'Mail Handling', included: true },
+        { name: 'Local Telephone Number', included: true },
+        { name: 'Handling Calls in Your Company/Name', included: true },
+        { name: 'Unlimited Business Lounge Access (120 countries)', included: true },
+        { name: 'Community Meeting Room usage (2 hours/day)', included: true },
+        { name: 'Private Office Access (1 workstation) 5 days/month at home centre', included: false },
+      ],
+    },
+    {
+      title: 'Virtual Office Plus',
+      price: 'Rp 1,354,000',
+      period: '/ month',
+      popular: false,
+      features: [
+        { name: 'Professional Business Address (eligible for Legal Address)', included: true },
+        { name: 'Mail Handling', included: true },
+        { name: 'Local Telephone Number', included: true },
+        { name: 'Handling Calls in Your Company/Name', included: true },
+        { name: 'Unlimited Business Lounge Access (120 countries)', included: true },
+        { name: 'Community Meeting Room usage (2 hours/day)', included: true },
+        { name: 'Private Office Access (1 workstation) 5 days/month at home centre', included: true },
+      ],
+    },
   ];
 
   return (
     <div className="min-h-screen bg-white text-slate-900 selection:bg-amber-500/20 selection:text-amber-900">
       <Navbar currentPage="spaces" setCurrentPage={setCurrentPage} />
 
-      <main className="pt-24 sm:pt-28 pb-28 space-y-28 sm:space-y-36">
+      <main className="pt-24 sm:pt-28 pb-0 space-y-28 sm:space-y-36">
         
-        {/* BREADCRUMBS & HERO SECTION */}
+        
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          {/* Breadcrumbs */}
+          
           <nav className="flex items-center gap-2 text-xs sm:text-sm font-medium text-slate-500">
             <button
               onClick={() => {
@@ -74,15 +134,15 @@ export default function SpaceVirtualOfficePage({ setCurrentPage }) {
             <span className="font-bold text-slate-900">Virtual Office</span>
           </nav>
 
-          {/* Hero Card */}
-          <div className="bg-[#FAF8F5] rounded-[32px] sm:rounded-[44px] p-8 sm:p-14 lg:p-16 border border-slate-200/80 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+          
+          <div className="bg-[#FAF8F5] rounded-2xl sm:rounded-[44px] p-8 sm:p-14 lg:p-16 border border-slate-200/80 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
             <div className="lg:col-span-6 space-y-6 flex flex-col justify-center">
-              <span className="px-2 py-1 rounded-full text-[#EA8E18] text-xs font-bold uppercase tracking-wider inline-block self-start">
+              <span className="px-2 py-1 rounded-full text-[#EA8E18] text-lg font-bold uppercase tracking-wider inline-block self-start">
                 VIRTUAL OFFICE
               </span>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading text-slate-900 tracking-tight leading-[1.12]">
-                A Better Address for <br className="hidden sm:inline" />
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-medium font-heading text-slate-900 tracking-tight leading-[1.12]">
+                A Better Address for <br />
                 <span className="text-[#EA8E18]">Your Business.</span>
               </h1>
 
@@ -102,32 +162,24 @@ export default function SpaceVirtualOfficePage({ setCurrentPage }) {
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
-
-              {/* <div className="pt-4 border-t border-slate-200/80 flex flex-wrap items-center gap-3 text-xs text-slate-500 font-semibold">
-                <span className="flex items-center gap-1 text-[#EA8E18]">✓ Asia Afrika CBD Domicile</span>
-                <span>•</span>
-                <span>Mail & Reception Handling</span>
-                <span>•</span>
-                <span>Meeting Room Hours Included</span>
-              </div> */}
             </div>
 
             <div className="lg:col-span-6 relative flex items-stretch">
-              <div className="rounded-[28px] overflow-hidden border border-slate-200/80 w-full h-full min-h-[280px] shadow-xl group bg-slate-100">
+              <div className="rounded-xl overflow-hidden border border-slate-200/80 w-full h-full min-h-[280px] shadow-xl group bg-slate-100">
                 <img
-                  src="/SPACES/SERVICED OFFICE/6.png"
+                  src="/SPACES/SERVICED OFFICE/6.webp?v=20260825"
                   alt="HQuarters Virtual Office Domicile"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-cover object-bottom group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
             </div>
           </div>
         </section>
 
-        {/* STATEMENT 1: YOU DON'T ALWAYS NEED AN OFFICE */}
+        
         <section className="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-4">
-          <h2 className="text-3xl sm:text-5xl font-bold font-heading text-slate-900 tracking-tight leading-tight">
-            You Don’t Always Need An Office. <br className="hidden sm:inline" />
+          <h2 className="text-3xl sm:text-5xl font-medium font-heading text-slate-900 tracking-tight leading-tight">
+            You Don't Always Need An Office. <br />
             <span className="text-[#EA8E18]">But Your Business Still Needs A Presence.</span>
           </h2>
           <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto font-normal">
@@ -135,11 +187,14 @@ export default function SpaceVirtualOfficePage({ setCurrentPage }) {
           </p>
         </section>
 
-        {/* INCLUDED: MORE THAN JUST AN ADDRESS */}
+        
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-[#FAF8F5] rounded-[32px] sm:rounded-[40px] p-8 sm:p-14 border border-slate-200/80 space-y-8 max-w-4xl mx-auto">
-            <div className="text-center max-w-xl mx-auto">
-              <h2 className="text-3xl sm:text-4xl font-bold font-heading text-slate-900 tracking-tight">
+          <div className="bg-[#FAF8F5] rounded-2xl sm:rounded-[40px] p-8 sm:p-14 border border-slate-200/80 space-y-8 max-w-4xl mx-auto">
+            <div className="text-center max-w-xl mx-auto space-y-2">
+              <span className="text-xs font-bold uppercase tracking-widest text-[#EA8E18] inline-block">
+                INCLUDED
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-medium font-heading text-slate-900 tracking-tight">
                 More Than Just An Address.
               </h2>
             </div>
@@ -159,10 +214,10 @@ export default function SpaceVirtualOfficePage({ setCurrentPage }) {
           </div>
         </section>
 
-        {/* DARK STATEMENT BANNER */}
+        
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-slate-900 text-white rounded-[32px] sm:rounded-[40px] p-8 sm:p-14 text-center border border-slate-800 space-y-4 shadow-xl">
-            <h2 className="text-3xl sm:text-4xl font-bold font-heading text-white tracking-tight">
+          <div className="bg-slate-900 text-white rounded-2xl sm:rounded-[40px] p-8 sm:p-14 text-center border border-slate-800 space-y-4 shadow-xl">
+            <h2 className="text-3xl sm:text-4xl font-medium font-heading text-white tracking-tight">
               Work From Anywhere. Be Present Here.
             </h2>
             <p className="text-slate-300 text-base sm:text-lg leading-relaxed max-w-xl mx-auto font-normal">
@@ -174,67 +229,164 @@ export default function SpaceVirtualOfficePage({ setCurrentPage }) {
           </div>
         </section>
 
-        {/* PERFECT FOR */}
+        
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold font-heading text-slate-900 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-medium font-heading text-slate-900 tracking-tight">
             Perfect For
           </h2>
 
-          <div className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 max-w-4xl mx-auto">
             {perfectForPills.map((pill) => (
-              <span
+              <div
                 key={pill}
-                className="px-5 py-2.5 rounded-full bg-slate-100 border border-slate-200/80 text-slate-800 font-bold text-xs sm:text-sm hover:bg-[#EA8E18] hover:text-white transition-colors"
+                className="py-2.5 sm:py-3 px-6 sm:px-7 rounded-full bg-white border border-slate-200/80 text-slate-800 font-medium text-xs sm:text-sm shadow-sm flex items-center justify-center whitespace-nowrap"
               >
                 {pill}
-              </span>
-            ))}
-          </div>
-        </section>
-
-        {/* CHOOSE YOUR PACKAGE */}
-        <section id="vo-packages" className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-          <div className="text-center max-w-xl mx-auto space-y-2">
-            <span className="text-xs font-bold text-[#EA8E18] uppercase tracking-widest inline-block">
-              — PACKAGES
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-bold font-heading text-slate-900 tracking-tight">
-              Choose Your Package.
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {packages.map((pkg) => (
-              <div
-                key={pkg.title}
-                onClick={() => handlePackageClick(pkg)}
-                className="bg-white p-7 rounded-[24px] border border-slate-200/80 shadow-sm text-center flex items-center justify-center min-h-[96px] hover:border-[#EA8E18]/40 hover:shadow-xl transition-all cursor-pointer group"
-              >
-                <h3 className="text-base sm:text-lg font-bold text-slate-900 font-heading group-hover:text-[#EA8E18] transition-colors">
-                  {pkg.title}
-                </h3>
               </div>
             ))}
           </div>
         </section>
 
-        <FindSpaceSection initialSpace="Virtual Office" initialNotes={selectedPackageNote} />
-
-        {/* BOTTOM DARK BANNER */}
-        <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-slate-900 text-white rounded-[32px] sm:rounded-[40px] p-8 sm:p-14 text-center border border-slate-800 space-y-4 shadow-xl">
-            <h2 className="text-3xl sm:text-4xl font-bold font-heading text-white tracking-tight">
-              Every Business Needs Somewhere To Begin.
+        
+        <section id="vo-packages" className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+          <div className="text-center max-w-xl mx-auto space-y-2">
+            <span className="text-xs font-bold text-[#EA8E18] uppercase tracking-widest inline-block">
+              PACKAGES
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-medium font-heading text-slate-900 tracking-tight">
+              Choose Your Package.
             </h2>
+            <p className="text-slate-500 text-sm sm:text-base font-normal">
+              Month-to-month pricing, nett.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 items-stretch">
+            {packages.map((pkg) => (
+              <div
+                key={pkg.title}
+                onClick={() => handlePackageClick(pkg)}
+                className={`rounded-xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 relative cursor-pointer group hover:-translate-y-2 hover:shadow-2xl ${
+                  pkg.popular
+                    ? 'bg-[#FAF8F5] border-2 border-[#EA8E18] shadow-xl ring-1 ring-[#EA8E18]/30 hover:ring-2 hover:ring-[#EA8E18]/50'
+                    : 'bg-white border border-slate-200/90 shadow-sm hover:border-[#EA8E18]/60'
+                }`}
+              >
+                {pkg.popular && (
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
+                    <span className="bg-[#EA8E18] text-white text-[10px] font-extrabold uppercase tracking-wider py-1 px-3.5 rounded-full shadow-md">
+                      {pkg.badge}
+                    </span>
+                  </div>
+                )}
+
+                <div className="space-y-5">
+                  
+                  <div className="space-y-2 pt-1">
+                    <h3 className="text-lg sm:text-xl font-medium font-heading text-slate-900 min-h-[56px] flex items-center group-hover:text-[#EA8E18] transition-colors">
+                      {pkg.title}
+                    </h3>
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-2xl sm:text-3xl font-medium font-heading text-slate-900 tracking-tight">
+                        {pkg.price}
+                      </span>
+                      <span className="text-xs text-slate-500 font-normal">
+                        {pkg.period}
+                      </span>
+                    </div>
+                  </div>
+
+                  <hr className="border-slate-200/70" />
+
+                  
+                  <div className="space-y-3">
+                    <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                      Included Facilities
+                    </div>
+                    <ul className="space-y-3">
+                      {pkg.features.map((feat, idx) => (
+                        <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm">
+                          {feat.included ? (
+                            <Check className="w-4 h-4 text-[#EA8E18] shrink-0 mt-0.5" />
+                          ) : (
+                            <X className="w-4 h-4 text-slate-300 shrink-0 mt-0.5" />
+                          )}
+                          <span
+                            className={`leading-snug ${
+                              feat.included
+                                ? 'text-slate-800 font-normal'
+                                : 'text-slate-400 font-normal opacity-50'
+                            }`}
+                          >
+                            {feat.name}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="pt-6 mt-6 border-t border-slate-200/70">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handlePackageClick(pkg);
+                    }}
+                    className={`w-full py-3 px-4 rounded-full font-bold text-xs sm:text-sm transition-all cursor-pointer flex items-center justify-center gap-2 group-hover:scale-[1.02] ${
+                      pkg.popular
+                        ? 'bg-[#EA8E18] group-hover:bg-[#d88010] text-white shadow-md'
+                        : 'bg-slate-900 group-hover:bg-[#EA8E18] text-white shadow-sm'
+                    }`}
+                  >
+                    <span>Select Package</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center space-y-4 pt-2">
+            <p className="text-xs text-slate-500 max-w-2xl mx-auto font-normal italic">
+              Prices are subject to change without prior notice. Please contact us for the latest pricing and package details.
+            </p>
             <div>
+              <button
+                onClick={() => {
+                  const formElem = document.getElementById('find-space');
+                  if (formElem) formElem.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-8 py-3.5 rounded-full bg-[#EA8E18] hover:bg-[#d88010] text-white font-semibold text-sm sm:text-base shadow-lg shadow-[#EA8E18]/25 hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer inline-flex items-center gap-2 group"
+              >
+                <span>Book Now</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <FindSpaceSection 
+          initialSpace="Virtual Office" 
+          initialPackage={selectedPackage}
+          initialNotes={selectedPackageNote} 
+        />
+
+        
+        <section className="!mt-14 sm:!mt-20 pt-16 sm:pt-24 pb-12 sm:pb-16 bg-[#231F20] text-white text-center relative overflow-hidden">
+          <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-6">
+            <h2 className="text-3xl sm:text-5xl font-medium font-heading text-white tracking-tight">
+              Every Business Needs <br /><span className="text-[#EA8E18]">Somewhere To Begin.</span>
+            </h2>
+            <div className="pt-2 sm:pt-4">
               <button
                 onClick={() => {
                   if (setCurrentPage) setCurrentPage('find-space');
                   window.scrollTo(0, 0);
                 }}
-                className="font-bold text-[#EA8E18] hover:text-[#d88010] text-lg font-heading underline underline-offset-4 cursor-pointer"
+                className="px-9 py-4 rounded-full bg-[#EA8E18] hover:bg-[#d88010] text-white font-semibold text-sm sm:text-base shadow-lg shadow-[#EA8E18]/25 hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer inline-flex items-center gap-2.5 group"
               >
-                Begin at HQuarters.
+                <span>Begin at HQuarters</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
           </div>

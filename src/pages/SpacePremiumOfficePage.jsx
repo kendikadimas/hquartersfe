@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, CheckCircle2, Building2, Shield, Wifi, MapPin, Users, HeartHandshake, ChevronRight, ChevronLeft, Home, Sparkles, Maximize2, X } from 'lucide-react';
@@ -19,61 +19,33 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
   const [activeImgIndex, setActiveImgIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [teamSizeNote, setTeamSizeNote] = useState('');
-  const [facilityTab, setFacilityTab] = useState('gym');
   const [facilityActiveImg, setFacilityActiveImg] = useState(0);
+
+  const thumbContainerRef = useRef(null);
+  const facilityThumbContainerRef = useRef(null);
 
   const facilitiesGallery = [
     {
       id: 1,
-      src: '/FASILITAS/GYM/gym 01.png',
+      src: '/BUILDING/gym 01.webp?v=20260825',
       title: 'State-of-the-Art Fitness Center',
-      category: 'gym',
     },
     {
       id: 2,
-      src: '/FASILITAS/GYM/Gym 02.png',
-      title: 'Cardio & Strength Training Zone',
-      category: 'gym',
+      src: '/BUILDING/gym 5_4.webp?v=20260825',
+      title: 'Fitness & Conditioning Studio',
     },
     {
       id: 3,
-      src: '/FASILITAS/GYM/GYM 03.png',
-      title: 'Executive Workout Deck',
-      category: 'gym',
+      src: '/BUILDING/sauna 5_4.webp?v=20260825',
+      title: 'Recovery & Relaxation Suite',
     },
     {
       id: 4,
-      src: '/FASILITAS/SAUNA/sauna 01.png',
-      title: 'Luxury Cedar Sauna Suite',
-      category: 'sauna',
-    },
-    {
-      id: 5,
-      src: '/FASILITAS/SAUNA/sauna 02.png',
-      title: 'Thermal Wellness Chamber',
-      category: 'sauna',
-    },
-    {
-      id: 6,
-      src: '/FASILITAS/SAUNA/sauna 03.png',
-      title: 'Private Spa & Sauna Lounge',
-      category: 'sauna',
-    },
-    {
-      id: 7,
-      src: '/LOGO/pool.jpg',
-      title: 'Heated Rooftop Swimming Pool',
-      category: 'pool',
-    },
-    {
-      id: 8,
-      src: '/rooftop_pool.png',
-      title: 'Panoramic Infinity Pool Deck',
-      category: 'pool',
+      src: '/BUILDING/kolam renang 5_4.webp?v=20260825',
+      title: 'Swimming Pool & Leisure Area',
     },
   ];
-
-  const currentFacilities = facilitiesGallery.filter((item) => item.category === facilityTab);
 
   const handleTeamSizeClick = (item) => {
     setTeamSizeNote(`Team size: ${item.size} (${item.desc})`);
@@ -82,6 +54,33 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
       formElem.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const galleryImages = [
+    {
+      src: '/SPACES/PREMIUM OFFICE/Premium Office.webp?v=20260823',
+      title: 'Executive Corporate Floor',
+      category: 'HQ Layout',
+      desc: 'Expansive open-plan floorplate designed for regional headquarters and growing corporate teams.',
+    },
+    {
+      src: '/SPACES/PREMIUM OFFICE/Premium Office 06.webp?v=20260823',
+      title: 'Boardroom & Conference Suite',
+      category: 'Meeting Suite',
+      desc: 'High-tech conference environment equipped for executive board meetings and client presentations.',
+    },
+    {
+      src: '/SPACES/PREMIUM OFFICE/Premium Office 03.webp?v=20260823',
+      title: 'Corner Executive Office',
+      category: 'Private Suite',
+      desc: 'Dedicated leadership suite with panoramic city skyline views of Asia Afrika CBD.',
+    },
+    {
+      src: '/SPACES/PREMIUM OFFICE/Premium Office 04.webp?v=20260823',
+      title: 'Collaborative Team Hub',
+      category: 'Workstation',
+      desc: 'Acoustically tuned workspace fostering cross-department collaboration and high focus.',
+    },
+  ];
 
   useEffect(() => {
     if (!isLightboxOpen) return;
@@ -105,44 +104,46 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
     };
   }, [isLightboxOpen]);
 
-  const galleryImages = [
-    {
-      src: '/SPACES/PREMIUM OFFICE/Premium Office.png',
-      title: 'Executive Corporate Floor',
-      category: 'HQ Layout',
-      desc: 'Expansive open-plan floorplate designed for regional headquarters and growing corporate teams.',
-    },
-    {
-      src: '/SPACES/PREMIUM OFFICE/Premium Office 02.png',
-      title: 'Boardroom & Conference Suite',
-      category: 'Meeting Suite',
-      desc: 'High-tech conference environment equipped for executive board meetings and client presentations.',
-    },
-    {
-      src: '/SPACES/PREMIUM OFFICE/Premium Office 03.png',
-      title: 'Corner Executive Office',
-      category: 'Private Suite',
-      desc: 'Dedicated leadership suite with panoramic city skyline views of Asia Afrika CBD.',
-    },
-    {
-      src: '/SPACES/PREMIUM OFFICE/Premium Office 04.png',
-      title: 'Collaborative Team Hub',
-      category: 'Workstation',
-      desc: 'Acoustically tuned workspace fostering cross-department collaboration and high focus.',
-    },
-    {
-      src: '/SPACES/PREMIUM OFFICE/Premium Office 05.png',
-      title: 'Client Reception & Lobby',
-      category: 'Arrival Experience',
-      desc: 'Prestigious arrival experience reflecting dignity, trust, and corporate respectability.',
-    },
-    {
-      src: '/SPACES/PREMIUM OFFICE/Premium Office 06.png',
-      title: 'Executive Lounge & Pantry',
-      category: 'Breakout Zone',
-      desc: 'Modern breakout lounge for informal discussions, networking, and team refreshment.',
-    },
-  ];
+  
+  useEffect(() => {
+    if (isLightboxOpen) return;
+    const timer = setInterval(() => {
+      setActiveImgIndex((prev) => (prev + 1) % galleryImages.length);
+    }, 3800);
+    return () => clearInterval(timer);
+  }, [isLightboxOpen, galleryImages.length]);
+
+  
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFacilityActiveImg((prev) => (prev + 1) % facilitiesGallery.length);
+    }, 3800);
+    return () => clearInterval(timer);
+  }, [facilitiesGallery.length]);
+
+  
+  useEffect(() => {
+    if (thumbContainerRef.current) {
+      const container = thumbContainerRef.current;
+      const activeThumb = container.children[activeImgIndex];
+      if (activeThumb) {
+        const leftPos = activeThumb.offsetLeft - (container.clientWidth / 2) + (activeThumb.clientWidth / 2);
+        container.scrollTo({ left: leftPos, behavior: 'smooth' });
+      }
+    }
+  }, [activeImgIndex]);
+
+  
+  useEffect(() => {
+    if (facilityThumbContainerRef.current) {
+      const container = facilityThumbContainerRef.current;
+      const activeThumb = container.children[facilityActiveImg];
+      if (activeThumb) {
+        const leftPos = activeThumb.offsetLeft - (container.clientWidth / 2) + (activeThumb.clientWidth / 2);
+        container.scrollTo({ left: leftPos, behavior: 'smooth' });
+      }
+    }
+  }, [facilityActiveImg]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -154,26 +155,26 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
   };
 
   const teamSizes = [
-    { size: '10 – 20 People', desc: 'Compact corporate setup' },
-    { size: '20 – 40 People', desc: 'Established team floor' },
-    { size: '40 – 80 People', desc: 'Full floor or multi-unit option' },
-    { size: '80 – 120+ People', desc: 'Custom multi-floor headquarters' },
+    { size: '10 — 20 People', desc: 'Compact corporate office' },
+    { size: '20 — 40 People', desc: 'Flexible office layout.' },
+    { size: '40 — 80 People', desc: 'Larger combined office solutions.' },
+    { size: '80 — 150+ People', desc: 'Custom corporate configuration.' },
   ];
 
   const features = [
     {
       title: 'Professional Image',
-      desc: 'Premium common areas and business environment that reflect respectability.',
+      desc: 'Premium common areas and business environment that reflect corporate credibility.',
       icon: Building2,
     },
     {
       title: 'Space To Grow',
-      desc: 'Unit and space models for organizations of all sizes.',
+      desc: 'Unit and layout choices for organizations of different sizes.',
       icon: Users,
     },
     {
       title: 'Business Connectivity',
-      desc: 'Fiber infrastructure and connectivity built for modern operations.',
+      desc: 'Fiber infrastructure and connectivity support for modern business.',
       icon: Wifi,
     },
     {
@@ -188,7 +189,7 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
     },
     {
       title: 'Employee Experience',
-      desc: 'Gym, sauna, and rooftop pool directly improve quality of life at work.',
+      desc: 'Gym, sauna and heated pool that raise the quality of the workplace.',
       icon: HeartHandshake,
     },
   ];
@@ -197,11 +198,11 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
     <div className="min-h-screen bg-white text-slate-900 selection:bg-amber-500/20 selection:text-amber-900">
       <Navbar currentPage="spaces" setCurrentPage={setCurrentPage} />
 
-      <main className="pt-24 sm:pt-28 pb-28 space-y-28 sm:space-y-36">
+      <main className="pt-24 sm:pt-28 pb-0 space-y-28 sm:space-y-36">
         
-        {/* BREADCRUMBS & HERO SECTION */}
+        
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          {/* Breadcrumbs */}
+          
           <nav className="flex items-center gap-2 text-xs sm:text-sm font-medium text-slate-500">
             <button
               onClick={() => {
@@ -227,15 +228,15 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
             <span className="font-bold text-slate-900">Premium Office</span>
           </nav>
 
-          {/* Hero Card */}
-          <div className="bg-slate-900 text-white rounded-[32px] sm:rounded-[44px] p-8 sm:p-12 lg:p-14 border border-slate-800 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch relative overflow-hidden shadow-2xl">
+          
+          <div className="bg-slate-900 text-white rounded-2xl sm:rounded-[44px] p-8 sm:p-12 lg:p-14 border border-slate-800 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch relative overflow-hidden shadow-2xl">
             <div className="lg:col-span-6 space-y-6 z-10 flex flex-col justify-center">
-              <span className="px-2 py-1 rounded-full text-amber-400 text-xs font-bold uppercase tracking-wider inline-block self-start">
+              <span className="px-2 py-1 rounded-full text-amber-400 text-lg font-bold uppercase tracking-wider inline-block self-start">
                 PREMIUM OFFICE
               </span>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-heading text-white tracking-tight leading-[1.12]">
-                Your Next Headquarters <br className="hidden sm:inline" />
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-medium font-heading text-white tracking-tight leading-[1.12]">
+                Your Next Headquarters <br />
                 <span className="text-[#EA8E18]">Is Ready.</span>
               </h1>
 
@@ -246,7 +247,7 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
               <div className="pt-2 flex flex-wrap items-center gap-4">
                 <button
                   onClick={() => {
-                    const formElem = document.getElementById('inquiry-form');
+                    const formElem = document.getElementById('find-space');
                     if (formElem) formElem.scrollIntoView({ behavior: 'smooth' });
                   }}
                   className="px-8 py-3.5 rounded-full bg-[#EA8E18] hover:bg-[#d88010] text-white font-bold text-sm sm:text-base shadow-lg transition-all flex items-center gap-2 group"
@@ -258,59 +259,57 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
 
               <div className="pt-4 border-t border-slate-800 flex flex-wrap items-center gap-3 text-xs text-slate-400 font-medium">
                 <span>Flexible Office Sizes</span>
-                <span>•</span>
+                <span>—</span>
                 <span>Premium Business Environment</span>
-                <span>•</span>
+                <span>—</span>
                 <span>Ready for Fit-Out / Occupancy*</span>
               </div>
             </div>
 
             <div className="lg:col-span-6 relative z-10 flex items-stretch">
-              <div className="rounded-[28px] overflow-hidden border border-white/15 w-full h-full min-h-[280px] shadow-2xl group bg-slate-800">
+              <div className="rounded-xl overflow-hidden border border-white/15 w-full h-full min-h-[280px] shadow-2xl group bg-slate-800">
                 <img
-                  src="/SPACES/PREMIUM OFFICE/Premium Office.png"
+                  src="/SPACES/PREMIUM OFFICE/Premium Office.webp?v=20260825"
                   alt="HQuarters Premium Office Suite"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-cover object-bottom group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
             </div>
           </div>
         </section>
 
-        {/* COMPACT PREMIUM OFFICE PHOTO GALLERY SLIDER */}
+        
+        <section className="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-4">
+          <h2 className="text-3xl sm:text-5xl font-medium font-heading text-slate-900 tracking-tight leading-tight">
+            Your Company Has Grown. <br />
+            <span className="text-[#EA8E18]">Your Office Should Too.</span>
+          </h2>
+          <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto font-normal">
+            Every company reaches a point where the old office no longer reflects the business it has become. Teams grow. Clients grow. Expectations rise. The office becomes part of your corporate identity.
+          </p>
+        </section>
+
+        
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
           
-          {/* Header & Controls */}
+          
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-200/80 pb-4">
-            <div className="space-y-1.5">
-              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#EA8E18]">
-                <span className="w-5 h-[2px] bg-[#EA8E18] inline-block" />
-                <span>PREMIUM OFFICE GALLERY</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-heading text-slate-900 tracking-tight">
-                Explore <span className="text-[#EA8E18]">Premium Office Suites</span>
-              </h2>
-            </div>
-
-            {/* Hint & Nav Arrows */}
-            {/* <div className="flex items-center gap-3">
-              <span className="text-xs font-medium text-slate-500 hidden sm:inline">
-                Click "View Facilities" to enlarge photos
-              </span>
-            </div> */}
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium font-heading text-slate-900 tracking-tight">
+              Premium Office <span className="text-[#EA8E18]">Details</span>
+            </h2>
           </div>
 
-          {/* Carousel Featured Image Area */}
+          
           <div className="relative">
-            {/* Main Image Container */}
-            <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[460px] rounded-[24px] sm:rounded-[32px] overflow-hidden bg-slate-900 group">
+            
+            <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] max-h-[640px] rounded-[24px] sm:rounded-2xl overflow-hidden bg-slate-900 group shadow-xl">
               <img
                 src={galleryImages[activeImgIndex]?.src}
                 alt={galleryImages[activeImgIndex]?.title}
-                className="w-full h-full object-cover transition-opacity duration-500"
+                className="w-full h-full object-cover object-center transition-opacity duration-500"
               />
 
-              {/* Left/Right Navigation Arrows */}
+              
               <button
                 onClick={() => setActiveImgIndex((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1))}
                 className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded bg-white/40 hover:bg-white/70 backdrop-blur-sm flex items-center justify-center text-slate-900 transition-all z-10"
@@ -324,7 +323,7 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
                 <ChevronRight className="w-6 h-6" />
               </button>
 
-              {/* Floating Dots Pagination Overlay */}
+              
               <div className="absolute bottom-4 inset-x-0 flex items-center justify-center gap-2 z-10">
                 {galleryImages.map((_, idx) => (
                   <button
@@ -338,10 +337,10 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
               </div>
             </div>
 
-            {/* Bottom Row: Thumbnails */}
+            
             <div className="flex items-center justify-start mt-6">
-              {/* Thumbnails */}
-              <div className="flex items-center gap-3 overflow-x-auto scrollbar-none pb-2 sm:pb-0 max-w-full">
+              
+              <div ref={thumbContainerRef} className="flex items-center gap-3 overflow-x-auto scroll-smooth scrollbar-none no-scrollbar pb-2 pt-1 max-w-full">
                 {galleryImages.map((img, idx) => (
                   <button
                     key={idx}
@@ -352,7 +351,7 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
                         : 'border-transparent opacity-60 hover:opacity-100'
                     }`}
                   >
-                    <img src={img.src} alt={img.title} className="w-full h-full object-cover" />
+                    <img src={img.src} alt={img.title} className="w-full h-full object-cover object-center" />
                   </button>
                 ))}
               </div>
@@ -361,7 +360,7 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
 
         </section>
 
-        {/* FULLSCREEN LIGHTBOX MODAL */}
+        
         {isLightboxOpen && createPortal(
           <AnimatePresence>
             <motion.div
@@ -370,7 +369,7 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
               exit={{ opacity: 0 }}
               className="fixed inset-0 z-[99999] bg-slate-950/98 backdrop-blur-2xl flex flex-col justify-between p-4 sm:p-8 text-white h-screen w-screen overflow-hidden"
             >
-              {/* Top Modal Controls */}
+              
               <div className="flex items-center justify-between max-w-[1440px] w-full mx-auto">
                 <div className="space-y-0.5">
                   <span className="text-xs text-[#EA8E18] font-bold uppercase tracking-wider">
@@ -389,7 +388,7 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
                 </button>
               </div>
 
-              {/* Main Image Display */}
+              
               <div className="relative max-w-[1200px] w-full mx-auto my-auto flex items-center justify-center h-[72vh]">
                 <img
                   src={galleryImages[activeImgIndex].src}
@@ -397,7 +396,7 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
                   className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
                 />
 
-                {/* Modal Nav Arrows */}
+                
                 <button
                   onClick={() => setActiveImgIndex((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1))}
                   className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 p-3.5 sm:p-4 rounded-full bg-black/70 hover:bg-[#EA8E18] text-white transition-all cursor-pointer shadow-2xl border border-white/10"
@@ -415,9 +414,9 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
                 </button>
               </div>
 
-              {/* Bottom Caption */}
+              
               <div className="max-w-xl mx-auto text-center space-y-1 pb-2">
-                <h4 className="text-lg font-bold font-heading text-white">
+                <h4 className="text-lg font-medium font-heading text-white">
                   {galleryImages[activeImgIndex].title}
                 </h4>
                 <p className="text-xs text-slate-400 font-normal">
@@ -429,22 +428,10 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
           document.body
         )}
 
-        {/* STATEMENT 1: YOUR COMPANY HAS GROWN */}
-        <section className="max-w-4xl mx-auto px-4 sm:px-6 text-center space-y-4">
-          <h2 className="text-3xl sm:text-5xl font-bold font-heading text-slate-900 tracking-tight leading-tight">
-            Your Company Has Grown. <br className="hidden sm:inline" />
-            <span className="text-[#EA8E18]">Your Office Should Too.</span>
-          </h2>
-          <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto font-normal">
-Every company reaches a point where the old office no longer reflects the business it has become. Teams grow. Clients grow. Expectations rise. The office becomes part of your corporate identity.
-
-          </p>
-        </section>
-
-        {/* STATEMENT 2: BEFORE THE MEETING STARTS */}
+        
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-[#FAF8F5] rounded-[32px] sm:rounded-[40px] p-8 sm:p-14 text-center border border-slate-200/80 max-w-4xl mx-auto space-y-4">
-            <h2 className="text-2xl sm:text-4xl font-bold font-heading text-slate-900 tracking-tight">
+          <div className="bg-[#FAF8F5] rounded-2xl sm:rounded-[40px] p-8 sm:p-14 text-center border border-slate-200/80 max-w-4xl mx-auto space-y-4">
+            <h2 className="text-2xl sm:text-4xl font-medium font-heading text-slate-900 tracking-tight">
               Before The Meeting Starts, Your Office Has Already Said Something.
             </h2>
             <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-normal max-w-2xl mx-auto">
@@ -457,112 +444,91 @@ A representative lobby. A professional arrival experience. A credible business e
           </div>
         </section>
 
-        {/* IN-HOUSE WELLNESS FACILITIES GALLERY */}
+        
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-          {/* Header & Category Filter Tabs */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200/80 pb-6">
-            <div className="space-y-2">
-              <span className="text-xs font-bold text-[#EA8E18] uppercase tracking-widest inline-block">
-                — IN-HOUSE FACILITIES
-              </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-slate-900 tracking-tight">
-                Wellness Facilities <span className="text-[#EA8E18]">Gallery</span>
-              </h2>
-            </div>
-
-            {/* Filter Tabs */}
-            <div className="flex flex-wrap items-center gap-2.5">
-              {[
-                { id: 'gym', label: 'Gym & Fitness' },
-                { id: 'sauna', label: 'Sauna Suite' },
-                { id: 'pool', label: 'Rooftop Pool' },
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => {
-                    setFacilityTab(tab.id);
-                    setFacilityActiveImg(0);
-                  }}
-                  className={`px-6 py-3 rounded-full text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-                    facilityTab === tab.id
-                      ? 'bg-[#EA8E18] text-white shadow-md scale-105'
-                      : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
-            </div>
+          
+          
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-200/80 pb-4">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium font-heading text-slate-900 tracking-tight">
+              Facilities
+            </h2>
           </div>
 
-          {/* Carousel Featured Image Area */}
+          
           <div className="relative">
-            <div className="relative w-full h-[360px] sm:h-[480px] lg:h-[560px] rounded-[32px] overflow-hidden bg-slate-900 shadow-2xl group">
+            <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] max-h-[640px] rounded-[24px] sm:rounded-2xl overflow-hidden bg-slate-900 shadow-xl group">
               <img
-                src={currentFacilities[facilityActiveImg]?.src}
-                alt={currentFacilities[facilityActiveImg]?.title}
-                className="w-full h-full object-cover transition-opacity duration-500"
+                src={facilitiesGallery[facilityActiveImg]?.src}
+                alt={facilitiesGallery[facilityActiveImg]?.title}
+                className="w-full h-full object-cover object-center transition-opacity duration-500"
               />
 
-              {/* Left/Right Navigation Arrows */}
+              
               <button
                 onClick={() =>
                   setFacilityActiveImg((prev) =>
-                    prev === 0 ? currentFacilities.length - 1 : prev - 1
+                    prev === 0 ? facilitiesGallery.length - 1 : prev - 1
                   )
                 }
-                className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-[#EA8E18] backdrop-blur-md flex items-center justify-center text-white transition-all z-10 cursor-pointer shadow-xl border border-white/10"
+                className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded bg-white/40 hover:bg-white/70 backdrop-blur-sm flex items-center justify-center text-slate-900 transition-all z-10 cursor-pointer"
+                aria-label="Previous facility image"
               >
                 <ChevronLeft className="w-6 h-6" />
               </button>
               <button
                 onClick={() =>
                   setFacilityActiveImg((prev) =>
-                    prev === currentFacilities.length - 1 ? 0 : prev + 1
+                    prev === facilitiesGallery.length - 1 ? 0 : prev + 1
                   )
                 }
-                className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/50 hover:bg-[#EA8E18] backdrop-blur-md flex items-center justify-center text-white transition-all z-10 cursor-pointer shadow-xl border border-white/10"
+                className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded bg-white/40 hover:bg-white/70 backdrop-blur-sm flex items-center justify-center text-slate-900 transition-all z-10 cursor-pointer"
+                aria-label="Next facility image"
               >
                 <ChevronRight className="w-6 h-6" />
               </button>
 
-              {/* Subtle Floating Dots Indicator */}
-              <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10 bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
-                {currentFacilities.map((_, idx) => (
+              
+              <div className="absolute bottom-4 inset-x-0 flex items-center justify-center gap-2 z-10">
+                {facilitiesGallery.map((_, idx) => (
                   <button
                     key={idx}
                     onClick={() => setFacilityActiveImg(idx)}
                     className={`h-2 rounded-full transition-all cursor-pointer ${
-                      idx === facilityActiveImg ? 'bg-[#EA8E18] w-6' : 'bg-white/60 hover:bg-white w-2'
+                      idx === facilityActiveImg ? 'bg-white w-6 shadow-md' : 'bg-white/50 hover:bg-white/80 w-2'
                     }`}
                   />
                 ))}
               </div>
             </div>
 
-            {/* Bottom Row: Left-Aligned Thumbnails */}
-            <div className="flex items-center justify-start gap-3.5 mt-4 overflow-x-auto scrollbar-none pb-2 sm:pb-0 max-w-full">
-              {currentFacilities.map((img, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setFacilityActiveImg(idx)}
-                  className={`relative shrink-0 w-28 h-20 sm:w-36 sm:h-24 rounded-xl overflow-hidden border-2 transition-all cursor-pointer ${
-                    idx === facilityActiveImg
-                      ? 'border-[#EA8E18] opacity-100 scale-105 shadow-md'
-                      : 'border-transparent opacity-60 hover:opacity-100'
-                  }`}
-                >
-                  <img src={img.src} alt={img.title} className="w-full h-full object-cover" />
-                </button>
-              ))}
+            
+            <div className="flex items-center justify-start mt-6">
+              <div ref={facilityThumbContainerRef} className="flex items-center gap-3 overflow-x-auto scroll-smooth scrollbar-none no-scrollbar pb-2 pt-1 max-w-full">
+                {facilitiesGallery.map((img, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setFacilityActiveImg(idx)}
+                    className={`relative shrink-0 w-20 h-16 sm:w-28 sm:h-20 rounded-lg overflow-hidden border-2 transition-all cursor-pointer ${
+                      idx === facilityActiveImg
+                        ? 'border-[#EA8E18] opacity-100 scale-105 shadow-md'
+                        : 'border-transparent opacity-60 hover:opacity-100'
+                    }`}
+                  >
+                    <img src={img.src} alt={img.title} className="w-full h-full object-cover object-center" />
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </section>
 
-        {/* INCLUDED: EVERYTHING A MODERN COMPANY EXPECTS */}
+        
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-          <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl font-bold font-heading text-slate-900 tracking-tight">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
+            <span className="text-xs font-bold uppercase tracking-widest text-[#EA8E18] inline-block">
+              WHAT'S INCLUDED
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-medium font-heading text-slate-900 tracking-tight">
               Everything a Modern Company Expects.
             </h2>
           </div>
@@ -573,12 +539,12 @@ A representative lobby. A professional arrival experience. A credible business e
               return (
                 <div
                   key={item.title}
-                  className="bg-white p-8 rounded-[24px] border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 space-y-4 group"
+                  className="bg-white p-8 rounded-xl border border-slate-200/80 shadow-sm space-y-4 group"
                 >
                   <div className="w-12 h-12 rounded-xl bg-[#FEF3E2] text-[#B86807] group-hover:bg-[#EA8E18] group-hover:text-white flex items-center justify-center transition-colors">
                     <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 font-heading group-hover:text-[#EA8E18] transition-colors">
+                  <h3 className="text-xl font-medium text-slate-900 font-heading group-hover:text-[#EA8E18] transition-colors">
                     {item.title}
                   </h3>
                   <p className="text-slate-600 text-sm leading-relaxed font-normal">
@@ -590,93 +556,73 @@ A representative lobby. A professional arrival experience. A credible business e
           </div>
         </section>
 
-        {/* HOW BIG IS YOUR TEAM? */}
+        
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-          <div className="bg-[#FAF8F5] rounded-[32px] sm:rounded-[40px] p-8 sm:p-14 border border-slate-200/80 space-y-8">
-            <div className="text-center max-w-xl mx-auto">
-              <h2 className="text-3xl sm:text-4xl font-bold font-heading text-slate-900 tracking-tight">
+          <div className="bg-[#FAF8F5] rounded-2xl sm:rounded-[40px] p-8 sm:p-14 border border-slate-200/80 space-y-8">
+            <div className="text-center max-w-xl mx-auto space-y-2">
+              <div className="text-xs font-bold uppercase tracking-widest text-[#EA8E18]">
+                SIZED TO YOUR TEAM
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-medium font-heading text-slate-900 tracking-tight">
                 How Big Is Your Team?
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {teamSizes.map((item) => (
                 <div
                   key={item.size}
                   onClick={() => handleTeamSizeClick(item)}
-                  className="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm text-center space-y-2 hover:border-[#EA8E18] hover:shadow-lg transition-all cursor-pointer group hover:-translate-y-1"
+                  className="bg-white py-5 sm:py-6 px-4 rounded-2xl border border-slate-200/80 shadow-sm text-center flex flex-col items-center justify-center space-y-1.5 hover:border-[#EA8E18] hover:shadow-md transition-all cursor-pointer group hover:-translate-y-0.5"
                 >
-                  <div className="text-2xl font-extrabold text-slate-900 font-heading group-hover:text-[#EA8E18] transition-colors">
+                  <div className="text-xl sm:text-2xl font-medium text-slate-900 font-heading group-hover:text-[#EA8E18] transition-colors">
                     {item.size}
                   </div>
-                  <p className="text-xs text-slate-500 font-medium">
+                  <p className="text-xs text-slate-500 font-normal">
                     {item.desc}
                   </p>
-                  <div className="pt-2 text-[11px] font-bold text-[#EA8E18] opacity-0 group-hover:opacity-100 transition-opacity">
-                    Select & Request Quote &rarr;
-                  </div>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* CAPITAL & COMMUNITY SECTION */}
+        
         <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-[#FAF8F5] rounded-[36px] sm:rounded-[44px] p-8 sm:p-14 lg:p-16 border border-slate-200/80 space-y-10 shadow-sm relative overflow-hidden">
-            
-            {/* Top Text Content */}
-            <div className="text-center max-w-3xl mx-auto space-y-4">
-              
+          <div className="text-center max-w-3xl mx-auto space-y-5">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-medium font-heading text-slate-900 tracking-tight leading-tight">
+              Lease The Space. <span className="text-[#EA8E18]"><br />Keep Your Capital Working.</span>
+            </h2>
 
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-heading text-slate-900 tracking-tight leading-tight">
-                Lease The Space. <span className="text-[#EA8E18]"><br/>Keep Your Capital Working.</span>
-              </h2>
-
-              <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-normal">
-                Preserve your capital for business growth, expansion, and talent. Strategic leasing gives you prime address and space without locking away capital in real estate ownership.
-              </p>
-            </div>
-
-            {/* 3 Capital Benefit Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-              <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-2 text-center">
-                <div className="text-xl font-bold text-[#EA8E18] font-heading">Reinvested Capital</div>
-                <p className="text-xs text-slate-600 font-normal">Channel cashflow directly into core products and team growth.</p>
-              </div>
-
-              <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-2 text-center">
-                <div className="text-xl font-bold text-[#EA8E18] font-heading">Operational Agility</div>
-                <p className="text-xs text-slate-600 font-normal">Scale office footprint up seamlessly as headcount expands.</p>
-              </div>
-
-              <div className="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-2 text-center">
-                <div className="text-xl font-bold text-[#EA8E18] font-heading">Prime CBD Domicile</div>
-                <p className="text-xs text-slate-600 font-normal">Instant corporate reputation on Asia Afrika CBD.</p>
-              </div>
-            </div>
-
-            {/* Community Banner Callout */}
-            <div className="bg-[#FEF3E2] rounded-2xl p-6 sm:p-8 text-center border border-[#EA8E18]/30 max-w-3xl mx-auto flex items-center justify-center gap-3">
-              <Sparkles className="w-5 h-5 text-[#EA8E18] shrink-0 hidden sm:block" />
-              <p className="text-base sm:text-lg font-bold text-[#965203] font-heading">
-                Join a growing community of respected companies operating from HQuarters.
-              </p>
-            </div>
-
+            <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-normal max-w-2xl mx-auto">
+              Buying a corporate office isn't always the smartest use of capital. Lease at HQuarters and keep your resources focused where they create the greatest impact: your people, your products and your business.
+            </p>
           </div>
         </section>
 
-        {/* INQUIRY FORM CARD */}
+        
+        <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-[#FAF8F5] rounded-xl sm:rounded-2xl py-10 sm:py-14 px-6 sm:px-12 border border-slate-200/80 text-center space-y-3 shadow-sm max-w-4xl mx-auto">
+            <div className="text-xs sm:text-sm font-bold uppercase tracking-widest text-[#EA8E18]">
+              YOU'RE IN GOOD COMPANY
+            </div>
+            <p className="text-xl sm:text-2xl lg:text-3xl font-medium font-heading text-slate-900 leading-snug">
+              Join a growing community of respected companies <br className="hidden md:inline" />
+              operating from HQuarters.
+            </p>
+          </div>
+        </section>
+
+        
         <FindSpaceSection initialSpace="Premium Office" initialNotes={teamSizeNote} />
 
-        {/* BOTTOM DARK BANNER */}
-        <section className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-slate-900 text-white rounded-[32px] sm:rounded-[40px] p-8 sm:p-14 text-center border border-slate-800 space-y-3 shadow-xl">
-            <h2 className="text-3xl sm:text-4xl font-bold font-heading text-white tracking-tight">
-              Your Next Chapter Deserves The Right Address.
+        
+        <section className="!mt-14 sm:!mt-20 pt-16 sm:pt-24 pb-12 sm:pb-16 bg-[#231F20] text-white text-center relative overflow-hidden">
+          <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-4">
+            <h2 className="text-3xl sm:text-5xl font-medium font-heading text-white tracking-tight">
+              Your Next Chapter Deserves <br /><span className="text-[#EA8E18]">The Right Address.</span>
             </h2>
-            <p className="text-slate-400 text-sm font-medium">
+            <p className="text-slate-400 text-base sm:text-lg max-w-2xl mx-auto font-normal">
               HQuarters Premium Office — Asia Afrika, Bandung
             </p>
           </div>
