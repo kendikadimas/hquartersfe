@@ -1,28 +1,20 @@
 ﻿import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   Building2,
   Home,
   Briefcase,
   Sparkles,
   CheckCircle2,
-  Send,
   User,
   Phone,
   Building,
   MessageSquare,
   Navigation,
-  Calendar,
-  Layers,
-  Users,
-  Clock,
-  BriefcaseBusiness,
-  LayoutGrid
 } from 'lucide-react';
 
 export default function FindSpaceSection({ 
   initialSpace = 'Premium Office', 
-  initialPackage = '',
   initialNotes = '',
   badge,
   title,
@@ -30,53 +22,31 @@ export default function FindSpaceSection({
   image
 }) {
   const [selectedSpace, setSelectedSpace] = useState(initialSpace);
-  const [selectedVoPackage, setSelectedVoPackage] = useState(initialPackage || 'Virtual Office Standard');
   const [formData, setFormData] = useState({
     name: '',
     whatsapp: '',
     company: '',
-    profession: '',
-    
-    purpose: 'Work + Live',
-    budget: '',
-    timeline: '',
-    
-    workstations: '3 - 5 Workstations',
-    duration: '6 Months',
-    startDate: '',
-    
-    areaRequirement: '250 - 500 m²',
-    leaseTerm: '3 Years Lease',
-    fitoutPreference: 'Fitted / Partitioned',
-    moveInDate: '',
-    
-    eventType: 'Corporate Seminar / Training',
-    attendees: '30 - 60 Guests',
-    sessionDuration: 'Full-Day (8 Hours)',
-    eventDate: '',
-    
     notes: initialNotes,
   });
   const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState(false);
 
-  const voPackageOptions = [
-    { id: 'business-address', label: 'Business Address', price: 'Rp 413,000 / mo' },
-    { id: 'phone-answering', label: 'Phone Answering', price: 'Rp 530,000 / mo' },
-    { id: 'vo-standard', label: 'Virtual Office Standard', price: 'Rp 883,000 / mo', popular: true },
-    { id: 'vo-plus', label: 'Virtual Office Plus', price: 'Rp 1,354,000 / mo' },
-  ];
+  const validateForm = () => {
+    const errs = {};
+    if (!formData.name.trim()) errs.name = "Name is required";
+    else if (formData.name.trim().length < 2) errs.name = "Name must be at least 2 characters";
+    const digits = formData.whatsapp.replace(/\D/g, "");
+    if (!digits) errs.whatsapp = "WhatsApp number is required";
+    else if (!/^(62|0)[0-9]{8,13}$/.test(digits)) errs.whatsapp = "Enter a valid Indonesian number (e.g. 08123456789)";
+    return errs;
+  };
 
   React.useEffect(() => {
     if (initialNotes) {
       setFormData((prev) => ({ ...prev, notes: initialNotes }));
     }
   }, [initialNotes]);
-
-  React.useEffect(() => {
-    if (initialPackage) {
-      setSelectedVoPackage(initialPackage);
-    }
-  }, [initialPackage]);
 
   React.useEffect(() => {
     if (initialSpace) {
@@ -134,28 +104,19 @@ export default function FindSpaceSection({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.whatsapp) return;
+    const errs = validateForm();
+    setTouched(true);
+    if (Object.keys(errs).length > 0) { setErrors(errs); return; }
+    setErrors({});
 
-    
     const normalizedWA = formData.whatsapp.replace(/^\+/, '').replace(/^08/, '628').replace(/^8/, '628');
 
-    
     const lines = [`Halo HQuarters! Saya ingin tahu lebih lanjut tentang *${selectedSpace}*.`];
-    if (selectedSpace === 'SOHO') {
-      lines.push(`Tujuan: ${formData.purpose}`, `Budget: ${formData.budget || '-'}`, `Timeline: ${formData.timeline || '-'}`);
-    } else if (selectedSpace === 'Serviced Office') {
-      lines.push(`Workstations: ${formData.workstations}`, `Durasi: ${formData.duration}`, `Mulai: ${formData.startDate || '-'}`);
-    } else if (selectedSpace === 'Premium Office') {
-      lines.push(`Luas: ${formData.areaRequirement}`, `Lease: ${formData.leaseTerm}`, `Move-in: ${formData.moveInDate || '-'}`);
-    } else if (selectedSpace === 'Virtual Office') {
-      lines.push(`Paket: ${selectedVoPackage}`);
-    } else if (selectedSpace === 'Function Room') {
-      lines.push(`Acara: ${formData.eventType}`, `Tamu: ${formData.attendees}`, `Tanggal: ${formData.eventDate || '-'}`);
-    }
+    lines.push(`Nama: ${formData.name}`);
+    lines.push(`WhatsApp: ${formData.whatsapp}`);
     if (formData.company) lines.push(`Perusahaan: ${formData.company}`);
     if (formData.notes) lines.push(`Catatan: ${formData.notes}`);
 
-    
     const gtmFormName = { 'SOHO': 'soho', 'Premium Office': 'premium_office', 'Serviced Office': 'serviced_office', 'Virtual Office': 'virtual_office', 'Function Room': 'function_room' }[selectedSpace];
     if (gtmFormName) {
       window.dataLayer = window.dataLayer || [];
@@ -182,23 +143,19 @@ export default function FindSpaceSection({
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-2xl sm:rounded-[40px] shadow-2xl flex flex-col lg:flex-row overflow-hidden border border-slate-200/60">
           
-          
           <div className="lg:w-2/5 relative min-h-[380px] lg:min-h-auto bg-slate-900 flex flex-col justify-end p-6 sm:p-10">
             <img loading="lazy"
               src={currentCopy.image}
               alt="HQuarters Workspace"
               className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay transition-all duration-500"
             />
-            
             <div className="relative z-10 bg-[#161a25]/95 backdrop-blur-md rounded-2xl p-6 sm:p-8 shadow-xl border border-white/10 mt-auto space-y-3">
               <span className="bg-[#EA8E18] text-white px-3 py-1 text-[10px] font-extrabold uppercase tracking-wider rounded-md inline-block shadow-sm">
                 {currentCopy.badge}
               </span>
-              
               <h2 className="text-2xl sm:text-3xl font-medium font-heading text-white leading-tight">
                 {currentCopy.title}
               </h2>
-              
               {currentCopy.description && (
                 <p className="text-sm text-slate-300 leading-relaxed font-normal">
                   {currentCopy.description}
@@ -207,7 +164,6 @@ export default function FindSpaceSection({
             </div>
           </div>
 
-          
           <div className="lg:w-3/5 p-6 sm:p-10 lg:p-12">
             {submitted ? (
               <motion.div
@@ -231,8 +187,6 @@ export default function FindSpaceSection({
               </motion.div>
             ) : (
               <div className="space-y-8">
-                
-                
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <h3 className="text-lg sm:text-xl font-medium font-heading text-slate-900">
@@ -242,7 +196,6 @@ export default function FindSpaceSection({
                       {selectedSpace}
                     </span>
                   </div>
-                  
                   <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
                     {spaceOptions.map((opt) => {
                       const isSelected = selectedSpace === opt.value;
@@ -264,19 +217,17 @@ export default function FindSpaceSection({
                   </div>
                 </div>
 
-                
                 <div className="space-y-4 pt-2 border-t border-slate-100">
                   <div>
                     <h3 className="text-lg sm:text-xl font-medium font-heading text-slate-900">
                       2. Complete Your Details
                     </h3>
                     <p className="text-xs text-slate-500 mt-0.5">
-                      Tailored options for your {selectedSpace} requirement.
+                      Share your details and our team will get back to you shortly.
                     </p>
                   </div>
 
                   <form onSubmit={handleSubmit} className="space-y-4">
-                    
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                       <div className="space-y-1">
                         <label className="text-[10px] font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1.5">
@@ -290,6 +241,7 @@ export default function FindSpaceSection({
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                           className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:border-[#EA8E18] focus:ring-1 focus:ring-[#EA8E18] transition-all"
                         />
+                        {touched && errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
                       </div>
                       <div className="space-y-1">
                         <label className="text-[10px] font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1.5">
@@ -300,326 +252,32 @@ export default function FindSpaceSection({
                           required
                           placeholder="+62 812 3456 7890"
                           value={formData.whatsapp}
-                          onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
+                          onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value.replace(/\D/g, '') })}
                           className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:border-[#EA8E18] focus:ring-1 focus:ring-[#EA8E18] transition-all"
                         />
+                        {touched && errors.whatsapp && <p className="text-red-500 text-xs mt-1">{errors.whatsapp}</p>}
                       </div>
                     </div>
 
-                    
                     <div className="space-y-1">
                       <label className="text-[10px] font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1.5">
-                        <Building className="w-3 h-3 text-slate-400" /> {selectedSpace === 'SOHO' ? 'Profession / Company' : 'Company Name (Optional)'}
+                        <Building className="w-3 h-3 text-slate-400" /> Company Name (Optional)
                       </label>
                       <input
                         type="text"
-                        placeholder={selectedSpace === 'SOHO' ? 'e.g. Architect, Founder, Studio' : 'e.g. PT Enterprise Nusantara'}
-                        value={selectedSpace === 'SOHO' ? formData.profession : formData.company}
-                        onChange={(e) => setFormData({ 
-                          ...formData, 
-                          profession: e.target.value,
-                          company: e.target.value 
-                        })}
+                        placeholder="e.g. PT Enterprise Nusantara"
+                        value={formData.company}
+                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                         className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:border-[#EA8E18] focus:ring-1 focus:ring-[#EA8E18] transition-all"
                       />
                     </div>
 
-                    
-                    
-                    
-                    {selectedSpace === 'SOHO' && (
-                      <>
-                        <div className="space-y-1.5">
-                          <label className="text-[10px] font-extrabold text-slate-600 uppercase tracking-wider">
-                            Primary Purpose
-                          </label>
-                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                            {['Work', 'Live', 'Work + Live', 'Investment'].map((p) => {
-                              const isSelected = formData.purpose === p;
-                              return (
-                                <button
-                                  key={p}
-                                  type="button"
-                                  onClick={() => setFormData({ ...formData, purpose: p })}
-                                  className={`py-2 px-3 rounded-lg border text-xs font-semibold transition-all ${
-                                    isSelected
-                                      ? 'border-[#EA8E18] bg-[#FEF3E2] text-slate-900 font-bold'
-                                      : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
-                                  }`}
-                                >
-                                  {p}
-                                </button>
-                              );
-                            })}
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                          <div className="space-y-1">
-                            <label className="text-[10px] font-extrabold text-slate-600 uppercase tracking-wider">
-                              Estimated Budget
-                            </label>
-                            <input
-                              type="text"
-                              placeholder="e.g. IDR 2 - 3 M"
-                              value={formData.budget}
-                              onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:border-[#EA8E18] focus:ring-1 focus:ring-[#EA8E18] transition-all"
-                            />
-                          </div>
-                          <div className="space-y-1">
-                            <label className="text-[10px] font-extrabold text-slate-600 uppercase tracking-wider">
-                              Purchase Timeline
-                            </label>
-                            <input
-                              type="text"
-                              placeholder="e.g. Ready immediately"
-                              value={formData.timeline}
-                              onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
-                              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:border-[#EA8E18] focus:ring-1 focus:ring-[#EA8E18] transition-all"
-                            />
-                          </div>
-                        </div>
-                      </>
-                    )}
-
-                    
-                    
-                    
-                    {selectedSpace === 'Serviced Office' && (
-                      <>
-                        <div className="space-y-1.5">
-                          <label className="text-[10px] font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1.5">
-                            <Users className="w-3 h-3 text-[#EA8E18]" /> Team Size / Workstations
-                          </label>
-                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                            {['1 - 2 Workstations', '3 - 5 Workstations', '6 - 10 Workstations', '10+ Workstations'].map((ws) => {
-                              const isSelected = formData.workstations === ws;
-                              return (
-                                <button
-                                  key={ws}
-                                  type="button"
-                                  onClick={() => setFormData({ ...formData, workstations: ws })}
-                                  className={`py-2 px-2.5 rounded-lg border text-xs font-semibold transition-all ${
-                                    isSelected
-                                      ? 'border-[#EA8E18] bg-[#FEF3E2] text-slate-900 font-bold'
-                                      : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
-                                  }`}
-                                >
-                                  {ws}
-                                </button>
-                              );
-                            })}
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                          <div className="space-y-1">
-                            <label className="text-[10px] font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1.5">
-                              <Clock className="w-3 h-3 text-slate-400" /> Lease Duration
-                            </label>
-                            <input
-                              type="text"
-                              placeholder="e.g. 6 months / 1 year"
-                              value={formData.duration}
-                              onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-                              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:border-[#EA8E18] focus:ring-1 focus:ring-[#EA8E18] transition-all"
-                            />
-                          </div>
-                          <div className="space-y-1">
-                            <label className="text-[10px] font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1.5">
-                              <Calendar className="w-3 h-3 text-slate-400" /> Start Date
-                            </label>
-                            <input
-                              type="text"
-                              placeholder="e.g. Immediately / Next Month"
-                              value={formData.startDate}
-                              onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-                              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:border-[#EA8E18] focus:ring-1 focus:ring-[#EA8E18] transition-all"
-                            />
-                          </div>
-                        </div>
-                      </>
-                    )}
-
-                    
-                    
-                    
-                    {selectedSpace === 'Virtual Office' && (
-                      <div className="space-y-2">
-                        <label className="text-[10px] font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1.5">
-                          <Sparkles className="w-3 h-3 text-[#EA8E18]" /> Select Virtual Office Package *
-                        </label>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                          {voPackageOptions.map((pkg) => {
-                            const isSelected = selectedVoPackage === pkg.label;
-                            return (
-                              <div
-                                key={pkg.id}
-                                onClick={() => {
-                                  setSelectedVoPackage(pkg.label);
-                                  setFormData((prev) => ({
-                                    ...prev,
-                                    notes: `Virtual Office Package: ${pkg.label} (${pkg.price})`
-                                  }));
-                                }}
-                                className={`p-3 rounded-xl border-2 transition-all cursor-pointer flex flex-col justify-between ${
-                                  isSelected
-                                    ? 'border-[#EA8E18] bg-[#FEF3E2] shadow-sm'
-                                    : 'border-slate-200 bg-white hover:border-[#EA8E18]/40 hover:bg-slate-50'
-                                }`}
-                              >
-                                <div className="flex items-center justify-between gap-1">
-                                  <span className={`font-semibold text-xs ${isSelected ? 'text-slate-900' : 'text-slate-700'}`}>
-                                    {pkg.label}
-                                  </span>
-                                  {isSelected && <CheckCircle2 className="w-4 h-4 text-[#EA8E18] shrink-0" />}
-                                </div>
-                                <div className="text-[11px] font-bold text-[#EA8E18] mt-1">
-                                  {pkg.price}
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    )}
-
-                    
-                    
-                    
-                    {selectedSpace === 'Premium Office' && (
-                      <>
-                        <div className="space-y-1.5">
-                          <label className="text-[10px] font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1.5">
-                            <LayoutGrid className="w-3 h-3 text-[#EA8E18]" /> Area Requirement
-                          </label>
-                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                            {['100 - 250 m²', '250 - 500 m²', '500 - 1,000 m²', 'Full Floorplate'].map((ar) => {
-                              const isSelected = formData.areaRequirement === ar;
-                              return (
-                                <button
-                                  key={ar}
-                                  type="button"
-                                  onClick={() => setFormData({ ...formData, areaRequirement: ar })}
-                                  className={`py-2 px-2 rounded-lg border text-xs font-semibold transition-all ${
-                                    isSelected
-                                      ? 'border-[#EA8E18] bg-[#FEF3E2] text-slate-900 font-bold'
-                                      : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
-                                  }`}
-                                >
-                                  {ar}
-                                </button>
-                              );
-                            })}
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                          <div className="space-y-1">
-                            <label className="text-[10px] font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1.5">
-                              <Clock className="w-3 h-3 text-slate-400" /> Target Move-in / Lease Term
-                            </label>
-                            <input
-                              type="text"
-                              placeholder="e.g. Q1 2027, 3-5 Years"
-                              value={formData.leaseTerm}
-                              onChange={(e) => setFormData({ ...formData, leaseTerm: e.target.value })}
-                              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:border-[#EA8E18] focus:ring-1 focus:ring-[#EA8E18] transition-all"
-                            />
-                          </div>
-                          <div className="space-y-1">
-                            <label className="text-[10px] font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1.5">
-                              <Layers className="w-3 h-3 text-slate-400" /> Fit-out Condition
-                            </label>
-                            <select
-                              value={formData.fitoutPreference}
-                              onChange={(e) => setFormData({ ...formData, fitoutPreference: e.target.value })}
-                              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:border-[#EA8E18] focus:ring-1 focus:ring-[#EA8E18] transition-all"
-                            >
-                              <option value="Fitted / Partitioned">Fitted / Partitioned</option>
-                              <option value="Bare Shell (Custom Interior)">Bare Shell (Custom Interior)</option>
-                              <option value="Semi-Fitted">Semi-Fitted</option>
-                            </select>
-                          </div>
-                        </div>
-                      </>
-                    )}
-
-                    
-                    
-                    
-                    {selectedSpace === 'Function Room' && (
-                      <>
-                        <div className="space-y-1.5">
-                          <label className="text-[10px] font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1.5">
-                            <BriefcaseBusiness className="w-3 h-3 text-[#EA8E18]" /> Event Type
-                          </label>
-                          <div className="grid grid-cols-2 gap-2">
-                            {[
-                              'Corporate Seminar / Training',
-                              'Boardroom / Executive Meeting',
-                              'Banquet / Gala Dinner',
-                              'Product Launch / Showcase'
-                            ].map((et) => {
-                              const isSelected = formData.eventType === et;
-                              return (
-                                <button
-                                  key={et}
-                                  type="button"
-                                  onClick={() => setFormData({ ...formData, eventType: et })}
-                                  className={`py-2 px-2.5 rounded-lg border text-xs font-semibold text-left truncate transition-all ${
-                                    isSelected
-                                      ? 'border-[#EA8E18] bg-[#FEF3E2] text-slate-900 font-bold'
-                                      : 'border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
-                                  }`}
-                                >
-                                  {et}
-                                </button>
-                              );
-                            })}
-                          </div>
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                          <div className="space-y-1">
-                            <label className="text-[10px] font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1.5">
-                              <Users className="w-3 h-3 text-slate-400" /> Estimated Attendees
-                            </label>
-                            <select
-                              value={formData.attendees}
-                              onChange={(e) => setFormData({ ...formData, attendees: e.target.value })}
-                              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:border-[#EA8E18] focus:ring-1 focus:ring-[#EA8E18] transition-all"
-                            >
-                              <option value="Up to 30 Guests">Up to 30 Guests</option>
-                              <option value="30 - 60 Guests">30 - 60 Guests</option>
-                              <option value="60 - 100 Guests">60 - 100 Guests</option>
-                              <option value="100+ Guests">100+ Guests</option>
-                            </select>
-                          </div>
-                          <div className="space-y-1">
-                            <label className="text-[10px] font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1.5">
-                              <Calendar className="w-3 h-3 text-slate-400" /> Target Event Date
-                            </label>
-                            <input
-                              type="text"
-                              placeholder="e.g. 25 October 2026"
-                              value={formData.eventDate}
-                              onChange={(e) => setFormData({ ...formData, eventDate: e.target.value })}
-                              className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:border-[#EA8E18] focus:ring-1 focus:ring-[#EA8E18] transition-all"
-                            />
-                          </div>
-                        </div>
-                      </>
-                    )}
-
-                    
                     <div className="space-y-1">
                       <label className="text-[10px] font-extrabold text-slate-600 uppercase tracking-wider flex items-center gap-1.5">
                         <MessageSquare className="w-3 h-3 text-slate-400" /> Additional Requirements (Optional)
                       </label>
                       <textarea
-                        rows="2"
+                        rows="3"
                         placeholder="Any specific requests, timeline, or inquiries..."
                         value={formData.notes}
                         onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
@@ -627,7 +285,6 @@ export default function FindSpaceSection({
                       />
                     </div>
 
-                    
                     <div className="pt-2">
                       <button
                         type="submit"
@@ -653,4 +310,3 @@ export default function FindSpaceSection({
     </section>
   );
 }
-

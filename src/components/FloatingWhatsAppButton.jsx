@@ -31,7 +31,7 @@ export default function FloatingWhatsAppButton() {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         aria-label="Chat with HQuarters on WhatsApp"
-        className="relative group w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#25D366] hover:bg-[#20BA5A] text-white flex items-center justify-center shadow-xl shadow-[#25D366]/40 hover:shadow-2xl hover:shadow-[#25D366]/60 transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer border-2 border-white/40"
+        className="floatingWa relative group w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#25D366] hover:bg-[#20BA5A] text-white flex items-center justify-center shadow-xl shadow-[#25D366]/40 hover:shadow-2xl hover:shadow-[#25D366]/60 transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer border-2 border-white/40"
       >
         
         <span className="absolute -inset-1 rounded-full bg-[#25D366]/30 animate-ping opacity-75 pointer-events-none" />

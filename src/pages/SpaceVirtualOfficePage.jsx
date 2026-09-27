@@ -367,7 +367,6 @@ export default function SpaceVirtualOfficePage({ setCurrentPage }) {
 
         <FindSpaceSection 
           initialSpace="Virtual Office" 
-          initialPackage={selectedPackage}
           initialNotes={selectedPackageNote} 
         />
 

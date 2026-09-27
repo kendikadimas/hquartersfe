@@ -236,7 +236,7 @@ export default function SpacePremiumOfficePage({ setCurrentPage }) {
               </span>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-medium font-heading text-white tracking-tight leading-[1.12]">
-                Your Next Headquarters <br />
+                Your Next HQuarters <br />
                 <span className="text-[#EA8E18]">Is Ready.</span>
               </h1>
 

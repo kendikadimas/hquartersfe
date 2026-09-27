@@ -4,14 +4,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowRight,
   CheckCircle2,
-  Calendar,
   Users,
   Maximize2,
   X,
   ChevronRight,
   ChevronLeft,
   Home,
-  Sparkles,
+  MessageSquare,
   Volume2,
   Projector,
   Wifi,
@@ -41,15 +40,24 @@ export default function EventFunctionRoomPage({ setCurrentPage }) {
   const [formData, setFormData] = useState({
     name: '',
     whatsapp: '',
-    eventType: '',
-    eventDate: '',
-    guests: '',
-    selectedPackage: '',
+    company: '',
     selectedRoom: 'Room 1 & Room 2 (Combined)',
     notes: '',
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [touched, setTouched] = useState(false);
+
+  const validateForm = () => {
+    const errs = {};
+    if (!formData.name.trim()) errs.name = "Name is required";
+    else if (formData.name.trim().length < 2) errs.name = "Name must be at least 2 characters";
+    const digits = formData.whatsapp.replace(/\D/g, "");
+    if (!digits) errs.whatsapp = "WhatsApp number is required";
+    else if (!/^(62|0)[0-9]{8,13}$/.test(digits)) errs.whatsapp = "Enter a valid Indonesian number (e.g. 08123456789)";
+    return errs;
+  };
   const [activeLayout, setActiveLayout] = useState('theatre');
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slideDirection, setSlideDirection] = useState(1);
@@ -309,7 +317,7 @@ export default function EventFunctionRoomPage({ setCurrentPage }) {
     const packageValue = `${pkg.name} (${pkg.price} ${pkg.unit})`;
     setFormData((prev) => ({
       ...prev,
-      selectedPackage: packageValue,
+      notes: prev.notes ? prev.notes : `I'm interested in the ${packageValue} package.`,
     }));
     const formElem = document.getElementById('book-room');
     if (formElem) {
@@ -326,7 +334,10 @@ export default function EventFunctionRoomPage({ setCurrentPage }) {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.whatsapp) return;
+    const errs = validateForm();
+    setTouched(true);
+    if (Object.keys(errs).length > 0) { setErrors(errs); return; }
+    setErrors({});
 
     setSubmitted(true);
 
@@ -335,11 +346,8 @@ export default function EventFunctionRoomPage({ setCurrentPage }) {
       `Hello HQuarters Event Team, I would like to inquire about the Function Room.\n\n` +
       `*Name:* ${formData.name}\n` +
       `*WhatsApp:* ${formData.whatsapp}\n` +
-      `*Event Type:* ${formData.eventType || 'General Event'}\n` +
-      `*Date:* ${formData.eventDate || 'TBD'}\n` +
-      `*Guests:* ${formData.guests || 'TBD'}\n` +
-      `*Selected Package:* ${formData.selectedPackage || 'Not specified'}\n` +
       `*Room Preference:* ${formData.selectedRoom}\n` +
+      (formData.company ? `*Company:* ${formData.company}\n` : '') +
       (formData.notes ? `*Notes:* ${formData.notes}\n` : '')
     );
 
@@ -930,37 +938,14 @@ export default function EventFunctionRoomPage({ setCurrentPage }) {
                     <div className="space-y-4">
                       <div>
                         <h3 className="text-xl font-medium font-heading text-[#231f20]">
-                          1. Select Package & Room
+                          1. Select Room
                         </h3>
                         <p className="text-sm text-[#3a3836] mt-1 font-normal">
-                          Choose the package format and room size for your event.
+                          Choose the room size for your event.
                         </p>
                       </div>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div className="space-y-1.5">
-                          <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                            <Coffee className="w-3 h-3 text-[#EA8E18]" /> PACKAGE (OPTIONAL)
-                          </label>
-                          <select
-                            id="package-select"
-                            value={formData.selectedPackage}
-                            onChange={(e) => setFormData({ ...formData, selectedPackage: e.target.value })}
-                            className="w-full px-4 py-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-[#EA8E18] focus:ring-1 focus:ring-[#EA8E18] transition-all cursor-pointer text-slate-800 font-normal"
-                          >
-                            <option value="">Choose Package</option>
-                            {packages.map((pkg) => {
-                              const val = `${pkg.name} (${pkg.price} ${pkg.unit})`;
-                              return (
-                                <option key={pkg.id} value={val}>
-                                  {val}
-                                </option>
-                              );
-                            })}
-                          </select>
-                        </div>
-
-                        <div className="space-y-1.5">
+                      <div className="space-y-1.5">
                           <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
                             <Layers className="w-3 h-3 text-[#EA8E18]" /> PREFERRED ROOM
                           </label>
@@ -974,17 +959,16 @@ export default function EventFunctionRoomPage({ setCurrentPage }) {
                             <option value="Room 2 (157.5 m²)">Room 2 (157.5 m²)</option>
                           </select>
                         </div>
-                      </div>
                     </div>
 
                     
                     <div className="space-y-4">
                       <div>
                         <h3 className="text-xl font-medium font-heading text-[#231f20]">
-                          2. Event & Contact Details
+                          2. Complete Your Details
                         </h3>
                         <p className="text-sm text-[#3a3836] mt-1 font-normal">
-                          We'll check availability and confirm pricing for your date.
+                          Share your details and our team will get back to you shortly.
                         </p>
                       </div>
 
@@ -1003,6 +987,7 @@ export default function EventFunctionRoomPage({ setCurrentPage }) {
                               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                               className="w-full px-4 py-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-[#EA8E18] focus:ring-1 focus:ring-[#EA8E18] transition-all font-normal"
                             />
+                              {touched && errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
                           </div>
 
                           <div className="space-y-1.5">
@@ -1017,49 +1002,34 @@ export default function EventFunctionRoomPage({ setCurrentPage }) {
                               onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
                               className="w-full px-4 py-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-[#EA8E18] focus:ring-1 focus:ring-[#EA8E18] transition-all font-normal"
                             />
+                              {touched && errors.whatsapp && <p className="text-red-500 text-xs mt-1">{errors.whatsapp}</p>}
                           </div>
                         </div>
 
-                        
                         <div className="space-y-1.5">
                           <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                            <Sparkles className="w-3 h-3 text-slate-400" /> EVENT TYPE
+                            <Building className="w-3 h-3 text-slate-400" /> COMPANY NAME (OPTIONAL)
                           </label>
                           <input
                             type="text"
-                            placeholder="e.g. Seminar, Product Launch, Wedding"
-                            value={formData.eventType}
-                            onChange={(e) => setFormData({ ...formData, eventType: e.target.value })}
+                            placeholder="e.g. PT Enterprise Nusantara"
+                            value={formData.company}
+                            onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                             className="w-full px-4 py-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-[#EA8E18] focus:ring-1 focus:ring-[#EA8E18] transition-all font-normal"
                           />
                         </div>
 
-                        
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <div className="space-y-1.5">
-                            <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                              <Calendar className="w-3 h-3 text-slate-400" /> EVENT DATE
-                            </label>
-                            <input
-                              type="date"
-                              value={formData.eventDate}
-                              onChange={(e) => setFormData({ ...formData, eventDate: e.target.value })}
-                              className="w-full px-4 py-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-[#EA8E18] focus:ring-1 focus:ring-[#EA8E18] transition-all text-slate-700 font-normal"
-                            />
-                          </div>
-
-                          <div className="space-y-1.5">
-                            <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
-                              <Users className="w-3 h-3 text-slate-400" /> NUMBER OF GUESTS
-                            </label>
-                            <input
-                              type="text"
-                              placeholder="e.g. 50 — 150 pax"
-                              value={formData.guests}
-                              onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
-                              className="w-full px-4 py-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-[#EA8E18] focus:ring-1 focus:ring-[#EA8E18] transition-all font-normal"
-                            />
-                          </div>
+                        <div className="space-y-1.5">
+                          <label className="text-[10px] font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+                            <MessageSquare className="w-3 h-3 text-slate-400" /> ADDITIONAL REQUIREMENTS (OPTIONAL)
+                          </label>
+                          <textarea
+                            rows="4"
+                            placeholder="Event type, date, number of guests, or any specific requests..."
+                            value={formData.notes}
+                            onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                            className="w-full px-4 py-3 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:border-[#EA8E18] focus:ring-1 focus:ring-[#EA8E18] transition-all resize-none font-normal"
+                          />
                         </div>
 
                         

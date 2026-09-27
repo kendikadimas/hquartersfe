@@ -23,7 +23,7 @@ export default function Hero({ setCurrentPage }) {
           <div className="hidden md:block absolute inset-y-0 left-0 w-full md:w-[70%] lg:w-[60%] bg-gradient-to-r from-white via-white/95 via-35% via-white/40 via-65% to-transparent pointer-events-none z-10" />
 
           
-          <div className="md:hidden absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/85 via-65% to-slate-950/20 pointer-events-none z-10" />
+          <div className="md:hidden absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 via-50% to-transparent pointer-events-none z-10" />
 
           
           <div className="relative z-20 p-5 sm:p-8 md:p-10 lg:p-14 xl:p-16 max-w-2xl lg:max-w-3xl pt-24 sm:pt-28 md:pt-10 lg:pt-14 xl:pt-16">
